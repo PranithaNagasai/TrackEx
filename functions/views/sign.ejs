@@ -2,13 +2,12 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/sign.css">
+  <link rel="stylesheet" type="text/css" href="sign.css">
     <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script>window.$ = window.jQuery = require('jquery');</script>
   <title>TrackeX</title>
-   <% include meta.ejs %>
 </head>
 <body>
   <div class="header">
@@ -25,7 +24,7 @@
     </div>
     <div class="col-60">
       <!--onsubmit="return phonenumber(document.form.num.value)"-->
-  <form action="/send" autocomplete="on" method="get" name="reg_form">
+  <form action="login.html" onSubmit="return check_all()" method="get" name="reg_form">
     <h3>SignUp </h3>
   <div class="row">
     <div class="col-25">
@@ -60,8 +59,8 @@
       <label for="num">DOB</label>
     </div>
     <div class="col-75">
-      <input type="date" id="dob" name="dob" placeholder="Your Date of birth.." min="01-01-1970" max="01-01-2019" required>
-      <span class="emsg3 hidden" id="error_dob">ENter valid date</span>
+      <input type="text" id="dob" name="dob" placeholder="Your Date of birth.." required>
+      <span class="emsg3 hidden" id="error_dob">dd/mm/yyyy</span>
     </div>
   </div>
   <div class="row">
@@ -78,8 +77,8 @@
       <label for="pass">Password</label>
     </div>
     <div class="col-75">
-      <input type="password" id="pass" name="pass" placeholder="Your Password.." title="Min 5 char password" required>
-      <span class="emsg5 hidden" id="error_pass">Include atleast 1  number and special char</span>
+      <input type="password" id="pass" name="pass" placeholder="Your Password.." title="Min 6 char password" required>
+      <span class="emsg5 hidden" id="error_pass">Include atleast 1  number  </span>
     </div>
   </div>
   <div class="row">
@@ -88,19 +87,21 @@
     </div>
     <div class="col-75">
       <input type="password" id="repass" name="pass2" placeholder="Re-enter Password" title="Re-enter the same password" required>
-      <span class="emsg6 hidden" id="error_repass">ENter valid pwd</span>
+      <span class="emsg6 hidden" id="error_repass">Enter valid pwd</span>
     </div>
   </div>
   
   <div class="row">
-   <a href="/"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
-    <input type="submit" value="Submit">
+   <a href="trackex.html"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
+    <input class="ebutt" type="submit" value="Submit">
   </div>
   </form>
 </div>
 </div>
 <script type="text/javascript">
-  $(function(){
+  $(function ()
+
+  {
 
     var err_fname=false;
     var err_phone=false;
@@ -133,6 +134,9 @@
 
     $("#repass").on('keypress keydown keyup',function(){
       check_repass();
+    });
+    $("#reg_form").onsubmit(function(){
+      check_all();
     });
 
     function check_fname(){
@@ -168,9 +172,28 @@
                }
          });
     }
+      //(((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))[-]((?:0[1-9])|(?:1[0-2]))[-](19[0-9][0-9]|2000))
 
+    function check_dob(){
+      var $regexname=/^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19[0-9][0-9]|2000)$/;
+    $('#dob').on('keypress keydown keyup',function(){
+             if (!$(this).val().match($regexname)) {
+              // there is a mismatch, hence show the error message
+                 $('.emsg3').removeClass('hidden');
+                 $('.emsg3').show();
+                 err_dob=true;
+             }
+           else{
+                // else, do not display message
+                $('.emsg3').addClass('hidden');
+                err_dob=false;
+               }
+         });
+    }    
+    // 
+            
     function check_uname(){
-      var $regexname=/^([a-zA-Z+]+[0-9+]+)$/;
+      var $regexname=/^([a-zA-Z]+[0-9]+[a-zA-Z0-9+]{0,10})$/;
     $('#uname').on('keypress keydown keyup',function(){
              if (!$(this).val().match($regexname)) {
               // there is a mismatch, hence show the error message
@@ -186,8 +209,9 @@
          });
     }
 
+    //[a-zA-Z0-9]+[0-9][a-zA-Z0-9]
     function check_pass(){
-      var $regexname=/^([a-zA-Z0-9]+[0-9+]+[&@!#+]+)$/;
+      var $regexname=/^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/;
     $('#pass').on('keypress keydown keyup',function(){
              if (!$(this).val().match($regexname)) {
               // there is a mismatch, hence show the error message
@@ -204,7 +228,7 @@
     }
 
     function check_repass(){
-      var $regexname=/^([a-zA-Z0-9]+[0-9+]+[&@!#+]+)$/;
+      var $regexname=/^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{2,10})$/;
     $('#repass').on('keypress keydown keyup',function(){
              if (!$(this).val().match($('#pass').val())) {
               // there is a mismatch, hence show the error message
@@ -233,32 +257,39 @@
   err_repass=false;
 });
 
-    $("#reg_form").submit(function(){
-      err_fname = false;
-      err_phone=false;
-      err_phone=false;
-      err_uname=false;
-      err_pass=false;
-      err_repass=false;
+    // $("#reg_form").on('submit',function(){
+    //   err_fname = false;
+    //   err_phone=false;
+    //   err_phone=false;
+    //   err_uname=false;
+    //   err_pass=false;
+    //   err_repass=false;
 
-      check_fname();
-      check_dob();
-      check_uname();
-      check_phone();
-      check_pass();
-      check_repass();
+    //   check_fname();
+    //   check_dob();
+    //   check_uname();
+    //   check_phone();
+    //   check_pass();
+    //   check_repass();
 
-      if(err_fname === false &&err_phone===false && err_phone===false && err_uname===false && err_pass===false && err_pass===false && err_repass === false){
-        alert("Registration succesfull");
+      function check_all(){
+      $("#reg_form").onsubmit(function(){
+      if(err_fname === false && err_phone ===false && err_phone===false && err_uname===false && err_pass===false && err_pass===false && err_repass === false){
+        //$('.ebutt').removeClass('disabled');
+        //$('.emsg6').show();
+        alert('Ok');
         return true;
       }
       else{
-        alert("Please fill it correctly")
+        //$('.emsg6').addClass('hidden');
+       // $('.ebutt').addClass('disabled');
+
         return false;
       }
       });
+    }
       
-
+    
     });
   
 </script>

@@ -55,8 +55,8 @@ app.get('/send', (req, res) => {
 	}).catch((err) => {
 		console.log(err);
 	});
-	res.send('Done');
-});6
+	res.redirect('/login');
+});
 
 app.use((req, res, next) => {
 	res.status(404).render('404');
