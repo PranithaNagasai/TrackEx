@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="sign.css">
+    <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+  <title>TrackeX</title>
+</head>
+<body>
+  <div class="header">
+      <div class="col-xs-12" id="col1">
+        <h3 id="tr">TrackeX</h3>
+        
+      </div>
+  </div>
+  <div>
+    
+  <div class="container">
+    <div class="col-40">
+      <img src="logo2.png" height="300px" width="250px" id="img1">
+    </div>
+    <div class="col-60">
+      <!--onsubmit="return phonenumber(document.form.num.value)"-->
+  <form action="login.html" autocomplete="on">
+    <h3>SignUp </h3>
+  <div class="row">
+    <div class="col-25">
+      <label for="fname">Name</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="fname" name="fname" placeholder="Your name.." autofocus required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="addr">Address</label>
+    </div>
+
+    
+    <div class="col-75">
+      <textarea id="addr" name="addr" placeholder="Your address.." style="height:150px"></textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="num">Mobile number</label>
+    </div>
+    <div class="col-75"> <!--^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$-->
+      <input type="number" id="num" name="num" placeholder="Your Mobile number.." minlength="10" pattern="[0-9]{10}" title="10-digit number" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="num">DOB</label>
+    </div>
+    <div class="col-75">
+      <input type="date" id="dob" name="dob" placeholder="Your Date of birth.." min="01-01-1970" max="01-01-2019" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="uname">User Name</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="uname" name="uname" placeholder="Your User name.." minlength="5" pattern="[A-Za-z]{5-10}" title="Min 5 char" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="pass">Password</label>
+    </div>
+    <div class="col-75">
+      <input type="password" id="pass" name="pass" placeholder="Your Password.." minlength="5" pattern="[A-Za-z0-9]{5-20}" title="Min 5 char password" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="pass2">Confirm Password</label>
+    </div>
+    <div class="col-75">
+      <input type="password" id="pass2" name="pass2" placeholder="Re-enter Password" minlength="5" pattern="[A-Za-z0-9]{5-20}" title="Re-enter the same password" required>
+    </div>
+  </div>
+  
+  <div class="row">
+   <a href="trackex.html"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
+    <a href="login.html"><input type="submit" value="Submit"></a>
+  </div>
+  </form>
+</div>
+</div>
+<script type="text/javascript">
+  function phonenumber(inputtxt)
+{
+  var phoneno = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
+  if(inputtxt.value.match(phoneno))
+     {
+     return true;      
+   }
+   else
+     {
+     alert("Not a valid Phone Number");
+     return false;
+     }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+	<title>TrackeX</title>
+	<% include meta.ejs %>
+</head>
+
+<body>
+	<div class="header">
+		<div class="col-xs-12" id="col1">
+			<h3 id="tr">TrackeX</h3>
+			<h4>tagline</h4>
+		</div>
+	</div>
+	<div class="slideshow-container">
+		<p id="jj">Track Your Expenses on the Go!</p>
+		<div class="mySlides fade">
+			<div class="numbertext"></div>
+			<img src="img/logo2.png" height="300px" width="350px">App Logo
+			<div class="text"></div>
+		</div>
+
+		<div class="mySlides fade">
+			<div class="numbertext"></div>
+			<img src="img/month.jpg" height="300px" width="350px"> You various Expenses can be categorized..
+			<div class="text"></div>
+		</div>
+
+		<div class="mySlides fade">
+			<div class="numbertext"></div>
+			<img src="img/expense.jpg" height="300px" width="350px">Get a graphical view of your expense.. Analyse it!
+			<div class="text"></div>
+		</div>
+
+		<div class="mySlides fade">
+			<div class="numbertext"></div>
+			<img src="img/alert.jpg" height="300px" width="350px">Get notified on exceeding limit!
+			<div class="text"></div>
+		</div>
+		<br>
+
+	</div>
+	<div class="col-xs-6">
+		<a href="/login">
+			<button class="button button1">Login</button>
+		</a>
+	</div>
+	<div class="col-xs-6">
+		<a href="/sign">
+			<button class="button button2">SignUp</button>
+		</a>
+	</div>
+
+	<script>
+
+		var slideIndex = 0;
+		carousel();
+
+		function carousel() {
+			var i;
+			var x = document.getElementsByClassName("mySlides");
+			for (i = 0; i < x.length; i++) {
+				x[i].style.display = "none";
+			}
+			slideIndex++;
+			if (slideIndex > x.length) { slideIndex = 1 }
+			x[slideIndex - 1].style.display = "block";
+			setTimeout(carousel, 3000); // Change image every 2 seconds
+		}
+	</script>
+</body>
+
+</html>
