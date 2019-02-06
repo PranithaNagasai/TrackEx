@@ -5,7 +5,7 @@ const functions = require('firebase-functions'),
 	admin = require('firebase-admin');
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static('functions/public/css'));
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
