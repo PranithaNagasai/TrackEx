@@ -1,19 +1,59 @@
 {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
-  "scripts": {
-    "serve": "firebase serve --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "firebase-admin": "~7.0.0",
-    "firebase-functions": "^2.2.0"
-  },
-  "private": true
+	"title": "Hall Management System",
+	"name": "trackex",
+	"description": "Expense tracking system",
+	"version": "2.1.1",
+	"main": "index.js",
+	"keywords": [
+		"Amrita",
+		"Project",
+		"Expense",
+		"Tracking",
+		"System",
+		"Management",
+		"Money",
+		"Finance"
+	],
+	"man": [
+		"../README.MD"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/PranithaNagasai/TrackEx.git"
+	},
+	"author": "Contributors",
+	"contributors": [
+		{
+			"name": "Pranitha Nagasai",
+			"url": "https://github.com/PranithaNagasai/"
+		},
+		{
+			"name": "Nuha S Varier",
+			"url": ""
+		},
+		{
+			"name": "Aravind V Nair",
+			"url": "https://github.com/AravindVNair99"
+		}
+	],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/PranithaNagasai/TrackEx/issues"
+	},
+	"homepage": "https://track-exproject.firebaseapp.com",
+	"scripts": {
+		"serve": "firebase serve --only functions",
+		"shell": "firebase functions:shell",
+		"start": "npm run shell",
+		"deploy": "firebase deploy --only functions",
+		"logs": "firebase functions:log"
+	},
+	"dependencies": {
+		"body-parser": "^1.18.3",
+		"ejs": "^2.6.1",
+		"express": "^4.16.4",
+		"firebase-admin": "~7.0.0",
+		"firebase-functions": "^2.2.0"
+	},
+	"private": true
 }
