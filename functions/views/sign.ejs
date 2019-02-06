@@ -2,12 +2,13 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="sign.css">
+  <link rel="stylesheet" type="text/css" href="css/sign.css">
     <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script>window.$ = window.jQuery = require('jquery');</script>
   <title>TrackeX</title>
+  <% include meta.ejs %>
 </head>
 <body>
   <div class="header">
@@ -20,11 +21,11 @@
     
   <div class="container">
     <div class="col-40">
-      <img src="logo2.png" height="300px" width="250px" id="img1">
+      <img src="img/logo2.png" height="300px" width="250px" id="img1">
     </div>
     <div class="col-60">
       <!--onsubmit="return phonenumber(document.form.num.value)"-->
-  <form action="login.html" onSubmit="return check_all()" method="get" name="reg_form">
+  <form action="/login" onSubmit="return check_all()" method="get" name="reg_form">
     <h3>SignUp </h3>
   <div class="row">
     <div class="col-25">
@@ -92,7 +93,7 @@
   </div>
   
   <div class="row">
-   <a href="trackex.html"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
+   <a href="/"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
     <input class="ebutt" type="submit" value="Submit">
   </div>
   </form>
