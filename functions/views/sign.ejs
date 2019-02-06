@@ -2,9 +2,11 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../sign.css">
+  <link rel="stylesheet" type="text/css" href="sign.css">
     <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
   <title>TrackeX</title>
 </head>
 <body>
@@ -22,7 +24,7 @@
     </div>
     <div class="col-60">
       <!--onsubmit="return phonenumber(document.form.num.value)"-->
-  <form action="/send" autocomplete="on">
+  <form action="/send" autocomplete="on" method="get" name="reg_form">
     <h3>SignUp </h3>
   <div class="row">
     <div class="col-25">
@@ -30,6 +32,7 @@
     </div>
     <div class="col-75">
       <input type="text" id="fname" name="fname" placeholder="Your name.." autofocus required>
+      <span class="emsg1 hidden" id="error_fname">Enter valid Name</span>
     </div>
   </div>
   <div class="row">
@@ -47,7 +50,8 @@
       <label for="num">Mobile number</label>
     </div>
     <div class="col-75"> <!--^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$-->
-      <input type="number" id="num" name="num" placeholder="Your Mobile number.." minlength="10" pattern="[0-9]{10}" title="10-digit number" required>
+      <input type="number" id="num" name="num" placeholder="Your Mobile number.." title="10-digit number" required>
+      <span class="emsg2 hidden" id="error_phone">10 digit number</span>
     </div>
   </div>
   <div class="row">
@@ -56,6 +60,7 @@
     </div>
     <div class="col-75">
       <input type="date" id="dob" name="dob" placeholder="Your Date of birth.." min="01-01-1970" max="01-01-2019" required>
+      <span class="emsg3 hidden" id="error_dob">ENter valid date</span>
     </div>
   </div>
   <div class="row">
@@ -63,7 +68,8 @@
       <label for="uname">User Name</label>
     </div>
     <div class="col-75">
-      <input type="text" id="uname" name="uname" placeholder="Your User name.." minlength="5" pattern="[A-Za-z]{5-10}" title="Min 5 char" required>
+      <input type="text" id="uname" name="uname" placeholder="Your User name.." title="Min 5 char" required>
+      <span class="emsg4 hidden" id="error_uname">Include atleast 1 number</span>
     </div>
   </div>
   <div class="row">
@@ -71,7 +77,8 @@
       <label for="pass">Password</label>
     </div>
     <div class="col-75">
-      <input type="password" id="pass" name="pass" placeholder="Your Password.." minlength="5" pattern="[A-Za-z0-9]{5-20}" title="Min 5 char password" required>
+      <input type="password" id="pass" name="pass" placeholder="Your Password.." title="Min 5 char password" required>
+      <span class="emsg5 hidden" id="error_pass">Include atleast 1  number and special char</span>
     </div>
   </div>
   <div class="row">
@@ -79,31 +86,180 @@
       <label for="pass2">Confirm Password</label>
     </div>
     <div class="col-75">
-      <input type="password" id="pass2" name="pass2" placeholder="Re-enter Password" minlength="5" pattern="[A-Za-z0-9]{5-20}" title="Re-enter the same password" required>
+      <input type="password" id="repass" name="pass2" placeholder="Re-enter Password" title="Re-enter the same password" required>
+      <span class="emsg6 hidden" id="error_repass">ENter valid pwd</span>
     </div>
   </div>
   
   <div class="row">
-   <a href="trackex.html"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
-    <a href="login.html"><input type="submit" value="Submit"></a>
+   <a href="/"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
+    <input type="submit" value="Submit">
   </div>
   </form>
 </div>
 </div>
 <script type="text/javascript">
-  function phonenumber(inputtxt)
-{
-  var phoneno = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
-  if(inputtxt.value.match(phoneno))
-     {
-     return true;      
-   }
-   else
-     {
-     alert("Not a valid Phone Number");
-     return false;
-     }
-}
+  $(function(){
+
+    var err_fname=false;
+    var err_phone=false;
+    var err_dob=false;
+    var err_uname=false;
+    var err_pass=false;
+    var err_repass=false;
+    
+
+    $("#fname").on('keypress keydown keyup',function(){
+      check_fname();
+    
+    });
+
+    $("#num").on('keypress keydown keyup',function(){
+      check_num();
+    });
+
+    $("#dob").on('keypress keydown keyup',function(){
+      check_dob();
+    });
+
+    $("#uname").on('keypress keydown keyup',function(){
+      check_uname();
+    });
+
+    $("#pass").on('keypress keydown keyup',function(){
+      check_pass();
+    });
+
+    $("#repass").on('keypress keydown keyup',function(){
+      check_repass();
+    });
+
+    function check_fname(){
+      var $regexname=/^([a-zA-Z]{3,16})$/;
+    $('#fname').on('keypress keydown keyup',function(){
+             if (!$(this).val().match($regexname)) {
+              // there is a mismatch, hence show the error message
+                 $('.emsg1').removeClass('hidden');
+                 $('.emsg1').show();
+                 err_fname=true;
+             }
+           else{
+                // else, do not display message
+                $('.emsg1').addClass('hidden');
+                err_fname=false;
+               }
+         });
+    }
+
+    function check_num(){
+      var $regexname=/^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
+    $('#num').on('keypress keydown keyup',function(){
+             if (!$(this).val().match($regexname)) {
+              // there is a mismatch, hence show the error message
+                 $('.emsg2').removeClass('hidden');
+                 $('.emsg2').show();
+                 err_phone=true;
+             }
+           else{
+                // else, do not display message
+                $('.emsg2').addClass('hidden');
+                err_phone=false;
+               }
+         });
+    }
+
+    function check_uname(){
+      var $regexname=/^([a-zA-Z+]+[0-9+]+)$/;
+    $('#uname').on('keypress keydown keyup',function(){
+             if (!$(this).val().match($regexname)) {
+              // there is a mismatch, hence show the error message
+                 $('.emsg4').removeClass('hidden');
+                 $('.emsg4').show();
+                 err_uname=true;
+             }
+           else{
+                // else, do not display message
+                $('.emsg4').addClass('hidden');
+                err_uname=false;
+               }
+         });
+    }
+
+    function check_pass(){
+      var $regexname=/^([a-zA-Z0-9]+[0-9+]+[&@!#+]+)$/;
+    $('#pass').on('keypress keydown keyup',function(){
+             if (!$(this).val().match($regexname)) {
+              // there is a mismatch, hence show the error message
+                 $('.emsg5').removeClass('hidden');
+                 $('.emsg5').show();
+                 err_pass=true;
+             }
+           else{
+                // else, do not display message
+                $('.emsg5').addClass('hidden');
+                err_pass=false;
+               }
+         });
+    }
+
+    function check_repass(){
+      var $regexname=/^([a-zA-Z0-9]+[0-9+]+[&@!#+]+)$/;
+    $('#repass').on('keypress keydown keyup',function(){
+             if (!$(this).val().match($('#pass').val())) {
+              // there is a mismatch, hence show the error message
+                 $('.emsg6').removeClass('hidden');
+                 $('.emsg6').show();
+                 err_repass=true;
+             }
+           else{
+                // else, do not display message
+                $('.emsg6').addClass('hidden');
+                err_repass=false;
+               }
+         });
+    }
+
+    
+
+    $('#pass, #repass').on('keyup', function () {
+  if ($('#pass').val() == $('#repass').val()) {
+    $('#emsg6').removeClass('hidden');
+     $('.emsg6').show();
+     err_repass=true;
+  }
+   else 
+    $('#message').addClass('hidden');
+  err_repass=false;
+});
+
+    $("#reg_form").submit(function(){
+      err_fname = false;
+      err_phone=false;
+      err_phone=false;
+      err_uname=false;
+      err_pass=false;
+      err_repass=false;
+
+      check_fname();
+      check_dob();
+      check_uname();
+      check_phone();
+      check_pass();
+      check_repass();
+
+      if(err_fname === false &&err_phone===false && err_phone===false && err_uname===false && err_pass===false && err_pass===false && err_repass === false){
+        alert("Registration succesfull");
+        return true;
+      }
+      else{
+        alert("Please fill it correctly")
+        return false;
+      }
+      });
+      
+
+    });
+  
 </script>
 </body>
 </html>
