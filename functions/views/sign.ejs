@@ -2,12 +2,13 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="sign.css">
+  <link rel="stylesheet" type="text/css" href="css/sign.css">
     <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script>window.$ = window.jQuery = require('jquery');</script>
   <title>TrackeX</title>
+  <% include meta.ejs %>
 </head>
 <body>
   <div class="header">
@@ -20,11 +21,11 @@
     
   <div class="container">
     <div class="col-40">
-      <img src="logo2.png" height="300px" width="250px" id="img1">
+      <img src="img/logo2.png" height="300px" width="250px" id="img1">
     </div>
     <div class="col-60">
       <!--onsubmit="return phonenumber(document.form.num.value)"-->
-  <form action="login.html" onSubmit="return check_all()" method="get" name="reg_form">
+  <form action="/login" onSubmit="return check_all()" method="get" name="reg_form">
     <h3>SignUp </h3>
   <div class="row">
     <div class="col-25">
@@ -92,7 +93,7 @@
   </div>
   
   <div class="row">
-   <a href="trackex.html"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
+   <a href="/"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
     <input class="ebutt" type="submit" value="Submit">
   </div>
   </form>
@@ -100,9 +101,7 @@
 </div>
 <script type="text/javascript">
   $(function ()
-
   {
-
     var err_fname=false;
     var err_phone=false;
     var err_dob=false;
@@ -110,35 +109,28 @@
     var err_pass=false;
     var err_repass=false;
     
-
     $("#fname").on('keypress keydown keyup',function(){
       check_fname();
     
     });
-
     $("#num").on('keypress keydown keyup',function(){
       check_num();
     });
-
     $("#dob").on('keypress keydown keyup',function(){
       check_dob();
     });
-
     $("#uname").on('keypress keydown keyup',function(){
       check_uname();
     });
-
     $("#pass").on('keypress keydown keyup',function(){
       check_pass();
     });
-
     $("#repass").on('keypress keydown keyup',function(){
       check_repass();
     });
     $("#reg_form").onsubmit(function(){
       check_all();
     });
-
     function check_fname(){
       var $regexname=/^([a-zA-Z]{3,16})$/;
     $('#fname').on('keypress keydown keyup',function(){
@@ -155,7 +147,6 @@
                }
          });
     }
-
     function check_num(){
       var $regexname=/^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
     $('#num').on('keypress keydown keyup',function(){
@@ -173,7 +164,6 @@
          });
     }
       //(((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))[-]((?:0[1-9])|(?:1[0-2]))[-](19[0-9][0-9]|2000))
-
     function check_dob(){
       var $regexname=/^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19[0-9][0-9]|2000)$/;
     $('#dob').on('keypress keydown keyup',function(){
@@ -208,7 +198,6 @@
                }
          });
     }
-
     //[a-zA-Z0-9]+[0-9][a-zA-Z0-9]
     function check_pass(){
       var $regexname=/^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/;
@@ -226,7 +215,6 @@
                }
          });
     }
-
     function check_repass(){
       var $regexname=/^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{2,10})$/;
     $('#repass').on('keypress keydown keyup',function(){
@@ -243,9 +231,7 @@
                }
          });
     }
-
     
-
     $('#pass, #repass').on('keyup', function () {
   if ($('#pass').val() == $('#repass').val()) {
     $('#emsg6').removeClass('hidden');
@@ -256,7 +242,6 @@
     $('#message').addClass('hidden');
   err_repass=false;
 });
-
     // $("#reg_form").on('submit',function(){
     //   err_fname = false;
     //   err_phone=false;
@@ -264,14 +249,12 @@
     //   err_uname=false;
     //   err_pass=false;
     //   err_repass=false;
-
     //   check_fname();
     //   check_dob();
     //   check_uname();
     //   check_phone();
     //   check_pass();
     //   check_repass();
-
       function check_all(){
       $("#reg_form").onsubmit(function(){
       if(err_fname === false && err_phone ===false && err_phone===false && err_uname===false && err_pass===false && err_pass===false && err_repass === false){
@@ -283,7 +266,6 @@
       else{
         //$('.emsg6').addClass('hidden');
        // $('.ebutt').addClass('disabled');
-
         return false;
       }
       });
