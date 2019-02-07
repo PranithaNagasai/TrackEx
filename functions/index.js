@@ -35,7 +35,7 @@ app.get("/home", (req, res) => {
 			
 
     //= FirebaseFirestore.getInstance();
-			        //  db.collection(sign)
+			        //db.collection(sign)
 					// 	.whereEqualTo(username, a)
 					// 	.get()
 					// 	.addOnCompleteListener(task -> {
