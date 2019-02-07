@@ -26,6 +26,34 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
+ 
+	var a= req.query.uname;
+	var b= req.query.pass;
+	var query= {'username':req.query.uname,
+				 'password':req.query.pass,
+			}
+			
+
+    //= FirebaseFirestore.getInstance();
+			         db.collection(sign)
+						.whereEqualTo(username, a)
+						.get()
+						.addOnCompleteListener(task -> {
+							if (task.isSuccessful()) {
+								if (task.getResult().getDocuments().size() > 0)
+									// Here is your document with id
+							}
+						});
+
+						
+
+
+
+
+
+
+
+
 	res.render('dash');
 });
 

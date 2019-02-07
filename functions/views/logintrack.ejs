@@ -13,15 +13,15 @@
 	<script>
 		function toggleSignIn() {
 			if (firebase.auth().currentUser) {
-				firebase.auth().signOut();
+				firebase.auth().redirect('/home');
 			} else {
 				var email = document.getElementById('username').value;
 				var password = document.getElementById('password').value;
-				if (email.length < 12) {
+				if (email.length < 4) {
 					window.alert('Please enter a valid email address.');
 					return;
 				}
-				if (password.length < 6) {
+				if (password.length < 8) {
 					window.alert('Please enter a valid password');
 					return;
 				}
@@ -68,7 +68,7 @@
 				<img src="img/logo2.png" height="300px" width="250px" id="img1">
 			</div>
 			<div class="col-60">
-				<form>
+				<form action="/home" method="get"> 
 					<div class="row">
 						<h3>Login </h3>
 						<div class="col-25">
