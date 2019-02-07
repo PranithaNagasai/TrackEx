@@ -14,17 +14,17 @@
 		function toggleSignIn() {
 			if (firebase.auth().currentUser) {
 				firebase.auth().redirect('/home');
-			} else {
-				var email = document.getElementById('username').value;
-				var password = document.getElementById('password').value;
-				if (email.length < 4) {
-					window.alert('Please enter a valid email address.');
-					return;
-				}
-				if (password.length < 8) {
-					window.alert('Please enter a valid password');
-					return;
-				}
+			} //else {
+				// var email = document.getElementById('username').value;
+				// var password = document.getElementById('password').value;
+				// if (email.length < 4) {
+				// 	window.alert('Please enter a valid email address.');
+				// 	return;
+				// }
+				// if (password.length < 8) {
+				// 	window.alert('Please enter a valid password');
+				// 	return;
+				// }
 				firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
 					var errorCode = error.code;
 					var errorMessage = error.message;

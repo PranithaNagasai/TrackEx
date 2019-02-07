@@ -35,15 +35,15 @@ app.get("/home", (req, res) => {
 			
 
     //= FirebaseFirestore.getInstance();
-			         db.collection(sign)
-						.whereEqualTo(username, a)
-						.get()
-						.addOnCompleteListener(task -> {
-							if (task.isSuccessful()) {
-								if (task.getResult().getDocuments().size() > 0)
-									// Here is your document with id
-							}
-						});
+			        //  db.collection(sign)
+					// 	.whereEqualTo(username, a)
+					// 	.get()
+					// 	.addOnCompleteListener(task -> {
+					// 		if (task.isSuccessful()) {
+					// 			if (task.getResult().getDocuments().size() > 0)
+					// 				// Here is your document with id
+					// 		}
+					// 	});
 
 						
 
