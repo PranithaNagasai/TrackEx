@@ -1,22 +1,22 @@
 body{
-  font-family: 'Merienda One', cursive;
-  font-size: 20px;
+	font-family: 'Merienda One', cursive;
+	font-size: 20px;
 }
 
 #col1{
-  background-image: linear-gradient(#6ebe71, #658c67);
-  height: 90px;
-  margin-bottom: 20px;
+	background-image: linear-gradient(#6ebe71, #658c67);
+	height: 90px;
+	margin-bottom: 20px;
 }
 
 #tr{
-  color: white;
-  text-align:center;
-  padding-top: 20px;
-  padding-left: 20px;
+	color: white;
+	text-align:center;
+	padding-top: 20px;
+	padding-left: 20px;
 }
 #img1{
-  padding: 20px;
+	padding: 20px;
 }
 #s1{
   font-size: 20px;
@@ -74,14 +74,14 @@ input[type=submit]:hover {
   padding: 20px;
 }
 .col-40{
-  float:left;
-  width: 40%;
-  margin-top: 6px;
+	float:left;
+	width: 40%;
+	margin-top: 6px;
 }
 .col-60{
-  float:left;
-  width: 60%;
-  margin-top: 6px;
+	float:left;
+	width: 60%;
+	margin-top: 6px;
 }
 .col-25 {
   float: left;
@@ -108,4 +108,26 @@ input[type=submit]:hover {
     width: 100%;
     margin-top: 0;
   }
+}
+
+.emsg1{
+    color: red;
+}
+.emsg2{
+    color: red;
+}
+.emsg3{
+    color: red;
+}
+.emsg4{
+    color: red;
+}
+.emsg5{
+    color: red;
+}
+.emsg6{
+    color: red;
+}
+.hidden {
+     visibility:hidden;
 }
