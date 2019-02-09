@@ -20,11 +20,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-	res.render('logintrack');
+	res.render('login');
+});
+
+app.get("/dash", (req, res) => {
+	res.render('dash');
 });
 
 app.get("/home", (req, res) => {
- 
 	var a= req.query.fusername;
 	var b= req.query.pass;
 	var query= {'username':req.query.fusername,
@@ -62,15 +65,7 @@ app.get("/home", (req, res) => {
 		 }).catch((err) => {
 			console.error(err);
 		});
-	 }
-
-
-
-
-
-
-
-	
+	 }	
 });
 
 app.get("/sign", (req, res) => {

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include links.ejs %> <% include meta.ejs %>
+		<title>TrackeX Login</title>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		<script>
+			function toggleSignIn() {
+				if (firebase.auth().currentUser) {
+					firebase.auth().signOut();
+				} else {
+					var email = document.getElementById('username').value;
+					var password = document.getElementById('password').value;
+					if (email.length < 12) {
+						window.alert('Please enter a valid email address.');
+						return;
+					}
+					if (password.length < 6) {
+						window.alert('Please enter a valid password');
+						return;
+					}
+					firebase
+						.auth()
+						.signInWithEmailAndPassword(email, password)
+						.catch(function(error) {
+							var errorCode = error.code;
+							var errorMessage = error.message;
+							if (errorCode === 'auth/wrong-password') {
+								window.alert('Wrong password');
+							} else if (errorCode === 'auth/user-not-found') {
+								window.alert('User not found');
+							} else {
+								window.alert(errorMessage);
+							}
+						});
+				}
+			}
+			function initApp() {
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						window.alert('Signing in...');
+						var displayName = user.displayName;
+						var email = user.email;
+						window.location = '/dash';
+					} else {
+						window.alert('Login to continue');
+					}
+				});
+			}
+			window.onload = initApp();
+		</script>
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="col-xs-12" id="col1">
+				<h3 id="tr">TrackeX</h3>
+			</div>
+		</div>
+		<div>
+			<div class="container">
+				<div class="col-40">
+					<img
+						src="img/logo2.png"
+						height="300px"
+						width="250px"
+						id="img1"
+					/>
+				</div>
+				<div class="col-60">
+					<form>
+						<div class="row">
+							<h3>Login</h3>
+							<div class="col-25">
+								<label for="fname">Name</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="text"
+									id="username"
+									name="username"
+									placeholder="Your username.."
+									minlength="5"
+									required
+								/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="pass">Password</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="password"
+									id="password"
+									name="password"
+									placeholder="Your Password.."
+									minlength="6"
+									required
+								/>
+							</div>
+						</div>
+						<div class="row">
+							<a href="/">
+								<button
+									type="button"
+									class="btn btn-danger"
+									id="s1"
+								>
+									Cancel
+								</button>
+							</a>
+							<button
+								class="btn btn-success btn-lg"
+								onclick="toggleSignIn()"
+							>
+								Sign in
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
