@@ -4,6 +4,9 @@ const functions = require('firebase-functions'),
 	bodyParser = require('body-parser'),
 	admin = require('firebase-admin');
 
+admin.initializeApp(functions.config().firebase);
+var db = admin.firestore();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -11,11 +14,6 @@ app.use(bodyParser.urlencoded({
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
-
-var db = admin.firestore();
-
-admin.initializeApp(functions.config().firebase);
-var db = admin.firestore();
 
 app.get("/", (req, res) => {
 	res.render('index');
