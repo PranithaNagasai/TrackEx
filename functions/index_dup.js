@@ -22,49 +22,30 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-	res.render('logintrack');
+	res.render('logintrack1');
 });
 
 app.get("/home", (req, res) => {
  
-	var a= req.query.fusername;
+	var a= req.query.uname;
 	var b= req.query.pass;
-	var query= {'username':req.query.fusername,
+	var query= {'username':req.query.uname,
 				 'password':req.query.pass,
 			}
-	console.log(a);
-	console.log(b);
-	console.log(query.username);
-	var us=db.collection('sign').doc(a);
-	var pw=db.collection('sign').doc(b);
-			//var getDoc = pri.where("username", "==",req.query.fusername).get()
-			us.get()
-			  .then((doc) => {
-				if (!doc.exists) {
-				  res.redirect('main');
-				} else {
-				  //alert('Document data:', doc.data());
-				  checkpwd();
-				 // res.redirect('dash');
-				}
-			  })
-			  .catch(err => {
-				console.log('Error getting document', err);
-			  });
+			
 
-     function checkpwd(){
-		 pw.get().then((doc1)=>{
-				if(doc1.exists){
-					res.redirect('dash');
-					return doc1;
-				}
-				else{
-					res.render('logintrack');
-				}
-		 }).catch((err) => {
-			console.error(err);
-		});
-	 }
+    //= FirebaseFirestore.getInstance();
+			        //db.collection(sign)
+					// 	.whereEqualTo(username, a)
+					// 	.get()
+					// 	.addOnCompleteListener(task -> {
+					// 		if (task.isSuccessful()) {
+					// 			if (task.getResult().getDocuments().size() > 0)
+					// 				// Here is your document with id
+					// 		}
+					// 	});
+
+						
 
 
 
@@ -72,7 +53,8 @@ app.get("/home", (req, res) => {
 
 
 
-	
+
+	res.render('dash');
 });
 
 app.get("/sign", (req, res) => {
@@ -97,7 +79,6 @@ app.get('/send', (req, res) => {
 				'password':req.query.pass
 			};
 			db.collection("sign").doc(usingname).set(ob);
-			console.log(ob.name);
 			return;
 		}
 	}).catch((err) => {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -13,45 +13,44 @@
 	<script>
 
 
-	// 	function toggleSignIn() {
-	// 		if (firebase.auth().currentUser) {
-	// 			firebase.auth().redirect('/home');
-	// 		} //else {
-	// 			// var email = document.getElementById('username').value;
-	// 			// var password = document.getElementById('password').value;
-	// 			// if (email.length < 4) {
-	// 			// 	window.alert('Please enter a valid email address.');
-	// 			// 	return;
-	// 			// }
-	// 			// if (password.length < 8) {
-	// 			// 	window.alert('Please enter a valid password');
-	// 			// 	return;
-	// 			// }
-	// 			firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-	// 				var errorCode = error.code;
-	// 				var errorMessage = error.message;
-	// 				if (errorCode === 'auth/wrong-password') {
-	// 					window.alert('Wrong password');
-	// 				} else if (errorCode === 'auth/user-not-found') {
-	// 					window.alert('User not found')
-	// 				} else {
-	// 					window.alert(errorMessage);
-	// 				}
-	// 			});
-	// 		}
-	// 	}
-	// 	function initApp() {
-	// 		firebase.auth().onAuthStateChanged(function (user) {
-	// 			if (user) {
-	// 				var displayName = user.displayName;
-	// 				var email = user.email;
-		// 			window.location = "/home";
-		// 		} else {
-		// 			window.alert('Login to continue');
-		// 		}
-		// 	});
-		// }
-		// window.onload = initApp();
+		function toggleSignIn() {
+			 
+				var email = document.getElementById('username').value;
+				var password = document.getElementById('password').value;
+				// if (email.length < 4) {
+				// 	window.alert('Please enter a valid email address.');
+				// 	return;
+				// }
+				// if (password.length < 8) {
+				// 	window.alert('Please enter a valid password');
+				// 	return;
+				// }
+				firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					if (errorCode === 'auth/wrong-password') {
+						window.alert('Wrong password');
+					} else if (errorCode === 'auth/user-not-found') {
+						window.alert('User not found')
+					} else {
+                        window.location = "/home";
+						//window.alert(errorMessage);
+					}
+				});
+			}
+		
+		function initApp() {
+			firebase.auth().onAuthStateChanged(function (user) {
+				if (user) {
+					var displayName = user.displayName;
+					var email = user.email;
+					window.location = "/home";
+				} else {
+					window.alert('Login to continue');
+				}
+			});
+		}
+		window.onload = initApp();
 	</script>
 	<% include meta.ejs %>
 </head>
@@ -92,13 +91,13 @@
 						<a href="/">
 							<button type="button" class="btn btn-danger" id="s1">Cancel</button>
 						</a>
-						
-							<button class="btn btn-success btn-lg" value="Submit">Sign in</button>
-						
+						<a onclick="toggleSignIn()">
+							<button value="Submit">Sign in</button>
+						</a>
 					</div>
 				</form>
 			</div>
 		</div>
 </body>
 
-</html>
+</html> -->

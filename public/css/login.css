@@ -63,6 +63,12 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color: #45a049;
 }
+.btn-success{
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  margin-left: 415px;
+}
 
 .container {
   border-radius: 5px;
