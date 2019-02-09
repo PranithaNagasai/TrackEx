@@ -27,6 +27,14 @@ app.get("/dash", (req, res) => {
 	res.render('dash');
 });
 
+app.get("/profile", (req, res) => {
+	res.render('profile');
+});
+
+app.get("/pwd", (req, res) => {
+	res.render('pwd');
+});
+
 app.get("/home", (req, res) => {
 	var a= req.query.fusername;
 	var b= req.query.pass;

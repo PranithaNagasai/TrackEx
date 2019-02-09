@@ -3,6 +3,10 @@
 	background-image: linear-gradient(#6ebe71, #658c67);
 	height: 100px;
 }
+body{
+  font-family: 'Merienda One', cursive;
+  font-size: 20px;
+}
 .blue1{
 	/*background-color: #2ad0a9;*/
 	background-image: linear-gradient(#6ebe71, #658c67 );

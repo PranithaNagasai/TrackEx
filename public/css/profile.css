@@ -1,0 +1,226 @@
+.blue{
+	 /*background-color:#2ad0a9;;*/
+  background-image: linear-gradient(#6ebe71, #658c67);
+  height: 100px;
+}
+.blue1{
+  /*background-color: #2ad0a9;*/
+  background-image: linear-gradient(#6ebe71, #658c67 );
+  padding-top: 30px;
+  padding-left: 100px;
+  height: 100px;
+}
+#x1{
+  font-size: 45px;
+}
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 210px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 100px; /* Stay at the top */
+  left: 0;
+  background-color: #6f6a6a; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 8px 8px 30px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #ffffff;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+#logo{
+  opacity: 0.6;
+      background-repeat: no-repeat;
+    background-image: url(logo2.png);
+    height: -webkit-fill-available;
+    background-position: right;
+
+  
+}
+#edit{
+padding-left: 240px;
+padding-top: 120px;
+
+
+}
+
+h2{
+  padding-left: 5px;
+  color: white;
+}
+h5{
+  color: white;
+}
+
+#pro{
+  padding-top: 30px;
+}
+
+#img1{
+  display: block;
+   opacity: 1;
+  margin-right: auto;
+}
+#img1:hover{
+  opacity: 1;
+}
+
+.btn-primary{
+  order-radius: 8px;
+}
+
+
+body{
+  font-family: 'Merienda One', cursive;
+  font-size: 20px;
+}
+
+#col1{
+  background-image: linear-gradient(#6ebe71, #658c67);
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+#tr{
+  color: white;
+  text-align:center;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+#s1{
+  font-size: 20px;
+  padding: 10px;
+
+}
+/*form*/
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=password], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=number], select, textarea {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+#x1{
+  font-size: 38px;
+  color: white;
+}
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 70px;
+}
+.col-40{
+  float:left;
+  width: 40%;
+  margin-top: 6px;
+}
+.col-60{
+  float:left;
+  width: 60%;
+  margin-top: 8px;
+  margin-left: 110px;
+}
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.top{
+
+float: right;
+padding left: 20px;
+padding-right: 300px;
+padding-top: 100px;
+margin-top: 6px;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+.emsg1{
+    color: red;
+}
+.emsg2{
+    color: red;
+}
+.emsg3{
+    color: red;
+}
+.emsg4{
+    color: red;
+}
+.emsg5{
+    color: red;
+}
+.emsg6{
+    color: red;
+}
+.hidden {
+     visibility:hidden;
+}
