@@ -70,56 +70,56 @@
 					/>
 				</div>
 				<div class="col-60">
-					<form>
-						<div class="row">
-							<h3>Login</h3>
-							<div class="col-25">
-								<label for="fname">Name</label>
-							</div>
-							<div class="col-75">
-								<input
-									type="text"
-									id="username"
-									name="username"
-									placeholder="Your username.."
-									minlength="5"
-									required
-								/>
-							</div>
+					<div class="row">
+						<h3>Login</h3>
+						<div class="col-25">
+							<label for="fname">Name</label>
 						</div>
-						<div class="row">
-							<div class="col-25">
-								<label for="pass">Password</label>
-							</div>
-							<div class="col-75">
-								<input
-									type="password"
-									id="password"
-									name="password"
-									placeholder="Your Password.."
-									minlength="6"
-									required
-								/>
-							</div>
+						<div class="col-75">
+							<input
+								type="text"
+								id="username"
+								name="username"
+								placeholder="Your username.."
+								minlength="5"
+								autocomplete="username"
+								required
+							/>
 						</div>
-						<div class="row">
-							<a href="/">
-								<button
-									type="button"
-									class="btn btn-danger"
-									id="s1"
-								>
-									Cancel
-								</button>
-							</a>
+					</div>
+					<div class="row">
+						<div class="col-25">
+							<label for="pass">Password</label>
+						</div>
+						<div class="col-75">
+							<input
+								type="password"
+								id="password"
+								name="password"
+								placeholder="Your Password.."
+								minlength="6"
+								autocomplete="current-password"
+								required
+							/>
+						</div>
+					</div>
+					<div class="row">
+						<a href="/">
 							<button
-								class="btn btn-success btn-lg"
-								onclick="toggleSignIn()"
+								type="button"
+								class="btn btn-danger"
+								id="s1"
 							>
-								Sign in
+								Cancel
 							</button>
-						</div>
-					</form>
+						</a>
+						<button
+							class="btn btn-success btn-lg"
+							onclick="toggleSignIn()"
+						>
+							Sign in
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
