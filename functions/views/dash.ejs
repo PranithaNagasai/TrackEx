@@ -22,29 +22,48 @@
 			}
 		window.onload = initApp();
 	</script>
+	<style>
+		h4{color: white;}
+		h3 {color: white;}
+		#img1 {margin-left:"10px";}
+		h2{color: black;}
+	</style>
 	<% include meta.ejs %>
 
 </head>
 <body>
-	<div class="col-md-10 blue">
-		<h2 align="left" id="x1">TrackeX</h2>
-		<h5 align="left">Tag line</h5>
-				
-	</div>
-	<div class="col-md-2 blue1">
+		<div class="row">
+	<div class="col-md-2 blue">
+		
+			<img
+			src="img/logo2.png"
+			height="100px"
+			width="100px"
+			id="img1"
+			margin-left:"10px"
+		/>
+		</div>
+		<div class="col-md-6 blue">
+		<h4 align="left" id="x1">TrackeX</h4>
+		<h5 align="left">Have Expense your way!</h5>
+		</div>
+		
+			
+	
+	<div class="col-md-4 blue1">
 		<button type="button" class="btn btn-outline-info" onclick="signOut()">Log Out</button>
 	</div>
+</div>
 	<div class="col-md-3">
 	<div class="sidenav">
   <a href="profile.html" id="pro"><button class="btn btn-danger btn-lg">Profile</button></a>
   <a href="#"><button class="btn btn-primary btn-lg">Settings</button></a>
   <a href="#"><button class="btn btn-warning btn-lg">Show Analysis</button></a>
-  
+  </div>
 </div>
-
-</div>
-<div class="col-md-9" id="logo">
-	<!--<img src="logo2.png" id="img1" width="50%">-->
+<div class="container" align="center" margin-top:"100px";>
+	<h2>Hello Username!</h2>
+	<h2>Welcome to Trackex...Your expense tracker!</h2>
 </div>
 </body>
 </html>

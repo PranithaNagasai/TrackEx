@@ -46,8 +46,14 @@
 }
 
 #x1{
-	font-size: 45px;
+	font-size: 38px;
 }
+
+h3{
+color: white;
+font-size: 30px;
+}
+
 h5{
 	padding-left: 5px;
 	color: white;
@@ -63,8 +69,9 @@ h2{
 #img1{
 	display: block;
    opacity: 1;
-  margin-right: auto;
+  margin-left: 10px;
 }
 #img1:hover{
 	opacity: 1;
 }
+
