@@ -5,8 +5,6 @@ const functions = require('firebase-functions'),
 	admin = require('firebase-admin');
 
 app.use(bodyParser.json());
-app.use(express.static('public/css'));
-// app.use(express.static('public/img'));
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -14,11 +12,13 @@ app.use(bodyParser.urlencoded({
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
+var db = admin.firestore();
+
 admin.initializeApp(functions.config().firebase);
 var db = admin.firestore();
 
 app.get("/", (req, res) => {
-	res.render('main');
+	res.render('index');
 });
 
 app.get("/login", (req, res) => {
