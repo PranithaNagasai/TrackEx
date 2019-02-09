@@ -40,9 +40,6 @@
 			function initApp() {
 				firebase.auth().onAuthStateChanged(function(user) {
 					if (user) {
-						window.alert('Signing in...');
-						var displayName = user.displayName;
-						var email = user.email;
 						window.location = '/dash';
 					} else {
 						window.alert('Login to continue');
