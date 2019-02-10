@@ -16,11 +16,55 @@
 			rel="stylesheet"
 		/>
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-		<script>
-			window.$ = window.jQuery = require('jquery');
-		</script>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		
 		<title>TrackeX</title>
 		<% include meta.ejs %>
+		<script>
+		function mysignin(){
+			var myname = document.getElementById('fname').value;
+			var mynum = document.getElementById('num').value;
+			var myuname = document.getElementById('uname').value;
+			var mypass = document.getElementById('pass').value;
+			
+			if (myuname.length < 12) {
+						window.alert('Please enter a valid trackex address.');
+						return;
+			}
+			if(mynum.length<10){
+				window.alert('Please enter a valid mobile no.');
+				return;
+			}
+			if (mypass.length < 4) {
+						window.alert('Please enter a valid password');
+						return;
+			}
+			firebase.auth().createUserWithEmailAndPassword(myuname, mypass)
+  			.then(function(userRecord) {
+    // See the UserRecord reference doc for the contents of userRecord.
+   		 console.log("Successfully created new user:", userRecord.uid);
+			window.alert("New User created",userRecord.displayName);
+  			})
+  			.catch(function(error) {
+   			 console.log("Error creating new user:", error);
+				window.alert("Error");
+  			});
+		}
+
+		function initApp() {
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						window.alert('Already signed in!');
+						window.location = '/login';
+					} else {
+						window.alert('SignUp to continue');
+					}
+				});
+			}
+		window.onload = initApp();
+		</script>
 	</head>
 
 	<body>
@@ -180,7 +224,11 @@
 									Cancel
 								</button></a
 							>
-							<input class="ebutt" type="submit" value="Submit" />
+							<button
+							class="btn btn-success btn-lg"
+							onclick="mysignin()">
+							Submit
+						</button>
 						</div>
 					</form>
 				</div>
