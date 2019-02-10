@@ -117,19 +117,19 @@
 						</div>
 						<div class="row">
 							<div class="col-25">
-								<label for="uname">User Name</label>
+								<label for="uname">Trackex ID</label>
 							</div>
 							<div class="col-75">
 								<input
 									type="text"
 									id="uname"
 									name="uname"
-									placeholder="Your User name.."
+									placeholder="abc@trackex.com"
 									title="Min 5 char"
 									required
 								/>
 								<span class="emsg4 hidden" id="error_uname"
-									>Include atleast 1 number</span
+									>Include @trackex.com</span
 								>
 							</div>
 						</div>
@@ -276,7 +276,7 @@
 					//
 
 					function check_uname() {
-						var $regexname = /^([a-zA-Z]+[0-9]+[a-zA-Z0-9+]{0,10})$/;
+						var $regexname = /^([a-zA-Z]+[a-zA-Z0-9+]{0,10}\b@trackex.com\b)$/;
 						$('#uname').on('keypress keydown keyup', function() {
 							if (
 								!$(this)
