@@ -24,40 +24,56 @@
 		<% include meta.ejs %>
 		<script>
 		function mysignin(){
+			if (firebase.auth().currentUser) {
+					firebase.auth().signOut();
+				} else {
 			var myname = document.getElementById('fname').value;
 			var mynum = document.getElementById('num').value;
 			var myuname = document.getElementById('uname').value;
 			var mypass = document.getElementById('pass').value;
 			
-			if (myuname.length < 12) {
-						window.alert('Please enter a valid trackex address.');
-						return;
+			if (myuname.length < 12 && !(myuname.match(/^([a-zA-Z]+[a-zA-Z0-9+]{0,10}\b@trackex.com\b)$/))) {
+				window.alert('Please enter a valid trackex address.');
+				window.location = '/sign';
+				return false;
 			}
-			if(mynum.length<10){
+			if(mynum.length < 10 && !(mynum.match(/^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/))){
 				window.alert('Please enter a valid mobile no.');
-				return;
+				return false;
 			}
-			if (mypass.length < 4) {
-						window.alert('Please enter a valid password');
-						return;
+			if (mypass.length < 6 && !(mypass.match(/^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/))) {
+				window.alert('Please enter a valid password');
+				return false;
 			}
-			firebase.auth().createUserWithEmailAndPassword(myuname, mypass)
+			else
+			 return true;
+			
+		}
+	}
+	if(mysignin()){
+	firebase.auth().createUserWithEmailAndPassword(myuname, mypass)
   			.then(function(userRecord) {
     // See the UserRecord reference doc for the contents of userRecord.
    		 console.log("Successfully created new user:", userRecord.uid);
 			window.alert("New User created",userRecord.displayName);
+		    window.location = '/login';
   			})
   			.catch(function(error) {
    			 console.log("Error creating new user:", error);
 				window.alert("Error");
+				window.location='/sign'
   			});
-		}
+	}
+	else{
+		window.alert("ENter details properly");
+		window.location='/sign'
+	}
 
 		function initApp() {
 				firebase.auth().onAuthStateChanged(function(user) {
 					if (user) {
 						window.alert('Already signed in!');
-						window.location = '/login';
+						
 					} else {
 						window.alert('SignUp to continue');
 					}
