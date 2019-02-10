@@ -16,7 +16,7 @@ This project is licensed under the MIT license - see the [LICENSE](LICENSE) file
 
 ```
 
-Edit this part... Mention your team member names and GitHub accounts. I've given a sample...
+
 
 * **Pranitha Nagasai** - *Front-end and Back-end* - [PranithaNagasai](https://github.com/PranithaNagasai)
 * **Aravind V. Nair** - *Front-end, Back-end and Security* - [AravindVNair99](https://github.com/aravindvnair99)
