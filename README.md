@@ -14,14 +14,16 @@ This project is licensed under the MIT license - see the [LICENSE](LICENSE) file
 
 # :family: Team
 
-``
-``Edit this part... Mention your team member names and GitHub accounts. I've given a sample...
-``
-`` * **Pranitha Nagasai** - *Front-end and Back-end* - [PranithaNagasai](https://github.com/PranithaNagasai)
-`` * **Aravind V. Nair** - *Front-end, Back-end and Security* - [AravindVNair99](https://github.com/aravindvnair99)
-`` * **Arjun Kedlaya** - *Testing* - [neophobe](https://github.com/neophobe)
-`` * **Rahul Kamath** - *Testing* - [RahulNK3498](https://github.com/RahulNK3498)
-``
+```
+
+Edit this part... Mention your team member names and GitHub accounts. I've given a sample...
+
+* **Pranitha Nagasai** - *Front-end and Back-end* - [PranithaNagasai](https://github.com/PranithaNagasai)
+* **Aravind V. Nair** - *Front-end, Back-end and Security* - [AravindVNair99](https://github.com/aravindvnair99)
+* **Arjun Kedlaya** - *Testing* - [neophobe](https://github.com/neophobe)
+* **Rahul Kamath** - *Testing* - [RahulNK3498](https://github.com/RahulNK3498)
+
+```
 
 See the full list of [contributors](https://github.com/PranithaNagasai/TrackEx/graphs/contributors) who participated in this project and statistics.
 
