@@ -35,6 +35,10 @@ app.get("/pwd", (req, res) => {
 	res.render('pwd');
 });
 
+app.get("/loginOTP",(req,res) =>{
+	res.render('loginOTP');
+});
+
 app.get("/home", (req, res) => {
 	var a= req.query.fusername;
 	var b= req.query.pass;
@@ -99,7 +103,8 @@ app.get('/send', (req, res) => {
 			};
 			db.collection("sign").doc(usingname).set(ob);
 			console.log(ob.name);
-			//res.redirect('/login');
+			//res.redirect('/login'); .update()
+			//document.getElementById('uname').value
 			return;
 		}
 	}).catch((err) => {
