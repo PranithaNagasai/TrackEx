@@ -84,6 +84,30 @@ app.get("/sign", (req, res) => {
 	res.render('sign');
 });
 
+app.get('/proedit', (req, res) => {
+	var usingname= req.query.uname;
+	var sch = db.collection("sign").doc(usingname);
+	var ob = {
+		'name': req.query.fname,
+		'addr':req.query.addr,
+		'phone':req.query.num,
+		'dob':req.query.dob
+	};
+	 return sch.update(ob)
+
+	.then(function() {
+		
+			//db.collection("sign").doc(usingname).update(ob);
+			console.log("Success");
+			//res.redirect('/login'); .update()
+			//document.getElementById('uname').value
+			
+		})
+	.catch(function(err) {
+		console.log(err);
+	});
+});
+
 app.get('/send', (req, res) => {
 	//var schoolName = "Pranitha";
 	var usingname= req.query.uname;

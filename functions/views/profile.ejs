@@ -51,6 +51,33 @@
 });
 }
     window.onload = initApp();
+
+  </script>
+  <script>
+    function myfun(){
+      var db = firebase.firestore();
+      var usingname=document.getElementById('uname').value;
+  var sch = db.collection("sign").doc(usingname);
+	var ob = {
+		'name': document.getElementById('fname').value,
+		'addr':document.getElementById('addr').value,
+		'phone':document.getElementById('num').value,
+		'dob':document.getElementById('dob').value
+	};
+	 return sch.update(ob)
+
+	.then(function() {
+		
+			//db.collection("sign").doc(usingname).update(ob);
+			console.log("Success");
+			//res.redirect('/login'); .update()
+			//document.getElementById('uname').value
+			
+		})
+	.catch(function(err) {
+		console.log(err);
+  });
+}
   </script>
   <% include meta.ejs %>
 </head>
@@ -95,8 +122,8 @@
   <div class="top">
     <button type="button" class="btn btn-outline-info" name='edit' value='edit'>Edit</button>
     <br>
-    <br>
-    <a href="/proedit">
+    <br> 
+    <a  onclick="myfun()">
       <button type="button" class="btn btn-success" name='submit' value='submit'>Submit</button>
     </a>
   </div>
@@ -105,7 +132,7 @@
     <div class="container">
 
       <div class="col-60">
-        <!--onsubmit="return phonenumber(document.form.num.value)"-->
+        <!--onsubmit="return phonenumber(document.form.num.value)" href="/proedit"-->
         <form action="/profile" onSubmit="return check_all()" method="get" name="reg_form">
           <h3>Profile</h3>
           <!--<form name='' id='' action='' method='post'>-->
@@ -115,7 +142,11 @@
               <label for="uname">Trackex ID</label>
             </div>
             <div class="col-75">
-              <input type="text" id="uname" name="uname" value="John@trackex.com" disabled>
+              <input  id="uname" name="uname" value="John@trackex.com" style="width: 100%;
+              padding: 20px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              resize: vertical;" disabled>
               <span class="emsg4 hidden" id="error_uname">Include @trackex.com</span>
 
 
@@ -368,7 +399,7 @@
             //   check_repass();
 
             function check_all() {
-              $("#reg_form").onsubmit(function () {
+              $("#reg_form").on('submit',function () {
                 if (err_fname === false && err_phone === false && err_phone === false && err_uname === false && err_pass === false && err_pass === false && err_repass === false) {
                   //$('.ebutt').removeClass('disabled');
                   //$('.emsg6').show();
