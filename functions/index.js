@@ -99,12 +99,13 @@ app.get('/send', (req, res) => {
 			};
 			db.collection("sign").doc(usingname).set(ob);
 			console.log(ob.name);
+			//res.redirect('/login');
 			return;
 		}
 	}).catch((err) => {
 		console.log(err);
 	});
-	//res.redirect('/login');
+	
 });
 
 
