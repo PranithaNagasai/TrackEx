@@ -74,32 +74,28 @@
 					<div class="row">
 						<h3>Login</h3>
 						<div class="col-25">
-							<label for="fname">Trackex ID</label>
+							<label for="fname">Number</label>
 						</div>
 						<div class="col-75">
 							<input
-								type="text"
+								type="number"
 								id="username"
 								name="username"
-								placeholder="abc@trackex.com"
-								minlength="5"
-								autocomplete="username"
+                                minlength="10"
+                                maxlength="10"
 								required
 							/>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-25">
-							<label for="pass">Password</label>
+							<label for="pass">OTP</label>
 						</div>
 						<div class="col-75">
 							<input
-								type="password"
+								type="number"
 								id="password"
 								name="password"
-								placeholder="Password"
-								minlength="6"
-								autocomplete="current-password"
 								required
 							/>
 						</div>
@@ -111,28 +107,14 @@
 								type="button"
 								class="btn btn-danger"
 								id="s1"
-								
 							>
 								Cancel
 							</button>
 						</a>
-						<a href="/loginOTP">
-							<button
-								type="button"
-								class="btn btn-warning red"
-								id="s1"
-								
-																
-							>
-								Signin with number
-							</button>
-						</a>
 						<button
 							class="btn btn-success btn-lg"
-							id="s1"
 							onclick="toggleSignIn()"
-							style="float:right"
-							>
+						>
 							Sign in
 						</button>
 					</div>

@@ -4,10 +4,9 @@ const functions = require('firebase-functions'),
 	bodyParser = require('body-parser'),
 	admin = require('firebase-admin');
 
-admin.initializeApp(functions.config().firebase);
-var db = admin.firestore();
-
 app.use(bodyParser.json());
+app.use(express.static('public/css'));
+// app.use(express.static('public/img'));
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -15,65 +14,44 @@ app.use(bodyParser.urlencoded({
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
+admin.initializeApp(functions.config().firebase);
+var db = admin.firestore();
+
 app.get("/", (req, res) => {
-	res.render('index');
+	res.render('main');
 });
 
 app.get("/login", (req, res) => {
 	res.render('login');
 });
-
-app.get("/dash", (req, res) => {
-	res.render('dash');
+app.get("/loginOTP", (req, res) => {
+	res.render('loginOTP');
 });
 
-app.get("/profile", (req, res) => {
-	res.render('profile');
-});
 
-app.get("/pwd", (req, res) => {
-	res.render('pwd');
-});
+
+
+
 
 app.get("/home", (req, res) => {
+ 
 	var a= req.query.fusername;
 	var b= req.query.pass;
 	var query= {'username':req.query.fusername,
-				 'password':req.query.pass,
-			}
-	console.log(a);
-	console.log(b);
-	console.log(query.username);
-	var us=db.collection('sign').doc(a);
-	var pw=db.collection('sign').doc(b);
-			//var getDoc = pri.where("username", "==",req.query.fusername).get()
-			us.get()
-			  .then((doc) => {
-				if (!doc.exists) {
-				  res.redirect('main');
-				} else {
-				  //alert('Document data:', doc.data());
-				  checkpwd();
-				 // res.redirect('dash');
-				}
-			  })
-			  .catch(err => {
-				console.log('Error getting document', err);
-			  });
+				 'password':req.query.pass
+			};
+			
 
-     function checkpwd(){
-		 pw.get().then((doc1)=>{
-				if(doc1.exists){
-					res.redirect('dash');
-					return doc1;
-				}
-				else{
-					res.render('logintrack');
-				}
-		 }).catch((err) => {
-			console.error(err);
-		});
-	 }	
+    var db= FirebaseFirestore.getInstance();
+			        db.collection(sign)
+						.whereEqualTo(username, a)
+						.get()
+						.addOnCompleteListener(task => {
+							if (task.isSuccessful()) {
+								if (task.getResult().getDocuments().size() > 0)
+						    }
+						});
+	res.render('dash');
 });
 
 app.get("/sign", (req, res) => {
@@ -98,7 +76,7 @@ app.get('/send', (req, res) => {
 				'password':req.query.pass
 			};
 			db.collection("sign").doc(usingname).set(ob);
-			console.log(ob.name);
+
 			return;
 		}
 	}).catch((err) => {

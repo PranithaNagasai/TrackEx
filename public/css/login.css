@@ -22,9 +22,11 @@ body{
 
 #s1{
   font-size: 20px;
-  padding: 10px;
-
+  padding: 50px;
+  margin-top: 50px;
 }
+
+
 /*form*/
 * {
   box-sizing: border-box;
@@ -38,6 +40,8 @@ input[type=text], select, textarea {
   border-radius: 4px;
   resize: vertical;
 }
+
+
 input[type=password], select, textarea {
   width: 100%;
   padding: 12px;
@@ -67,7 +71,7 @@ input[type=submit]:hover {
   color: #fff;
   background-color: #5cb85c;
   border-color: #4cae4c;
-  margin-left: 415px;
+
 }
 
 .container {
@@ -111,3 +115,5 @@ input[type=submit]:hover {
     margin-top: 0;
   }
 }
+
+
