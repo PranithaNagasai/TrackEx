@@ -48,7 +48,7 @@ app.get("/home", (req, res) => {
 						.get()
 						.addOnCompleteListener(task => {
 							if (task.isSuccessful()) {
-								if (task.getResult().getDocuments().size() > 0)
+								if (task.getResult().getDocuments().size() > 0){}
 						    }
 						});
 	res.render('dash');
@@ -77,13 +77,17 @@ app.get('/send', (req, res) => {
 			};
 			db.collection("sign").doc(usingname).set(ob);
 
+			console.log(ob.name);
+			//res.redirect('/login');
 			return;
 		}
 	}).catch((err) => {
 		console.log(err);
 	});
-	res.redirect('/login');
+	
 });
+
+
 
 app.use((req, res, next) => {
 	res.status(404).render('404');

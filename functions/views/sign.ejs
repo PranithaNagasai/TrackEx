@@ -16,11 +16,79 @@
 			rel="stylesheet"
 		/>
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-		<script>
-			window.$ = window.jQuery = require('jquery');
-		</script>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		
 		<title>TrackeX</title>
 		<% include meta.ejs %>
+		<script>
+		function mysignin(){
+			// if (firebase.auth().currentUser) {
+			// 		firebase.auth().signOut();
+			// 	} else {
+			var myname = document.getElementById('fname').value;
+			var mynum = document.getElementById('num').value;
+			var myuname = document.getElementById('uname').value;
+			var mypass = document.getElementById('pass').value;
+			if(mynum.length < 10 && !(mynum.match(/^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/)))
+			{window.alert('Please enter a valid mobile no.');
+			window.location ='/';
+				return;
+			}
+
+			if (myuname.length < 12 && !(myuname.match(/^([a-zA-Z]+[a-zA-Z0-9+]{0,10}\b@trackex.com\b)$/))) {
+				window.alert('Please enter a valid trackex address.');
+				window.location ='/';
+				//window.location = '/sign';00
+				return;
+			}
+			
+			if (mypass.length < 6 && !(mypass.match(/^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/))) {
+				window.alert('Please enter a valid password');
+				window.location ='/';
+				return;
+			}
+			else
+			firebase.auth().createUserWithEmailAndPassword(myuname, mypass)
+  			
+  			.catch(function(error) {
+   			 console.log("Error creating new user:", error);
+				window.alert("Error");
+				window.location='/sign';
+  			});
+			  return true;
+	}
+			
+			
+		
+	//}
+	if(mysignin()){
+	firebase.auth().createUserWithEmailAndPassword(myuname, mypass)
+  			
+  			.catch(function(error) {
+   			 console.log("Error creating new user:", error);
+				window.alert("Error");
+				window.location='/sign';
+  			});
+	}
+	else{
+		window.alert("ENter details properly");
+		window.location='/sign';
+	}
+
+		function initApp() {
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						window.alert('Already signed in!');
+						window.location = '/login';
+					} else {
+						window.alert('SignUp to continue');
+					}
+				});
+			}
+		window.onload = initApp();
+		</script>
 	</head>
 
 	<body>
@@ -117,19 +185,19 @@
 						</div>
 						<div class="row">
 							<div class="col-25">
-								<label for="uname">User Name</label>
+								<label for="uname">Trackex ID</label>
 							</div>
 							<div class="col-75">
 								<input
 									type="text"
 									id="uname"
 									name="uname"
-									placeholder="Your User name.."
+									placeholder="abc@trackex.com"
 									title="Min 5 char"
 									required
 								/>
 								<span class="emsg4 hidden" id="error_uname"
-									>Include atleast 1 number</span
+									>Include @trackex.com</span
 								>
 							</div>
 						</div>
@@ -180,7 +248,11 @@
 									Cancel
 								</button></a
 							>
-							<input class="ebutt" type="submit" value="Submit" />
+							<button
+							class="btn btn-success btn-lg"
+							onclick="mysignin()">
+							Submit
+						</button>
 						</div>
 					</form>
 				</div>
@@ -276,7 +348,7 @@
 					//
 
 					function check_uname() {
-						var $regexname = /^([a-zA-Z]+[0-9]+[a-zA-Z0-9+]{0,10})$/;
+						var $regexname = /^([a-zA-Z]+[a-zA-Z0-9+]{0,10}\b@trackex.com\b)$/;
 						$('#uname').on('keypress keydown keyup', function() {
 							if (
 								!$(this)
