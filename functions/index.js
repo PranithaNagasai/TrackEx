@@ -24,6 +24,15 @@ app.get("/", (req, res) => {
 app.get("/login", (req, res) => {
 	res.render('login');
 });
+app.get("/dash", (req, res) => {
+	res.render('dash');
+});
+app.get("/profile", (req, res) => {
+	res.render('profile');
+});
+app.get("/pwd", (req, res) => {
+	res.render('pwd');
+});
 app.get("/loginOTP", (req, res) => {
 	res.render('loginOTP');
 });

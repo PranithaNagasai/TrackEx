@@ -1,214 +1,362 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/profile.css">
-    <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <title></title>
   <script src="/__/firebase/5.8.2/firebase-app.js"></script>
-	<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
-	<script src="/__/firebase/init.js"></script>
-	<script>
-		function signOut() {
-			firebase.auth().signOut();
-			window.location = '/';
-		}
-	</script>
+  <script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+  <script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script>
+    function signOut() {
+      firebase.auth().signOut();
+      window.location = '/';
+    }
+  </script>
+  <script>
+
+    function passup() {
+      var db = firebase.firestore();
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          // window.alert("user " + user.email);
+          var newPassword = document.getElementById('newpass').value;
+
+          firebase.auth().currentUser.updatePassword(newPassword).then(function () {
+            // Update successful.
+            window.alert("Update successful");
+          }).catch(function (error) {
+            // An error happened.
+            window.alert("Update unsuccessful");
+          });
+          var x = user.email;
+          var sch = db.collection("sign").doc(x);
+          var newPassword = document.getElementById('newpass').value;
+          var ob = {
+            'pass': document.getElementById('newpass').value
+          };
+          //window.alert(newPassword);
+          //console.log(ob);
+
+          return sch.update(ob)
+            .then(function () {
+              window.alert("Profile Updated");
+              //db.collection("sign").doc(usingname).update(ob);
+              console.log("Success");
+
+              //res.redirect('/login'); .update()
+              //document.getElementById('uname').value
+
+            })
+
+            .catch(function (err) {
+              console.log(err);
+            });
+          window.location = '/dash';
+          var user = firebase.auth().currentUser;
+          var newPassword = document.getElementById('newpass').value;
+
+          user.updatePassword(newPassword).then(function () {
+            // Update successful.
+            window.alert("Update successful");
+          }).catch(function (error) {
+            // An error happened.
+            window.alert("Update unsuccessful");
+          });
+        }
+        else {
+          window.alert("No User");
+        }
+      });
+    }
+
+    //  var db = firebase.firestore();
+    //   var sch = db.collection("sign").doc(usingname);
+    //   firebase.auth().onAuthStateChanged(function (user) {
+    //     if (user) {
+    //       window.alert("INside");
+    //       var newPassword = document.getElementById('newpass').value;
+    //       window.alert("INside" + newPassword);
+    //       var ob = {
+    //         'pass': newPassword
+    //       };
+    //       return sch.update(ob)
+
+    //         .then(function () {
+    //           window.location = '/dash';
+    //           //db.collection("sign").doc(usingname).update(ob);
+    //           console.log("Success");
+
+    //           //res.redirect('/login'); .update()
+    //           //document.getElementById('uname').value
+
+    //         })
+    //         .catch(function (err) {
+    //           console.log(err);
+    //         });
+    //       user.updatePassword(newPassword).then(function () {
+    //         // Update successful.
+    //         window.alert("updated");
+    //         window.location = "/dash";
+    //       }).catch(function (error) {
+    //         // An error happened.
+    //         window.alert(error);
+    //       });
+    //     }
+    //   })
+
+
+
+
+    //   // var db = firebase.firestore();
+    //   // var usingname = document.getElementById('uname').value;
+    //   // var cpass = document.getElementById('pass').value;
+    //   // var npass = document.getElementById('newpass').value;
+    //   // var repass = document.getElementById('repass').value;
+    //   // window.alert("Password!"+usingname);
+    //   // if (npass == repass) {
+    //   //   window.alert("Password correct!");
+    //   //   var sch = db.collection("sign").doc(usingname);
+    //   //   console.log(sch);
+    //   //   firebase.auth().onAuthStateChanged(function (user) {
+    //   //     if (user) {
+    //   //       console.log(user);
+    //   //       var x = user.password;
+
+    //   //       if (x == cpass) {
+    //   //         firebase.auth().currentUser.updatePassword('npass').then(function () {
+    //   //           window.alert("Password upated");
+    //   //           //Do something
+    //   //           var ob = {
+    //   //             'pass': npass
+    //   //           };
+    //   //           return sch.update(ob)
+
+    //   //             .then(function () {
+    //   //               window.location = '/dash';
+    //   //               //db.collection("sign").doc(usingname).update(ob);
+    //   //               console.log("Success");
+
+    //   //               //res.redirect('/login'); .update()
+    //   //               //document.getElementById('uname').value
+
+    //   //             })
+    //   //             .catch(function (err) {
+    //   //               console.log(err);
+    //   //             });
+    //   //         }).catch(function (err) {
+    //   //           //Do something
+    //   //           window.alert("Unable to update!");
+    //   //         });
+
+
+    //   //       }
+    //   //     }
+    //   //   })
+    //   // }
+
+    //window.onload = initApp();
+  </script>
   <% include meta.ejs %>
 </head>
-<body>
-   
-   <div class="header">
-      <div class="row">
-  <div class="col-md-2 blue">
-    
-      <img
-      src="img/logo2.png"
-      height="100px"
-      width="100px"
-      id="img1"
-      
-    />
-    </div>
-    <div class="col-md-6 blue">
-    <h4 align="left" id="x1">TrackeX</h4>
-    <h5 align="left">Have Expense your way!</h5>
-    </div>
-    
-      
-  
-  <div class="col-md-4 blue1">
-    <button type="button" class="btn btn-outline-info" onclick="signOut()">Log Out</button>
-  </div>
-</div>
-  </div>
-	
-	<div class="col-md-3">
-	<div class="sidenav">
-  <a href="/profile" id="pro"><button class="btn btn-danger btn-lg">Profile</button></a>
-  <a href="#"><button class="btn btn-primary btn-lg">Settings</button></a>
-  <a href="#"><button class="btn btn-warning btn-lg">Show Analysis</button></a>
-  
-</div>
 
-</div>
+<body>
+
+  <div class="header">
+    <div class="row">
+      <div class="col-md-2 blue">
+
+        <img src="img/logo2.png" height="100px" width="100px" id="img1" />
+      </div>
+      <div class="col-md-6 blue">
+        <h4 align="left" id="x1">TrackeX</h4>
+        <h5 align="left">Have Expense your way!</h5>
+      </div>
+
+
+
+      <div class="col-md-4 blue1">
+        <button type="button" class="btn btn-outline-info" onclick="signOut()">Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="sidenav">
+      <a href="/profile" id="pro">
+        <button class="btn btn-danger btn-lg">Profile</button>
+      </a>
+      <a href="#">
+        <button class="btn btn-primary btn-lg">Settings</button>
+      </a>
+      <a href="#">
+        <button class="btn btn-warning btn-lg">Show Analysis</button>
+      </a>
+
+    </div>
+
+  </div>
 
   <div>
     <div class="container">
-   
-    <div class="col-60">
-      <!--onsubmit="return phonenumber(document.form.num.value)"-->
-  <form method="get" name="reg_form">
-    <h3>Profile</h3>
-    <!--<form name='' id='' action='' method='post'>-->
-  <div class="row">
-    <div class="col-35">
-      <label for="pass">Current Password</label>
-    </div>
-    <div class="col-95">
-      <input type="password" id="pass" name="pass" placeholder="Your Password..">
-      <br>
-      <br>
-    </div>
-    <div class="col-35">
-      <label for="pass">New Password</label>
-    </div>
-    <div class="col-95">
-      <input type="password" id="newpass" name="pass1" placeholder="Type new Password.." title="Min 6 char password" required>
-      <span class="emsg5 hidden" id="error_pass">Include atleast 1  number  </span>
-    </div>
-    <br>
-    <div class="row">
-    <div class="col-45">
-      <label for="pass2">Confirm Password</label>
-    </div>
-    <div class="col-115">
-      <input type="password" id="repass" name="pass2" placeholder="Re-enter Password" title="Re-enter the same password" required>
-      <span class="emsg6 hidden" id="error_repass">Enter valid pwd</span>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-   <a href="/profile"><button type="button" class="btn btn-danger" id="s1">Cancel</button></a>
-    <a href="/dash" onSubmit="return check_all()"><button
-      class="btn btn-success btn-lg" name="ebutt"
-      onclick="toggleSignIn()">
-      Sign in
-    </button></a>
-  </div>
-</div>
-</form>
-  <script type="text/javascript">
-  $(function ()
 
-  {
-    var err_pass=false;
-    var err_repass=false;
-    var err_newpass=false;
+      <div class="col-60">
+        <!--onsubmit="return phonenumber(document.form.num.value)"-->
+        <form method="get" name="reg_form">
+          <h3>Profile</h3>
+          <!--<form name='' id='' action='' method='post'>-->
+          <div class="row">
+            <div class="col-35">
+              <label for="pass">Current Password</label>
+            </div>
+            <div class="col-95">
+              <input type="password" id="pass" name="pass" placeholder="Your Password..">
+              <br>
+              <br>
+            </div>
+            <div class="col-35">
+              <label for="pass">New Password</label>
+            </div>
+            <div class="col-95">
+              <input type="password" id="newpass" name="pass1" placeholder="Type new Password.." title="Min 6 char password" required>
+              <span class="emsg5 hidden" id="error_pass">Include atleast 1 number </span>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-45">
+                <label for="pass2">Confirm Password</label>
+              </div>
+              <div class="col-115">
+                <input type="password" id="repass" name="pass2" placeholder="Re-enter Password" title="Re-enter the same password" required>
+                <span class="emsg6 hidden" id="error_repass">Enter valid pwd</span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <a href="/profile">
+                <button type="button" class="btn btn-danger" id="s1">Cancel</button>
+              </a>
+              <a onclick="passup()">
+                <button class="btn btn-success btn-lg" name="submit">
+                  Submit
+                </button>
+              </a>
+            </div>
+          </div>
+        </form>
+        <script type="text/javascript">
+          $(function () {
+            var err_pass = false;
+            var err_repass = false;
+            var err_newpass = false;
 
-    $("#pass").on('keypress keydown keyup',function(){
-      check_pass();
-    });
-    $("#pass").on('keypress keydown keyup',function(){
-      check_newpass();
-    });
+            $("#pass").on('keypress keydown keyup', function () {
+              check_pass();
+            });
+            $("#newpass").on('keypress keydown keyup', function () {
+              check_newpass();
+            });
 
 
-    $("#repass").on('keypress keydown keyup',function(){
-      check_repass();
-    });
-    $("#reg_form").onsubmit(function(){
-      check_all();
-    });
+            $("#repass").on('keypress keydown keyup', function () {
+              check_repass();
+            });
+            /*$("#reg_form").onsubmit(function(){
+              check_all();
+            });*/
 
-    function check_newpass(){
-      var $regexname=/^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/;
-    $('#newpass').on('keypress keydown keyup',function(){
-             if (!$(this).val().match($regexname)) {
-              // there is a mismatch, hence show the error message
-                 $('.emsg5').removeClass('hidden');
-                 $('.emsg5').show();
-                 err_newpass=true;
-             }
-           else{
-                // else, do not display message
-                $('.emsg5').addClass('hidden');
-                err_newpass=false;
-               }
-         });
-    }
 
-    function check_repass(){
-      var $regexname=/^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{2,10})$/;
-    $('#repass').on('keypress keydown keyup',function(){
-             if (!$(this).val().match($('#pass').val())) {
-              // there is a mismatch, hence show the error message
-                 $('.emsg6').removeClass('hidden');
-                 $('.emsg6').show();
-                 err_repass=true;
-             }
-           else{
-                // else, do not display message
+            function check_newpass() {
+              var $regexname = /^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/;
+              $('#newpass').on('keypress keydown keyup', function () {
+                if (!$(this).val().match($regexname)) {
+                  // there is a mismatch, hence show the error message
+                  $('.emsg5').removeClass('hidden');
+                  $('.emsg5').show();
+                  err_newpass = true;
+                }
+                else {
+                  // else, do not display message
+                  $('.emsg5').addClass('hidden');
+                  err_newpass = false;
+                }
+              });
+            }
+
+            function check_repass() {
+              var $regexname = /^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/;
+              $('#repass').on('keypress keydown keyup', function () {
+                if (!$(this).val().match($('#newpass').val())) {
+                  // there is a mismatch, hence show the error message
+                  $('.emsg6').removeClass('hidden');
+                  $('.emsg6').show();
+                  err_repass = true;
+                }
+                else {
+                  // else, do not display message
+                  $('.emsg6').addClass('hidden');
+                  err_repass = false;
+                }
+              });
+            }
+
+
+
+            $('#newpass, #repass').on('keyup', function () {
+              if (!($('#newpass').val() == $('#repass').val())) {
+                $('.emsg6').removeClass('hidden');
+                $('.emsg6').show();
+                err_repass = true;
+              }
+              else
                 $('.emsg6').addClass('hidden');
-                err_repass=false;
-               }
-         });
-    }
+              err_repass = false;
+            });
 
-    
+            // $("#reg_form").on('submit',function(){
+            //   err_fname = false;
+            //   err_phone=false;
+            //   err_phone=false;
+            //   err_uname=false;
+            //   err_pass=false;
+            //   err_repass=false;
 
-    $('#newpass, #repass').on('keyup', function () {
-  if ($('#newpass').val() == $('#repass').val()) {
-    $('#emsg6').removeClass('hidden');
-     $('.emsg6').show();
-     err_repass=true;
-  }
-   else 
-    $('#message').addClass('hidden');
-  err_repass=false;
-});
+            //   check_fname();
+            //   check_dob();
+            //   check_uname();
+            //   check_phone();
+            //   check_pass();
+            //   check_repass();
 
-    // $("#reg_form").on('submit',function(){
-    //   err_fname = false;
-    //   err_phone=false;
-    //   err_phone=false;
-    //   err_uname=false;
-    //   err_pass=false;
-    //   err_repass=false;
+            function check_all() {
+              $("#reg_form").on('submit', function () {
+                if (err_pass === false && err_newpass === false && err_repass === false) {
+                  //$('.ebutt').removeClass('disabled');
+                  //$('.emsg6').show();
+                  alert('Ok');
+                  return true;
+                }
+                else {
+                  //$('.emsg6').addClass('hidden');
+                  // $('.ebutt').addClass('disabled');
 
-    //   check_fname();
-    //   check_dob();
-    //   check_uname();
-    //   check_phone();
-    //   check_pass();
-    //   check_repass();
+                  return false;
+                }
+              });
+            }
 
-      function check_all(){
-      $("#reg_form").onsubmit(function(){
-      if( err_pass===false && err_newpass===false && err_repass === false){
-        //$('.ebutt').removeClass('disabled');
-        //$('.emsg6').show();
-        alert('Ok');
-        return true;
-      }
-      else{
-        //$('.emsg6').addClass('hidden');
-       // $('.ebutt').addClass('disabled');
 
-        return false;
-      }
-      });
-    }
-      
-    
-    });
-  
-</script>
-</div>
-</div>
-</div>
+          });
+
+        </script>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
-    

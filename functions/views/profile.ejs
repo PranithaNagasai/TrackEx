@@ -26,10 +26,12 @@
     //window.alert(user.username);
     firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+    console.log(user);
     var x =user.email;
     //window.alert(x);
     //console.log(x);
     var sch = db.collection("sign").doc(x);
+    console.log(sch);
     sch.get().then((doc) => {
       if (doc.exists) {
        // console.log(doc.data());
@@ -67,7 +69,7 @@
 	 return sch.update(ob)
 
 	.then(function() {
-		
+      window.alert("Profile Updated");
 			//db.collection("sign").doc(usingname).update(ob);
 			console.log("Success");
 			//res.redirect('/login'); .update()
@@ -142,7 +144,7 @@
               <label for="uname">Trackex ID</label>
             </div>
             <div class="col-75">
-              <input  id="uname" name="uname" value="John@trackex.com" style="width: 100%;
+              <input  id="uname" name="uname" value="" style="width: 100%;
               padding: 20px;
               border: 1px solid #ccc;
               border-radius: 4px;
@@ -184,7 +186,7 @@
 
 
             <div class="col-75">
-              <input type="text" id="fname" name="fname" value="john" disabled></input>
+              <input type="text" id="fname" name="fname" value="" disabled></input>
             </div>
           </div>
           <div class="row">
@@ -194,7 +196,7 @@
 
 
             <div class="col-75">
-              <input type="text" id="addr" name="addr" value="Bangalore" style="height:120px" disabled></input>
+              <input type="text" id="addr" name="addr" value="" style="height:120px" disabled></input>
             </div>
           </div>
           <div class="row">
@@ -203,7 +205,7 @@
             </div>
             <div class="col-75">
               <!--^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$-->
-              <input type="number" id="num" name="num" value="9191919191" disabled>
+              <input type="number" id="num" name="num" value="" disabled>
               <span class="emsg2 hidden" id="error_phone">10 digit number</span>
 
             </div>
@@ -213,7 +215,7 @@
               <label for="num">DOB</label>
             </div>
             <div class="col-75">
-              <input type="text" id="dob" name="dob" value="29/06/1999" disabled>
+              <input type="text" id="dob" name="dob" value="" disabled>
               <span class="emsg3 hidden" id="error_dob">dd/mm/yyyy</span>
 
             </div>
