@@ -22,8 +22,14 @@ body{
 
 #s1{
   font-size: 20px;
+<<<<<<< HEAD
   padding: 50px;
   margin-top: 50px;
+=======
+    padding: 15px;
+    margin-top: 15px;
+
+>>>>>>> 5d15fd325ad6078a5012e0209191bb3b1688b937
 }
 
 

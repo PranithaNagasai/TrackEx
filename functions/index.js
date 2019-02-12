@@ -33,6 +33,10 @@ app.get("/loginOTP", (req, res) => {
 
 
 
+app.get("/loginOTP",(req,res) =>{
+	res.render('loginOTP');
+});
+
 app.get("/home", (req, res) => {
  
 	var a= req.query.fusername;
@@ -58,6 +62,8 @@ app.get("/sign", (req, res) => {
 	res.render('sign');
 });
 
+
+
 app.get('/send', (req, res) => {
 	//var schoolName = "Pranitha";
 	var usingname= req.query.uname;
@@ -78,7 +84,8 @@ app.get('/send', (req, res) => {
 			db.collection("sign").doc(usingname).set(ob);
 
 			console.log(ob.name);
-			//res.redirect('/login');
+			//res.redirect('/login'); .update()
+			//document.getElementById('uname').value
 			return;
 		}
 	}).catch((err) => {

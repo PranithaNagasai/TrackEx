@@ -8,6 +8,7 @@
 	<title></title>
 	<script src="/__/firebase/5.8.2/firebase-app.js"></script>
 	<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+	<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
 	<script src="/__/firebase/init.js"></script>
 	<script>
 		function signOut() {
@@ -15,13 +16,34 @@
 			window.location = '/';
 		}
 		function initApp() {
+			var db = firebase.firestore();
 				firebase.auth().onAuthStateChanged(function(user) {
 					if (user) {
-					//	window.location = '/dash';
-					var disname=user.email;
-					} 
-				});
+						var x =user.email;
+    //window.alert(x);
+    //console.log(x);
+    var sch = db.collection("sign").doc(x);
+    sch.get().then((doc) => {
+      if (doc.exists) {
+       // console.log(doc.data());
+        document.getElementById('its').innerHTML = doc.data().name;
+       // document.getElementById('fname').value = doc.data().name;
+    
+				console.log(doc.data().name);	
+					}
+					else {
+        window.alert("User doesn't exist");
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+				//});
 			}
+			else{
+
+			}
+	});
+		}
 		window.onload = initApp();
 	</script>
 	<style>
@@ -64,7 +86,7 @@
   </div>
 </div>
 <div class="container" align="center" margin-top:"100px";>
-	<h2>Hello Username!</h2>
+	<h2>Hello</h2><h2 id="its"></h2>
 	<h2>Welcome to Trackex...Your expense tracker!</h2>
 </div>
 </body>
