@@ -18,7 +18,7 @@ This project is licensed under the MIT license - see the [LICENSE](LICENSE) file
 * **Aravind V. Nair** - *Front-end, Back-end and Security* - [AravindVNair99](https://github.com/aravindvnair99)
 * **Swathi** - *Front-end and Back-end* - [P-Swathi](https://github.com/P-Swathi)
 * **Sanjita Suresh** -*Front-end and Back-end* -[Sanjita-121](https://github.com/Sanjita-121)
-* **Nuha S Varier** -*Front-end and Back-end*
+* **Nuha S Varier** -*Front-end and Back-end* - [Nuha123](https://github.com/Nuha123)
 
 See the full list of [contributors](https://github.com/PranithaNagasai/TrackEx/graphs/contributors) who participated in this project and statistics.
 
