@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		/>
+		<link rel="stylesheet" type="text/css" href="css/sign.css" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Acme"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Merienda+One"
+			rel="stylesheet"
+		/>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		
+		<title>TrackeX</title>
+		<% include meta.ejs %>
+		<script>
+		function mysignin(){
+			// if (firebase.auth().currentUser) {
+			// 		firebase.auth().signOut();
+			// 	} else {
+			var myname = document.getElementById('fname').value;
+			var mynum = document.getElementById('num').value;
+			var myuname = document.getElementById('uname').value;
+			var mypass = document.getElementById('pass').value;
+			if(mynum.length < 10 && !(mynum.match(/^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/)))
+			{window.alert('Please enter a valid mobile no.');
+			window.location ='/';
+				return;
+			}
+
+			if (myuname.length < 12 && !(myuname.match(/^([a-zA-Z]+[a-zA-Z0-9+]{0,10}\b@trackex.com\b)$/))) {
+				window.alert('Please enter a valid trackex address.');
+				window.location ='/';
+				//window.location = '/sign';00
+				return;
+			}
+			
+			if (mypass.length < 6 && !(mypass.match(/^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/))) {
+				window.alert('Please enter a valid password');
+				window.location ='/';
+				return;
+			}
+			else
+			firebase.auth().createUserWithEmailAndPassword(myuname, mypass)
+  			
+  			.catch(function(error) {
+   			 console.log("Error creating new user:", error);
+				window.alert("Error");
+				window.location='/sign';
+  			});
+			  return true;
+	}
+			
+			
+		
+	//}
+	if(mysignin()){
+	firebase.auth().createUserWithEmailAndPassword(myuname, mypass)
+  			
+  			.catch(function(error) {
+   			 console.log("Error creating new user:", error);
+				window.alert("Error");
+				window.location='/sign';
+  			});
+	}
+	else{
+		window.alert("ENter details properly");
+		window.location='/sign';
+	}
+
+		function initApp() {
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						window.alert('Already signed in!');
+						window.location = '/login';
+					} else {
+						window.alert('SignUp to continue');
+					}
+				});
+			}
+		window.onload = initApp();
+		</script>
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="col-xs-12" id="col1">
+				<h3 id="tr">TrackeX</h3>
+			</div>
+		</div>
+		<div>
+			<div class="container">
+				<div class="col-40">
+					<img
+						src="img/logo2.png"
+						height="300px"
+						width="250px"
+						id="img1"
+					/>
+				</div>
+				<div class="col-60">
+					<!--onsubmit="return phonenumber(document.form.num.value)"-->
+					<form
+						action="/send"
+						onSubmit="return check_all()"
+						method="get"
+						name="reg_form"
+					>
+						<h3>SignUp</h3>
+						<div class="row">
+							<div class="col-25">
+								<label for="fname">Name</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="text"
+									id="fname"
+									name="fname"
+									placeholder="Your name.."
+									autofocus
+									required
+								/>
+								<span class="emsg1 hidden" id="error_fname"
+									>Enter valid Name</span
+								>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="addr">Address</label>
+							</div>
+							<div class="col-75">
+								<textarea
+									id="addr"
+									name="addr"
+									placeholder="Your address.."
+									style="height:150px"
+								></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="num">Mobile number</label>
+							</div>
+							<div class="col-75">
+								<!--^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$-->
+								<input
+									type="number"
+									id="num"
+									name="num"
+									placeholder="Your Mobile number.."
+									title="10-digit number"
+									required
+								/>
+								<span class="emsg2 hidden" id="error_phone"
+									>10 digit number</span
+								>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="num">DOB</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="text"
+									id="dob"
+									name="dob"
+									placeholder="Your Date of birth.."
+									required
+								/>
+								<span class="emsg3 hidden" id="error_dob"
+									>dd/mm/yyyy</span
+								>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="uname">Trackex ID</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="text"
+									id="uname"
+									name="uname"
+									placeholder="abc@trackex.com"
+									title="Min 5 char"
+									required
+								/>
+								<span class="emsg4 hidden" id="error_uname"
+									>Include @trackex.com</span
+								>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="pass">Password</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="password"
+									id="pass"
+									name="pass"
+									placeholder="Your Password.."
+									title="Min 6 char password"
+									required
+								/>
+								<span class="emsg5 hidden" id="error_pass"
+									>Include atleast 1 number
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="pass2">Confirm Password</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="password"
+									id="repass"
+									name="pass2"
+									placeholder="Re-enter Password"
+									title="Re-enter the same password"
+									required
+								/>
+								<span class="emsg6 hidden" id="error_repass"
+									>Enter valid pwd</span
+								>
+							</div>
+						</div>
+
+						<div class="row">
+							<a href="/"
+								><button
+									type="button"
+									class="btn btn-danger"
+									id="s1"
+								>
+									Cancel
+								</button></a
+							>
+							<button
+							class="btn btn-success btn-lg"
+							onclick="mysignin()">
+							Submit
+						</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$(function() {
+					var err_fname = false;
+					var err_phone = false;
+					var err_dob = false;
+					var err_uname = false;
+					var err_pass = false;
+					var err_repass = false;
+
+					$('#fname').on('keypress keydown keyup', function() {
+						check_fname();
+					});
+					$('#num').on('keypress keydown keyup', function() {
+						check_num();
+					});
+					$('#dob').on('keypress keydown keyup', function() {
+						check_dob();
+					});
+					$('#uname').on('keypress keydown keyup', function() {
+						check_uname();
+					});
+					$('#pass').on('keypress keydown keyup', function() {
+						check_pass();
+					});
+					$('#repass').on('keypress keydown keyup', function() {
+						check_repass();
+					});
+					$('#reg_form').onsubmit(function() {
+						check_all();
+					});
+					function check_fname() {
+						var $regexname = /^([a-zA-Z]{3,16})$/;
+						$('#fname').on('keypress keydown keyup', function() {
+							if (
+								!$(this)
+									.val()
+									.match($regexname)
+							) {
+								// there is a mismatch, hence show the error message
+								$('.emsg1').removeClass('hidden');
+								$('.emsg1').show();
+								err_fname = true;
+							} else {
+								// else, do not display message
+								$('.emsg1').addClass('hidden');
+								err_fname = false;
+							}
+						});
+					}
+					function check_num() {
+						var $regexname = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
+						$('#num').on('keypress keydown keyup', function() {
+							if (
+								!$(this)
+									.val()
+									.match($regexname)
+							) {
+								// there is a mismatch, hence show the error message
+								$('.emsg2').removeClass('hidden');
+								$('.emsg2').show();
+								err_phone = true;
+							} else {
+								// else, do not display message
+								$('.emsg2').addClass('hidden');
+								err_phone = false;
+							}
+						});
+					}
+					//(((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))[-]((?:0[1-9])|(?:1[0-2]))[-](19[0-9][0-9]|2000))
+					function check_dob() {
+						var $regexname = /^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19[0-9][0-9]|2000)$/;
+						$('#dob').on('keypress keydown keyup', function() {
+							if (
+								!$(this)
+									.val()
+									.match($regexname)
+							) {
+								// there is a mismatch, hence show the error message
+								$('.emsg3').removeClass('hidden');
+								$('.emsg3').show();
+								err_dob = true;
+							} else {
+								// else, do not display message
+								$('.emsg3').addClass('hidden');
+								err_dob = false;
+							}
+						});
+					}
+					//
+
+					function check_uname() {
+						var $regexname = /^([a-zA-Z]+[a-zA-Z0-9+]{0,10}\b@trackex.com\b)$/;
+						$('#uname').on('keypress keydown keyup', function() {
+							if (
+								!$(this)
+									.val()
+									.match($regexname)
+							) {
+								// there is a mismatch, hence show the error message
+								$('.emsg4').removeClass('hidden');
+								$('.emsg4').show();
+								err_uname = true;
+							} else {
+								// else, do not display message
+								$('.emsg4').addClass('hidden');
+								err_uname = false;
+							}
+						});
+					}
+					//[a-zA-Z0-9]+[0-9][a-zA-Z0-9]
+					function check_pass() {
+						var $regexname = /^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/;
+						$('#pass').on('keypress keydown keyup', function() {
+							if (
+								!$(this)
+									.val()
+									.match($regexname)
+							) {
+								// there is a mismatch, hence show the error message
+								$('.emsg5').removeClass('hidden');
+								$('.emsg5').show();
+								err_pass = true;
+							} else {
+								// else, do not display message
+								$('.emsg5').addClass('hidden');
+								err_pass = false;
+							}
+						});
+					}
+					function check_repass() {
+						var $regexname = /^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{2,10})$/;
+						$('#repass').on('keypress keydown keyup', function() {
+							if (
+								!$(this)
+									.val()
+									.match($('#pass').val())
+							) {
+								// there is a mismatch, hence show the error message
+								$('.emsg6').removeClass('hidden');
+								$('.emsg6').show();
+								err_repass = true;
+							} else {
+								// else, do not display message
+								$('.emsg6').addClass('hidden');
+								err_repass = false;
+							}
+						});
+					}
+
+					$('#pass, #repass').on('keyup', function() {
+						if ($('#pass').val() == $('#repass').val()) {
+							$('#emsg6').removeClass('hidden');
+							$('.emsg6').show();
+							err_repass = true;
+						} else $('#message').addClass('hidden');
+						err_repass = false;
+					});
+					// $("#reg_form").on('submit',function(){
+					//   err_fname = false;
+					//   err_phone=false;
+					//   err_phone=false;
+					//   err_uname=false;
+					//   err_pass=false;
+					//   err_repass=false;
+					//   check_fname();
+					//   check_dob();
+					//   check_uname();
+					//   check_phone();
+					//   check_pass();
+					//   check_repass();
+					function check_all() {
+						$('#reg_form').on('submit', function() {
+							if (
+								err_fname == false &&
+								err_phone == false &&
+								err_phone == false &&
+								err_uname == false &&
+								err_pass == false &&
+								err_pass == false &&
+								err_repass == false
+							) {
+								//$('.ebutt').removeClass('disabled');
+								//$('.emsg6').show();
+								alert('Ok');
+								return true;
+							} else {
+								//$('.emsg6').addClass('hidden');
+								// $('.ebutt').addClass('disabled');
+								return false;
+							}
+						});
+					}
+				});
+			</script>
+		</div>
+	</body>
+</html>
