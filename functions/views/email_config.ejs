@@ -7,7 +7,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<title></title>
+	<title>Onetime configuration | TrackeX</title>
 	<script src="/__/firebase/5.8.2/firebase-app.js"></script>
 	<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
 	<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
@@ -20,39 +20,16 @@
 	</script>
 	<script>
 		function initApp() {
-			var db = firebase.firestore();
-			//var user = firebase.auth().currentUser; 
-			//window.alert(user.username);
 			firebase.auth().onAuthStateChanged(function (user) {
 				if (user) {
 					console.log(user);
-					var x = user.email;
-					//window.alert(x);
-					//console.log(x);
-					var sch = db.collection("sign").doc(x);
-					console.log(sch);
-					sch.get().then((doc) => {
-						if (doc.exists) {
-							// console.log(doc.data());
-							document.getElementById('uname').value = doc.data().username;
-							document.getElementById('fname').value = doc.data().name;
-							document.getElementById('addr').value = doc.data().addr;
-							document.getElementById('num').value = doc.data().phone;
-							document.getElementById('dob').value = doc.data().dob;
-						} else {
-							window.alert("User doesn't exist");
-						}
-					}).catch((err) => {
-						console.log(err);
-					});
 				}
 				else {
-					window.alert("No User");
+					window.location="/";
 				}
 			});
 		}
 		window.onload = initApp();
-
 	</script>
 	<script>
 		function myfun() {

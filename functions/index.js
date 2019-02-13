@@ -19,8 +19,24 @@ app.get("/", (req, res) => {
 	res.render('index');
 });
 
-app.get("/login", (req, res) => {
-	res.render('login');
+app.get("/onetime", (req, res) => {
+	res.render('onetime');
+});
+
+app.get("/mob_login", (req, res) => {
+	res.render('mob_login');
+});
+
+app.get("/email_login", (req, res) => {
+	res.render('email_login');
+});
+
+app.get("/mob_config", (req, res) => {
+	res.render('mob_config');
+});
+
+app.get("/email_config", (req, res) => {
+	res.render('email_config');
 });
 
 app.get("/dash", (req, res) => {
@@ -34,57 +50,6 @@ app.get("/profile", (req, res) => {
 app.get("/pwd", (req, res) => {
 	res.render('pwd');
 });
-
-app.get("/loginOTP",(req,res) =>{
-	res.render('loginOTP');
-});
-
-app.get("/home", (req, res) => {
-	var a= req.query.fusername;
-	var b= req.query.pass;
-	var query= {'username':req.query.fusername,
-				 'password':req.query.pass,
-			}
-	console.log(a);
-	console.log(b);
-	console.log(query.username);
-	var us=db.collection('sign').doc(a);
-	var pw=db.collection('sign').doc(b);
-			//var getDoc = pri.where("username", "==",req.query.fusername).get()
-			us.get()
-			  .then((doc) => {
-				if (!doc.exists) {
-				  res.redirect('main');
-				} else {
-				  //alert('Document data:', doc.data());
-				  checkpwd();
-				 // res.redirect('dash');
-				}
-			  })
-			  .catch(err => {
-				console.log('Error getting document', err);
-			  });
-
-     function checkpwd(){
-		 pw.get().then((doc1)=>{
-				if(doc1.exists){
-					res.redirect('dash');
-					return doc1;
-				}
-				else{
-					res.render('logintrack');
-				}
-		 }).catch((err) => {
-			console.error(err);
-		});
-	 }	
-});
-
-app.get("/sign", (req, res) => {
-	res.render('sign');
-});
-
-
 
 app.get('/send', (req, res) => {
 	//var schoolName = "Pranitha";
@@ -114,8 +79,6 @@ app.get('/send', (req, res) => {
 	});
 	
 });
-
-
 
 app.use((req, res, next) => {
 	res.status(404).render('404');

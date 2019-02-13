@@ -19,7 +19,7 @@
 		// FirebaseUI config.
 		var uiConfig = {
 			// Url to redirect to after a successful sign-in.
-			'signInSuccessUrl': '/dash',
+			'signInSuccessUrl': '/email_config',
 			'callbacks': {
 				'signInSuccess': function (user, credential, redirectUrl) {
 					if (window.opener) {
@@ -38,12 +38,6 @@
 					provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
 					requireDisplayName: true,
 					signInMethod: getEmailSignInMethod()
-				},
-				{
-					provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-					recaptchaParameters: {
-						size: getRecaptchaMode()
-					}
 				}
 			],
 			// Terms of service url.
