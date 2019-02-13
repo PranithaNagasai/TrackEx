@@ -23,17 +23,35 @@
     function passup() {
       var db = firebase.firestore();
       firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
+        window.alert(user);
+        var jus = document.getElementById('trackid').value;
+        if (user.email==jus) {
           // window.alert("user " + user.email);
-          var newPassword = document.getElementById('newpass').value;
+          // var x = user.email;
+          // var sch = db.collection("sign").doc(x);
+          // sch.get().then((doc) => {
+          //   if (doc.exists) {
+          //     // console.log(doc.data());
+          //     document.getElementById('trackid').value = user.email;
+          //     // document.getElementById('fname').value = doc.data().name;
 
-          firebase.auth().currentUser.updatePassword(newPassword).then(function () {
-            // Update successful.
-            window.alert("Update successful");
-          }).catch(function (error) {
-            // An error happened.
-            window.alert("Update unsuccessful");
-          });
+          //     console.log(doc.data().name);
+          //   }
+          //   else {
+          //     window.alert("Update your profile");
+          //   }
+          // });
+          var reepass = document.getElementById('repass').value;
+          var newPassword = document.getElementById('newpass').value;
+          if (reepass == newPassword) {
+            firebase.auth().currentUser.updatePassword(newPassword).then(function () {
+              // Update successful.
+              window.alert("Update successful");
+            }).catch(function (error) {
+              // An error happened.
+              window.alert("Update unsuccessful");
+            });
+          }
           var x = user.email;
           var sch = db.collection("sign").doc(x);
           var newPassword = document.getElementById('newpass').value;
@@ -49,118 +67,50 @@
               //db.collection("sign").doc(usingname).update(ob);
               console.log("Success");
 
-              //res.redirect('/login'); .update()
-              //document.getElementById('uname').value
 
             })
 
             .catch(function (err) {
               console.log(err);
             });
-          window.location = '/dash';
-          var user = firebase.auth().currentUser;
-          var newPassword = document.getElementById('newpass').value;
-
-          user.updatePassword(newPassword).then(function () {
-            // Update successful.
-            window.alert("Update successful");
-          }).catch(function (error) {
-            // An error happened.
-            window.alert("Update unsuccessful");
-          });
+          
         }
         else {
-          window.alert("No User");
+          
+          var email = document.getElementById('trackid').value;
+          var reepass = document.getElementById('repass').value;
+          var newPassword = document.getElementById('newpass').value;
+          if (reepass == newPassword) {
+            
+            firebase.auth().createUserWithEmailAndPassword(email, newPassword)
+            .then(function () {
+            // Update successful.
+            window.alert("Update successful");
+          })
+            .catch(function (error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // ...
+            });
+            window.alert("User created");
+          }
         }
       });
     }
 
-    //  var db = firebase.firestore();
-    //   var sch = db.collection("sign").doc(usingname);
-    //   firebase.auth().onAuthStateChanged(function (user) {
-    //     if (user) {
-    //       window.alert("INside");
-    //       var newPassword = document.getElementById('newpass').value;
-    //       window.alert("INside" + newPassword);
-    //       var ob = {
-    //         'pass': newPassword
-    //       };
-    //       return sch.update(ob)
 
-    //         .then(function () {
-    //           window.location = '/dash';
-    //           //db.collection("sign").doc(usingname).update(ob);
-    //           console.log("Success");
-
-    //           //res.redirect('/login'); .update()
-    //           //document.getElementById('uname').value
-
-    //         })
-    //         .catch(function (err) {
-    //           console.log(err);
-    //         });
-    //       user.updatePassword(newPassword).then(function () {
-    //         // Update successful.
-    //         window.alert("updated");
-    //         window.location = "/dash";
-    //       }).catch(function (error) {
-    //         // An error happened.
-    //         window.alert(error);
-    //       });
-    //     }
-    //   })
-
-
-
-
-    //   // var db = firebase.firestore();
-    //   // var usingname = document.getElementById('uname').value;
-    //   // var cpass = document.getElementById('pass').value;
-    //   // var npass = document.getElementById('newpass').value;
-    //   // var repass = document.getElementById('repass').value;
-    //   // window.alert("Password!"+usingname);
-    //   // if (npass == repass) {
-    //   //   window.alert("Password correct!");
-    //   //   var sch = db.collection("sign").doc(usingname);
-    //   //   console.log(sch);
-    //   //   firebase.auth().onAuthStateChanged(function (user) {
-    //   //     if (user) {
-    //   //       console.log(user);
-    //   //       var x = user.password;
-
-    //   //       if (x == cpass) {
-    //   //         firebase.auth().currentUser.updatePassword('npass').then(function () {
-    //   //           window.alert("Password upated");
-    //   //           //Do something
-    //   //           var ob = {
-    //   //             'pass': npass
-    //   //           };
-    //   //           return sch.update(ob)
-
-    //   //             .then(function () {
-    //   //               window.location = '/dash';
-    //   //               //db.collection("sign").doc(usingname).update(ob);
-    //   //               console.log("Success");
-
-    //   //               //res.redirect('/login'); .update()
-    //   //               //document.getElementById('uname').value
-
-    //   //             })
-    //   //             .catch(function (err) {
-    //   //               console.log(err);
-    //   //             });
-    //   //         }).catch(function (err) {
-    //   //           //Do something
-    //   //           window.alert("Unable to update!");
-    //   //         });
-
-
-    //   //       }
-    //   //     }
-    //   //   })
-    //   // }
-
-    //window.onload = initApp();
+  </script>
+  <script>
+    function initApp(){
+      firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+            var x =user.email;
+            document.getElementById('trackid').value =x;
+          }
+        });
+    }
+  window.onload=initApp();
   </script>
   <% include meta.ejs %>
 </head>
@@ -174,7 +124,9 @@
         <img src="img/logo2.png" height="100px" width="100px" id="img1" />
       </div>
       <div class="col-md-6 blue">
-        <h4 align="left" id="x1">TrackeX</h4>
+        <h4 align="left" id="x1">
+          <a href="/dash">TrackeX</a>
+        </h4>
         <h5 align="left">Have Expense your way!</h5>
       </div>
 
@@ -212,10 +164,10 @@
           <!--<form name='' id='' action='' method='post'>-->
           <div class="row">
             <div class="col-35">
-              <label for="pass">Current Password</label>
+              <label for="pass">Email ID</label>
             </div>
             <div class="col-95">
-              <input type="password" id="pass" name="pass" placeholder="Your Password..">
+              <input type="text" id="trackid" name="trackid" placeholder="Your mail id..">
               <br>
               <br>
             </div>

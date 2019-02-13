@@ -21,65 +21,115 @@
   </script>
   <script>
     function initApp() {
-    var db = firebase.firestore();
-    //var user = firebase.auth().currentUser;
-    //window.alert(user.username);
-    firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log(user);
-    var x =user.email;
-    //window.alert(x);
-    //console.log(x);
-    var sch = db.collection("sign").doc(x);
-    console.log(sch);
-    sch.get().then((doc) => {
-      if (doc.exists) {
-       // console.log(doc.data());
-        document.getElementById('uname').value = doc.data().username;
-        document.getElementById('fname').value = doc.data().name;
-        document.getElementById('addr').value = doc.data().addr;
-        document.getElementById('num').value = doc.data().phone;
-        document.getElementById('dob').value = doc.data().dob;
-      } else {
-        window.alert("User doesn't exist");
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
-  else{
-    window.alert("No User");
-  }
-});
-}
+      var db = firebase.firestore();
+      //var user = firebase.auth().currentUser; 
+      //window.alert(user.username);
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          console.log(user);
+          var x = user.email;
+          //window.alert(x);
+          //console.log(x);
+          var sch = db.collection("sign").doc(x);
+          console.log(sch);
+          sch.get().then((doc) => {
+            if (doc.exists) {
+              // console.log(doc.data());
+              document.getElementById('uname').value = doc.data().username;
+              document.getElementById('fname').value = doc.data().name;
+              document.getElementById('addr').value = doc.data().addr;
+              document.getElementById('num').value = doc.data().phone;
+              document.getElementById('dob').value = doc.data().dob;
+            } else {
+              window.alert("User doesn't exist");
+            }
+          }).catch((err) => {
+            console.log(err);
+          });
+        }
+        else {
+          window.alert("No User");
+        }
+      });
+    }
     window.onload = initApp();
 
   </script>
   <script>
-    function myfun(){
+    function myfun() {
       var db = firebase.firestore();
-      var usingname=document.getElementById('uname').value;
-  var sch = db.collection("sign").doc(usingname);
-	var ob = {
-		'name': document.getElementById('fname').value,
-		'addr':document.getElementById('addr').value,
-		'phone':document.getElementById('num').value,
-		'dob':document.getElementById('dob').value
-	};
-	 return sch.update(ob)
+      var usingname = document.getElementById('uname').value;
+      var z = document.getElementById('num').value;
+      var m = document.getElementById('fname').value;
+      if (z.length < 10) {
+        window.alert("Enter valid mobile no.");
+        window.alert("Not updated");
+        return;
+      }
+      // if (m.match(/^([a-zA-Z]{3,16})$/)) {
+      //   window.alert("Enter valid name");
+      //   return;
+      // }
+      var sch = db.collection("sign").doc(usingname);
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          console.log(user);
+          //var x = user.email;
+          //window.alert(x);
+          //console.log(x);
+          var x = document.getElementById('uname').value;
+          var sch = db.collection("sign").doc(usingname);
+          console.log(sch);
+          sch.get().then((doc) => {
+            if (doc.exists) {
 
-	.then(function() {
-      window.alert("Profile Updated");
-			//db.collection("sign").doc(usingname).update(ob);
-			console.log("Success");
-			//res.redirect('/login'); .update()
-			//document.getElementById('uname').value
-			
-		})
-	.catch(function(err) {
-		console.log(err);
-  });
-}
+              var ob = {
+                'username': document.getElementById('uname').value,
+                'name': document.getElementById('fname').value,
+                'addr': document.getElementById('addr').value,
+                'phone': document.getElementById('num').value,
+                'dob': document.getElementById('dob').value
+              };
+              return sch.update(ob)
+
+                .then(function () {
+                  window.alert("Profile Updated");
+                  //db.collection("sign").doc(usingname).update(ob);
+                  console.log("Success");
+                  //res.redirect('/login'); .update()
+                  //document.getElementById('uname').value
+
+                })
+                .catch(function (err) {
+                  console.log(err);
+                });
+            }
+            else {
+
+              console.log("hello");
+            }
+          });
+        }
+        var ob = {
+          'username': document.getElementById('uname').value,
+          'name': document.getElementById('fname').value,
+          'addr': document.getElementById('addr').value,
+          'phone': document.getElementById('num').value,
+          'dob': document.getElementById('dob').value
+        };
+        db.collection("sign").doc(usingname).set(ob);
+        window.alert("Profile Updated");
+        console.log(ob.name);
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then
+          .catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            window.alert("User not created");
+          });
+      });
+    }
   </script>
   <% include meta.ejs %>
 </head>
@@ -93,7 +143,9 @@
         <img src="img/logo2.png" height="100px" width="100px" id="img1" />
       </div>
       <div class="col-md-6 blue">
-        <h4 align="left" id="x1">TrackeX</h4>
+        <h4 align="left" id="x1">
+          <a href="/dash">TrackeX</a>
+        </h4>
         <h5 align="left">Have Expense your way!</h5>
       </div>
 
@@ -124,8 +176,8 @@
   <div class="top">
     <button type="button" class="btn btn-outline-info" name='edit' value='edit'>Edit</button>
     <br>
-    <br> 
-    <a  onclick="myfun()">
+    <br>
+    <a onclick="myfun()">
       <button type="button" class="btn btn-success" name='submit' value='submit'>Submit</button>
     </a>
   </div>
@@ -144,12 +196,12 @@
               <label for="uname">Trackex ID</label>
             </div>
             <div class="col-75">
-              <input  id="uname" name="uname" value="" style="width: 100%;
+              <input type="text" id="uname" name="uname" value="" style="width: 100%;
               padding: 20px;
               border: 1px solid #ccc;
               border-radius: 4px;
               resize: vertical;" disabled>
-              <span class="emsg4 hidden" id="error_uname">Include @trackex.com</span>
+              <span class="emsg4 hidden" id="error_uname">Can Include @trackex.com</span>
 
 
 
@@ -187,6 +239,7 @@
 
             <div class="col-75">
               <input type="text" id="fname" name="fname" value="" disabled></input>
+              <span class="emsg1 hidden" id="error_phone">Enter valid name</span>
             </div>
           </div>
           <div class="row">
@@ -263,9 +316,9 @@
             $("#repass").on('keypress keydown keyup', function () {
               check_repass();
             });
-            $("#reg_form").onsubmit(function () {
+            /*$("#reg_form").onsubmit(function () {
               check_all();
-            });
+            });*/
 
             function check_fname() {
               var $regexname = /^([a-zA-Z]{3,16})$/;
@@ -401,7 +454,7 @@
             //   check_repass();
 
             function check_all() {
-              $("#reg_form").on('submit',function () {
+              $("#reg_form").on('submit', function () {
                 if (err_fname === false && err_phone === false && err_phone === false && err_uname === false && err_pass === false && err_pass === false && err_repass === false) {
                   //$('.ebutt').removeClass('disabled');
                   //$('.emsg6').show();
