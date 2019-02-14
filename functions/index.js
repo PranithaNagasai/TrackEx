@@ -34,7 +34,7 @@ app.get('/email_login', (req, res) => {
 });
 
 app.get('/mob_config', (req, res) => {
-	res.render('mob_config');
+	res.render('pwd');
 });
 
 app.get('/email_config', (req, res) => {

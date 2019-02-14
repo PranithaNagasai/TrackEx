@@ -21,7 +21,7 @@
 			firebase.auth().onAuthStateChanged(function (user) {
 				if (user.email) {
 					var x = user.email;
-					window.alert(x);
+					//window.alert(x);
 					//console.log(x);
 					var sch = db.collection("sign").doc(x);
 					sch.get().then((doc) => {
