@@ -3,7 +3,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/track_home.css">
 	<title></title>
 	<script src="/__/firebase/5.8.2/firebase-app.js"></script>
@@ -20,23 +20,23 @@
 				firebase.auth().onAuthStateChanged(function(user) {
 					if (user) {
 						var x =user.email;
-    //window.alert(x);
-    //console.log(x);
-    var sch = db.collection("sign").doc(x);
-    sch.get().then((doc) => {
-      if (doc.exists) {
-       // console.log(doc.data());
-        document.getElementById('its').innerHTML = doc.data().name;
-       // document.getElementById('fname').value = doc.data().name;
-    
+	//window.alert(x);
+	//console.log(x);
+	var sch = db.collection("sign").doc(x);
+	sch.get().then((doc) => {
+	  if (doc.exists) {
+	   // console.log(doc.data());
+		document.getElementById('its').innerHTML = doc.data().name;
+	   // document.getElementById('fname').value = doc.data().name;
+	
 				console.log(doc.data().name);	
 					}
 					else {
-        window.alert("Update your profile");
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
+		window.alert("Update your profile");
+	  }
+	}).catch((err) => {
+	  console.log(err);
+	});
 				//});
 			}
 			else{
