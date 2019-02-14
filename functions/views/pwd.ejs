@@ -23,7 +23,7 @@
     function passup() {
       var db = firebase.firestore();
       firebase.auth().onAuthStateChanged(function (user) {
-        window.alert(user);
+        //window.alert(user);
         var jus = document.getElementById('trackid').value;
         if (user.email==jus) {
           // window.alert("user " + user.email);

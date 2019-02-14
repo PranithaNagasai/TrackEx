@@ -28,13 +28,16 @@
         if (user) {
           console.log(user);
           var x = user.email;
-          //window.alert(x);
-          //console.log(x);
+          document.getElementById('uname').value = x;
+          //console.log(user.phoneNumber);
+          if(user.email){
           var sch = db.collection("sign").doc(x);
           console.log(sch);
+          console.log(sch.get());
           sch.get().then((doc) => {
             if (doc.exists) {
-              // console.log(doc.data());
+            
+              console.log(doc.data());
               document.getElementById('uname').value = doc.data().username;
               document.getElementById('fname').value = doc.data().name;
               document.getElementById('addr').value = doc.data().addr;
@@ -46,9 +49,13 @@
           }).catch((err) => {
             console.log(err);
           });
+          }
+          else{
+           // document.getElementById('num').value = user.phoneNumber;
+          }
         }
         else {
-          window.alert("No User");
+          //window.alert("No User");
         }
       });
     }
@@ -60,16 +67,23 @@
       var db = firebase.firestore();
       var usingname = document.getElementById('uname').value;
       var z = document.getElementById('num').value;
-      var m = document.getElementById('fname').value;
-      if (z.length < 10) {
+      var m = document.getElementById('dob').value;
+      var k = document.getElementById('fname').value;
+      if (z.length !=10) {
         window.alert("Enter valid mobile no.");
         window.alert("Not updated");
         return;
       }
-      // if (m.match(/^([a-zA-Z]{3,16})$/)) {
-      //   window.alert("Enter valid name");
-      //   return;
-      // }
+      if(m.length<10){
+        window.alert("Enter valid dob");
+        window.alert("Not updated");
+        return;
+      }
+      if(k.length<3){
+        window.alert("Enter valid name");
+        window.alert("Not updated");
+        return;
+      }
       var sch = db.collection("sign").doc(usingname);
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -78,8 +92,8 @@
           //window.alert(x);
           //console.log(x);
           var x = document.getElementById('uname').value;
-          var sch = db.collection("sign").doc(usingname);
-          console.log(sch);
+          var sch = db.collection("sign").doc(x);
+          console.log(sch.username);
           sch.get().then((doc) => {
             if (doc.exists) {
 
@@ -105,12 +119,7 @@
                 });
             }
             else {
-
-              console.log("hello");
-            }
-          });
-        }
-        var ob = {
+              var ob = {
           'username': document.getElementById('uname').value,
           'name': document.getElementById('fname').value,
           'addr': document.getElementById('addr').value,
@@ -119,15 +128,22 @@
         };
         db.collection("sign").doc(usingname).set(ob);
         window.alert("Profile Updated");
-        console.log(ob.name);
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then
-          .catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            window.alert("User not created");
+        //console.log(ob.name);
+            }
           });
+        }
+        else{
+
+        
+        // firebase.auth().createUserWithEmailAndPassword(email, password)
+        //   .then
+        //   .catch(function (error) {
+        //     // Handle Errors here.
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //     window.alert("User not created");
+        //   });
+        }
       });
     }
   </script>
@@ -201,7 +217,7 @@
               border: 1px solid #ccc;
               border-radius: 4px;
               resize: vertical;" disabled>
-              <span class="emsg4 hidden" id="error_uname">Can Include @trackex.com</span>
+              <span class="emsg4 hidden" id="error_uname">Email ID</span>
 
 
 
