@@ -53,6 +53,10 @@ app.get('/pwd', (req, res) => {
 	res.render('pwd');
 });
 
+app.get('/setting', (req, res) => {
+	res.render('setting');
+});
+
 app.get('/send', (req, res) => {
 	//var schoolName = "Pranitha";
 	var usingname = req.query.uname;
