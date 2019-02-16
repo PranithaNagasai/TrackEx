@@ -1,110 +1,120 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Acme"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Merienda+One"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" type="text/css" href="css/track_home.css" />
+		<title>Dashboard | TrackeX</title>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		<script>
+			function signOut() {
+				firebase.auth().signOut();
+				window.location = '/';
+			}
+			function initApp() {
+				var db = firebase.firestore();
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user.email) {
+						var x = user.email;
+						var sch = db.collection('sign').doc(x);
+						sch.get()
+							.then(doc => {
+								if (doc.exists) {
+									document.getElementById(
+										'its'
+									).innerHTML = doc.data().name;
+									console.log(doc.data().name);
+								} else {
+									window.alert(
+										'Update your profile & create a password!!'
+									);
+								}
+							})
+							.catch(err => {
+								console.log(err);
+							});
+					} else {
+						window.alert('Update your profile');
+					}
+				});
+			}
+			window.onload = initApp();
+		</script>
+		<style>
+			h4 {
+				color: white;
+			}
 
-<head>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/track_home.css">
-	<title></title>
-	<script src="/__/firebase/5.8.2/firebase-app.js"></script>
-	<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
-	<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
-	<script src="/__/firebase/init.js"></script>
-	<script>
-		function signOut() {
-			firebase.auth().signOut();
-			window.location = '/';
-		}
-		function initApp() {
-			var db = firebase.firestore();
-			firebase.auth().onAuthStateChanged(function (user) {
-				if (user.email) {
-					var x = user.email;
-					//window.alert(x);
-					//console.log(x);
-					var sch = db.collection("sign").doc(x);
-					sch.get().then((doc) => {
-						if (doc.exists) {
-							// console.log(doc.data());
-							document.getElementById('its').innerHTML = doc.data().name;
-							// document.getElementById('fname').value = doc.data().name;
+			h3 {
+				color: white;
+			}
 
-							console.log(doc.data().name);
-						}
-						else {
-							window.alert("Update your profile & create a password!!");
-						}
-					}).catch((err) => {
-						console.log(err);
-					});
-					//});
-				}
-				else {
-					window.alert("Update your profile");
-				}
-			});
-		}
-		window.onload = initApp();
-	</script>
-	<style>
-		h4 {
-			color: white;
-		}
+			#img1 {
+				margin-left: '10px';
+			}
 
-		h3 {
-			color: white;
-		}
+			h2 {
+				color: black;
+			}
+		</style>
+		<% include meta.ejs %>
+	</head>
 
-		#img1 {
-			margin-left: "10px";
-		}
-
-		h2 {
-			color: black;
-		}
-	</style>
-	<% include meta.ejs %>
-
-</head>
-
-<body>
-	<div class="row">
-		<div class="col-md-2 blue">
-
-			<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
+	<body>
+		<div class="row">
+			<div class="col-md-2 blue">
+				<img src="img/logo2.png" height="100px" width="100px" id="img1"
+				margin-left: "10px" />
+			</div>
+			<div class="col-md-6 blue">
+				<h4 align="left" id="x1">
+					<a href="/profile">TrackeX</a>
+				</h4>
+				<h5 align="left">Have Expense your way!</h5>
+			</div>
+			<div class="col-md-4 blue1">
+				<button
+					type="button"
+					class="btn btn-outline-info"
+					onclick="signOut()"
+				>
+					Log Out
+				</button>
+			</div>
 		</div>
-		<div class="col-md-6 blue">
-			<h4 align="left" id="x1">
-				<a href="/profile">TrackeX</a>
-			</h4>
-			<h5 align="left">Have Expense your way!</h5>
+		<div style="float: left;">
+			<div class="sidenav">
+				<a href="/profile" id="pro">
+					<button class="btn btn-danger">Profile</button>
+				</a>
+				<a href="/setting">
+					<button class="btn btn-primary">Settings</button>
+				</a>
+				<a href="#">
+					<button class="btn btn-warning">
+						Show Analysis
+					</button>
+				</a>
+			</div>
 		</div>
-
-
-
-		<div class="col-md-4 blue1">
-			<button type="button" class="btn btn-outline-info" onclick="signOut()">Log Out</button>
+		<div style="float: right;">
+			<h2>Hello</h2>
+			<h2 id="its"></h2>
+			<h2>Welcome to Trackex...Your expense tracker!</h2>
 		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="sidenav">
-			<a href="/profile" id="pro">
-				<button class="btn btn-danger btn-lg">Profile</button>
-			</a>
-			<a href="/setting">
-				<button class="btn btn-primary btn-lg">Settings</button>
-			</a>
-			<a href="#">
-				<button class="btn btn-warning btn-lg">Show Analysis</button>
-			</a>
-		</div>
-	</div>
-	<div class="container" align="center" margin-top: "100px";>
-		<h2>Hello</h2>
-		<h2 id="its"></h2>
-		<h2>Welcome to Trackex...Your expense tracker!</h2>
-	</div>
-</body>
-
+	</body>
 </html>

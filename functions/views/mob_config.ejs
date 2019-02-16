@@ -21,19 +21,14 @@
 	<script>
 		function initApp() {
 			var db = firebase.firestore();
-			//var user = firebase.auth().currentUser; 
-			//window.alert(user.username);
 			firebase.auth().onAuthStateChanged(function (user) {
 				if (user) {
 					console.log(user);
 					var x = user.email;
-					//window.alert(x);
-					//console.log(x);
 					var sch = db.collection("sign").doc(x);
 					console.log(sch);
 					sch.get().then((doc) => {
 						if (doc.exists) {
-							// console.log(doc.data());
 							document.getElementById('uname').value = doc.data().username;
 							document.getElementById('fname').value = doc.data().name;
 							document.getElementById('addr').value = doc.data().addr;
@@ -64,20 +59,11 @@
 				window.alert("Not updated");
 				return;
 			}
-			// if (m.match(/^([a-zA-Z]{3,16})$/)) {
-			//   window.alert("Enter valid name");
-			//   return;
-			// }
 			var sch = db.collection("sign").doc(usingname);
 			firebase.auth().onAuthStateChanged(function (user) {
 				if (user) {
-					console.log(user);
-					//var x = user.email;
-					//window.alert(x);
-					//console.log(x);
 					var x = document.getElementById('uname').value;
 					var sch = db.collection("sign").doc(usingname);
-					console.log(sch);
 					sch.get().then((doc) => {
 						if (doc.exists) {
 
@@ -89,7 +75,6 @@
 								'dob': document.getElementById('dob').value
 							};
 							return sch.update(ob)
-
 								.then(function () {
 									window.alert("Profile Updated");
 									//db.collection("sign").doc(usingname).update(ob);
@@ -236,7 +221,7 @@
 
 
 						<div class="col-75">
-							<input type="text" id="fname" name="fname" value="" disabled></input>
+							<input type="text" id="fname" name="fname" value="" disabled>
 							<span class="emsg1 hidden" id="error_phone">Enter valid name</span>
 						</div>
 					</div>
@@ -247,7 +232,7 @@
 
 
 						<div class="col-75">
-							<input type="text" id="addr" name="addr" value="" style="height:120px" disabled></input>
+							<input type="text" id="addr" name="addr" value="" style="height:120px" disabled>
 						</div>
 					</div>
 					<div class="row">
@@ -422,9 +407,6 @@
 								}
 							});
 						}
-
-
-
 						$('#pass, #repass').on('keyup', function () {
 							if ($('#pass').val() == $('#repass').val()) {
 								$('#emsg6').removeClass('hidden');
@@ -435,40 +417,17 @@
 								$('#message').addClass('hidden');
 							err_repass = false;
 						});
-
-						// $("#reg_form").on('submit',function(){
-						//   err_fname = false;
-						//   err_phone=false;
-						//   err_phone=false;
-						//   err_uname=false;
-						//   err_pass=false;
-						//   err_repass=false;
-
-						//   check_fname();
-						//   check_dob();
-						//   check_uname();
-						//   check_phone();
-						//   check_pass();
-						//   check_repass();
-
 						function check_all() {
 							$("#reg_form").on('submit', function () {
 								if (err_fname === false && err_phone === false && err_phone === false && err_uname === false && err_pass === false && err_pass === false && err_repass === false) {
-									//$('.ebutt').removeClass('disabled');
-									//$('.emsg6').show();
 									alert('Ok');
 									return true;
 								}
 								else {
-									//$('.emsg6').addClass('hidden');
-									// $('.ebutt').addClass('disabled');
-
 									return false;
 								}
 							});
 						}
-
-
 					});
 
 				</script>
