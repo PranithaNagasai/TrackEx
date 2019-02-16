@@ -1,133 +1,193 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Acme"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Merienda+One"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" type="text/css" href="css/setting.css" />
+		<title></title>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		<script>
+			function signOut() {
+				firebase.auth().signOut();
+				window.location = '/';
+			}
+		</script>
+		<% include meta.ejs %>
+	</head>
 
-<head>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/setting.css">
-	<title></title>
-	<script src="/__/firebase/5.8.2/firebase-app.js"></script>
-	<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
-	<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
-	<script src="/__/firebase/init.js"></script>
-	<script>
-		function signOut() {
-			firebase.auth().signOut();
-			window.location = '/';
-		}
-	</script>
-	<% include meta.ejs %>
-</head>
+	<body>
+		<div class="row">
+			<div class="col-md-2 blue">
+				<img src="img/logo2.png" height="100px" width="100px" id="img1"
+				margin-left: "10px" />
+			</div>
+			<div class="col-md-6 blue">
+				<h4 align="left" id="x1">
+					<a href="/profile">TrackeX</a>
+				</h4>
+				<h5 align="left">Have Expense your way!</h5>
+			</div>
 
-<body>
-	<div class="row">
-		<div class="col-md-2 blue">
-
-			<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
+			<div class="col-md-4 blue1">
+				<button
+					type="button"
+					class="btn btn-outline-info"
+					onclick="signOut()"
+				>
+					Log Out
+				</button>
+			</div>
 		</div>
-		<div class="col-md-6 blue">
-			<h4 align="left" id="x1">
-				<a href="/profile">TrackeX</a>
-			</h4>
-			<h5 align="left">Have Expense your way!</h5>
+		<div class="col-md-3">
+			<div class="sidenav">
+				<a href="/profile" id="pro">
+					<button class="btn btn-danger btn-lg">Profile</button>
+				</a>
+				<a href="/setting">
+					<button class="btn btn-primary btn-lg">Settings</button>
+				</a>
+				<a href="#">
+					<button class="btn btn-warning btn-lg">
+						Show Analysis
+					</button>
+				</a>
+			</div>
 		</div>
-
-
-
-		<div class="col-md-4 blue1">
-			<button type="button" class="btn btn-outline-info" onclick="signOut()">Log Out</button>
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="sidenav">
-			<a href="/profile" id="pro">
-				<button class="btn btn-danger btn-lg">Profile</button>
-			</a>
-			<a href="/setting">
-				<button class="btn btn-primary btn-lg">Settings</button>
-			</a>
-			<a href="#">
-				<button class="btn btn-warning btn-lg">Show Analysis</button>
-			</a>
-		</div>
-	</div>
-	<div class="container" align="center" margin-top: "100px";>
-		<br>
+		<div class="container" align="center" margin-top: "100px";>
+		<br />
 		<div class="row">
 			<div class="col-md-6">
-		<h2>Categories</h2></div>
-		<div class="col-md-4">
-		<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openForm()">+ Add Category</button>
+				<h2>Categories</h2>
+			</div>
+			<div class="col-md-4">
+				<button
+					type="button"
+					class="btn btn-success"
+					style="margin-top: 18px"
+					onclick="openForm()"
+				>
+					+ Add Category
+				</button>
+			</div>
 		</div>
-	</div>
-		<br>
-		<div class="row" id="myrow1">   <!-- put a for loop for the no. of details in the db... refer home.ejs..but tht is mongodb xD-->
+		<br />
+		<div class="row" id="myrow1">
+			<!-- put a for loop for the no. of details in the db... refer home.ejs..but tht is mongodb xD-->
 			<div class="col-xs-18 col-sm-6 col-md-3">
-          <div class="thumbnail">  <!-- choose any 1 from these 2-->
-           		 <img src="img/newgreen2.png">
-           		 <div class="centered">Category</div><!-- category name & details should come from db-->
-              <div class="caption">
-                
-                <p>Limit: 200<br/> Useage % : 10% <br/></p><br>
-              <button type="button" class="btn" style="margin-top: 18px" onclick="openshop()">View Shops</button>
-            </div>
-          </div>
- 		</div>
+				<div class="thumbnail">
+					<!-- choose any 1 from these 2-->
+					<img src="img/newgreen2.png" />
+					<div class="centered">Category</div>
+					<!-- category name & details should come from db-->
+					<div class="caption">
+						<p>
+							Limit: 200<br />
+							Useage % : 10% <br />
+						</p>
+						<br />
+						<button
+							type="button"
+							class="btn"
+							style="margin-top: 18px"
+							onclick="openshop()"
+						>
+							View Shops
+						</button>
+					</div>
+				</div>
+			</div>
 
- 		<div class="col-xs-18 col-sm-6 col-md-3">
-          <div class="thumbnail">
-            <img src="img/green.png">
-            <div class="centered">Category</div> <!-- category name & details should come from db-->
-              <div class="caption">
-                
-                <p>Limit: 200<br/> Useage % : 20% <br/></p><br>
-               <button type="button" class="btn" style="margin-top: 18px" onclick="openshop()">View Shops</button>
-            </div>
-          </div>
- 		</div>
-
+			<div class="col-xs-18 col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<img src="img/green.png" />
+					<div class="centered">Category</div>
+					<!-- category name & details should come from db-->
+					<div class="caption">
+						<p>
+							Limit: 200<br />
+							Useage % : 20% <br />
+						</p>
+						<br />
+						<button
+							type="button"
+							class="btn"
+							style="margin-top: 18px"
+							onclick="openshop()"
+						>
+							View Shops
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
 		<div class="form-popup" id="myForm">
-  <form action="#" class="modal-content">
-    <h1>Add new Category</h1>
+			<form action="#" class="modal-content">
+				<h1>Add new Category</h1>
 
-    <label for="email"><b>Category Name</b></label>
-    <input type="text" name="cat_name" placeholder="Ex:Shopping" required>
+				<label for="email"><b>Category Name</b></label>
+				<input
+					type="text"
+					name="cat_name"
+					placeholder="Ex:Shopping"
+					required
+				/>
 
-    <label for="psw"><b>Limit</b></label>
-    <input type="number" placeholder="Ex:200"  required>
-     <div class="row" id ="bu1">
-    <button type="submit" class="btn btn-success">Add</button>
-    <button type="button" class="btn btn-danger" onclick="closeForm()">Cancel</button>
-</div>
-  </form>
-</div>
-		
+				<label for="psw"><b>Limit</b></label>
+				<input type="number" placeholder="Ex:200" required />
+				<div class="row" id="bu1">
+					<button type="submit" class="btn btn-success">Add</button>
+					<button
+						type="button"
+						class="btn btn-danger"
+						onclick="closeForm()"
+					>
+						Cancel
+					</button>
+				</div>
+			</form>
+		</div>
+
 		<div class="form-popup" id="myshop">
 			<div class="modal-content">
-			<h2>Shops</h2>
-			List shops from db here!
-			<button type="button" class="btn btn-danger" onclick="closeshop()">Cancel</button>
+				<h2>Shops</h2>
+				List shops from db here!
+				<button
+					type="button"
+					class="btn btn-danger"
+					onclick="closeshop()"
+				>
+					Cancel
+				</button>
+			</div>
 		</div>
-		</div>
 
-
-	<script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-function openshop() {
-  document.getElementById("myshop").style.display = "block";
-}
-function closeshop() {
-  document.getElementById("myshop").style.display = "none";
-}
-</script>
-</body>
-
+		<script>
+			function openForm() {
+				document.getElementById('myForm').style.display = 'block';
+			}
+			function closeForm() {
+				document.getElementById('myForm').style.display = 'none';
+			}
+			function openshop() {
+				document.getElementById('myshop').style.display = 'block';
+			}
+			function closeshop() {
+				document.getElementById('myshop').style.display = 'none';
+			}
+		</script>
+	</body>
 </html>
