@@ -35,6 +35,7 @@
 				//window.alert(user.username);
 				firebase.auth().onAuthStateChanged(function(user) {
 					if (user) {
+						document.getElementById('qwe').value=user.email;
 						console.log(user);
 						var x = user.email;
 						document.getElementById('uname').value = x;
@@ -76,8 +77,15 @@
 						//window.alert("No User");
 					}
 				});
+				
 			}
 			window.onload = initApp();
+		</script>
+
+		<script>
+			function senddata(){
+				$("#hi").submit();
+			}
 		</script>
 		<script>
 			function myfun() {
@@ -202,8 +210,8 @@
 				<a href="/profile" id="pro">
 					<button class="btn btn-danger btn-lg">Profile</button>
 				</a>
-				<a href="/setting">
-					<button class="btn btn-primary btn-lg">Settings</button>
+				<a>
+					<button class="btn btn-primary btn-lg" onclick="senddata()">Settings</button>
 				</a>
 				<a href="#">
 					<button class="btn btn-warning btn-lg">
@@ -380,6 +388,12 @@
 							</a>
 						</div>
 					</form>
+
+					<form id="hi" name="justname" action="/setting">
+							<input name="qwe" id="qwe" class="hidden">
+
+						</form>
+
 					<script type="text/javascript">
 						$(function() {
 							var err_fname = false;

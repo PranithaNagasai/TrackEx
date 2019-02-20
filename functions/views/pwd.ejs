@@ -31,7 +31,7 @@
 			function passup() {
 				var db = firebase.firestore();
 				firebase.auth().onAuthStateChanged(function(user) {
-					window.alert(user);
+					//window.alert(user);
 					var jus = document.getElementById('trackid').value;
 					if (user.email == jus) {
 						// window.alert("user " + user.email);
@@ -58,7 +58,7 @@
 								.currentUser.updatePassword(newPassword)
 								.then(function() {
 									// Update successful.
-									window.alert('Update successful');
+									window.alert('Update successful.. Please login again!');
 								})
 								.catch(function(error) {
 									// An error happened.
@@ -78,7 +78,7 @@
 						return sch
 							.update(ob)
 							.then(function() {
-								window.alert('Profile Updated');
+								window.alert('Profile Updated..Please login again!');
 								//window.location='/email_login';
 								//db.collection("sign").doc(usingname).update(ob);
 								console.log('Success');
@@ -101,7 +101,7 @@
 								)
 								.then(function() {
 									// Update successful.
-									window.alert('Update successful');
+									window.alert('Update successful..Please login again!');
 									//window.location='/email_login';
 								})
 								.catch(function(error) {
@@ -110,9 +110,10 @@
 									var errorMessage = error.message;
 									// ...
 								});
-							window.alert('User created');
+							window.alert('User created..Please login again!');
 						}
 					}
+					window.location='/';
 				});
 			}
 		</script>

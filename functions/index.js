@@ -38,7 +38,7 @@ app.get('/mob_config', (req, res) => {
 });
 
 app.get('/email_config', (req, res) => {
-	res.render('email_config');
+	res.render('dash');
 });
 
 app.get('/dash', (req, res) => {
@@ -54,7 +54,30 @@ app.get('/pwd', (req, res) => {
 });
 
 app.get('/setting', (req, res) => {
-	res.render('setting');
+	var i = 0,j=0,obj1,
+		obj,
+		school = new Array(),
+		fields = new Array();
+		var user = req.query.qwe;
+		//console.log("\n\n\n\n", user)
+	db.collection('sign').doc(user).collection('categories')
+		.get()
+		.then(querySnapshot => {
+			querySnapshot.forEach(childSnapshot => {
+				school[i] = childSnapshot.id;
+				fields[i] = childSnapshot.data();
+				i++;
+			});
+			obj = Object.assign({}, school);
+			obj1 = Object.assign({}, fields);
+			res.render('setting', { obj, obj1 });
+			//return;		
+
+		})
+		.catch(err => {
+			console.log(err);
+		});
+	
 });
 
 app.get('/send', (req, res) => {

@@ -14,6 +14,7 @@
 			href="https://fonts.googleapis.com/css?family=Merienda+One"
 			rel="stylesheet"
 		/>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/track_home.css" />
 		<title>Dashboard | TrackeX</title>
 		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
@@ -29,6 +30,7 @@
 				var db = firebase.firestore();
 				firebase.auth().onAuthStateChanged(function(user) {
 					if (user.email) {
+						document.getElementById('qwe').value=user.email;
 						var x = user.email;
 						var sch = db.collection('sign').doc(x);
 						sch.get()
@@ -71,6 +73,11 @@
 				color: black;
 			}
 		</style>
+		<script>
+				function senddata(){
+					$("#hi").submit();
+				}
+			</script>
 		<% include meta.ejs %>
 	</head>
 
@@ -101,8 +108,8 @@
 				<a href="/profile" id="pro">
 					<button class="btn btn-danger">Profile</button>
 				</a>
-				<a href="/setting">
-					<button class="btn btn-primary">Settings</button>
+				<a>
+					<button class="btn btn-primary" onclick="senddata()">Settings</button>
 				</a>
 				<a href="#">
 					<button class="btn btn-warning">
@@ -111,10 +118,14 @@
 				</a>
 			</div>
 		</div>
-		<div style="float: right;">
+		<div style="margin-left: 350px;">
 			<h2>Hello</h2>
 			<h2 id="its"></h2>
 			<h2>Welcome to Trackex...Your expense tracker!</h2>
 		</div>
+		<form id="hi" name="justname" action="/setting">
+			<input name="qwe" id="qwe" class="hidden">
+
+		</form>
 	</body>
 </html>
