@@ -8,6 +8,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/setting.css" />
 		<title></title>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
 		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
 		<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
@@ -21,7 +22,7 @@
 		<script>
 			function initApp() {
 				var db = firebase.firestore();
-				window.alert(obj);
+				//window.alert(obj);
 				//var user = firebase.auth().currentUser;
 				//window.alert(user.username);
 				firebase.auth().onAuthStateChanged(function (user) {
@@ -32,119 +33,14 @@
 						document.getElementById('x').value = x;
 						
 						//console.log(user.phoneNumber);
-						if (user.email) {
-							var sch = db.collection('category').doc(x);
-							console.log(sch);
-							console.log(sch.get());
-							sch.get()
-								.then(doc => {
-									if (doc.exists) {
-										window.alert("user categories exists init")
-									} else {
-										window.alert("User category doesn't exist init");
-									}
-								})
-								.catch(err => {
-									console.log(err);
-								});
-						} else {
-							// document.getElementById('num').value = user.phoneNumber;
-						}
+						
 					} else {
 						//window.alert("No User");
 					}
 				});
 			}
 			window.onload = initApp();
-		</script>
-
-		<script>
-        // function Add() {
-        //  // var db = firebase.firestore();
-        //  // firebase.auth().onAuthStateChanged(function(user) {
-
-
-        //  //  if (user) {
-        //  //      console.log(user);
-        //  //      //var x = user.email;
-        //  //      //window.alert(x);
-        //  //      //console.log(x);
-        //  //      var x = user.email;
-        //  //      var sch = db.collection('category').doc(x);
-
-        //  //      sch.get().then(doc => {
-        //  //          if (doc.exists) {
-        //  //              var ob = {
-        //  //                  categories: document.getElementById('cat_name').value
-        //  //              };
-        //  //              return sch
-        //  //                  .add(ob)
-
-        //  //                  .then(function() {
-        //  //                      window.alert('Category added');
-        //  //                      //db.collection("sign").doc(usingname).update(ob);
-        //  //                      console.log('Success');
-        //  //                      //res.redirect('/login'); .update()
-        //  //                      //document.getElementById('uname').value
-        //  //                  })
-        //  //                  .catch(function(err) {
-        //  //                      console.log(err);
-        //  //                      window.alert('didnt add');
-        //  //                  });
-        //  //          } else {
-        //  //              var ob = {
-        //  //                  categories: document.getElementById('cat_name').value
-        //  //              };
-        //  //              db.collection('category')
-        //  //                  .doc(x)
-        //  //                  .set(ob);
-        //  //              window.alert('added');
-        //  //              //console.log(ob.name);
-        //  //          }
-        //  //      });
-        //  //  }
-
-        //  // });
-
-        //  var db = firebase.firestore();
-        //  firebase.auth().onAuthStateChanged(function (user) {
-        //      if (user) {
-        //          console.log(user);
-        //          var x = user.email;
-        //          window.alert(x);
-        //          var sch = db.collection('category');
-        //          var ob = {
-        //              categories: document.getElementById('cat_name').value,
-
-        //              limit: document.getElementById('cat_limit').value
-
-        //          };
-        //          window.alert(ob.limit);
-        //          db.collection('category')
-        //          sch.doc(x)
-        //              .set({ user1: [{ categories: ob.categories, limit: "700" }, { categories: "Movies", limit: "600" }] }, { merge: true })
-        //              // .update("categories","array-contains",ob.categories)
-        //              // .collection('sharedWith')
-        //              // .add({_id:4, categories:ob.categories, limit:ob.limit})
-        //              // .then(function () {
-        //              //      window.alert("Done");
-        //              //      console.log("Document successfully written!");
-        //              //  window.alert(sharedWith[0]);
-        //              //  })
-        //              .catch(function (error) {
-        //                  console.error("Error writing document: ", error);
-        //              });
-        //          window.alert('Profile Updated');
-        //      }
-        //      //window.alert("Hello");
-        //  });
-
-
-        // }
-
-
-		</script>
-
+		</script>		
 </head>
 
 <body>
@@ -157,7 +53,7 @@
 				<a href="/profile">TrackeX</a>
 			</h4>
 			<h5 align="left">Have Expense your way!</h5>
-			<h6 id="x">%x%</h6>
+			<h6 id="x"></h6>
 		</div>
 
 		<div class="col-md-4 blue1">
@@ -203,7 +99,7 @@
 			<div class="col-xs-18 col-sm-6 col-md-3">
 				<div class="thumbnail">
 					<!-- choose any 1 from these 2-->
-					<img src="img/newgreen2.png" />
+					<img src="img/newgreen2.PNG" />
 					<div class="centered"><%= obj[i] %></div>
 					<!-- category name & details should come from db-->
 					<div class="caption">
@@ -293,6 +189,21 @@
 			}
 
 			function Addcategory() {
+
+				var k = document.getElementById('cat_name').value;
+				if (!(k.match('^[a-zA-Z]*$'))){
+					window.alert('Enter valid category name.');
+					window.alert('Not updated');
+					document.getElementById('myForm').style.display = 'none';
+					return;
+				}
+				var checklim = document.getElementById('cat_limit').value;
+				if (!(checklim.match('^[0-9]*$')&& checklim>0 && checklim.length>2)){
+					window.alert('Enter valid category limit');
+					window.alert('Not updated');
+					document.getElementById('myForm').style.display = 'none';
+					return;
+				}
 				//window.alert("1");
 				var db = firebase.firestore();
 				var user = firebase.auth().currentUser;
@@ -312,6 +223,7 @@
 						//window.alert("A");
 						if (doc.exists) {
 							window.alert("Category exits");
+							document.getElementById('myForm').style.display = 'none';
 						}
 						else {
 							//window.alert("3");
@@ -322,12 +234,14 @@
 							};
 							xyz.set(ob)
 								.then(function () {
-									window.alert("4");
-									window.alert("Document successfully written!");
+									//window.alert("4");
+									window.alert("Category successfully added!");
+									document.getElementById('myForm').style.display = 'none';
 									$("#hi").submit();
+									
 								})
 								.catch(function (error) {
-									window.alert("Error writing document: ", error);
+									console.log("Error writing document: ", error);
 								});
 						}
 					}).catch(err => {
@@ -341,48 +255,7 @@
 				}
 
 
-				// firebase.auth().onAuthStateChanged(function (user) {
-				//  if (user) {
-				//      console.log(user);
-				//      var uid = user.uid;
-				//      var x = document.getElementById('x').value;
-				//      var sch = db.collection('category').doc(x);
-				//      //console.log(sch.username);
-				//      sch.get().then(doc => {
-				//          if (doc.exists) {
-				//              var ob = {
-				//                  categories: document.getElementById('cat_add')
-				//                      .value,
-
-				//              };
-				//              return sch
-				//                  .update(ob)
-
-				//                  .then(function () {
-				//                      window.alert('Profile Updated');
-				//                      //db.collection("sign").doc(usingname).update(ob);
-				//                      console.log('Success');
-				//                      //res.redirect('/login'); .update()
-				//                      //document.getElementById('uname').value
-				//                  })
-				//                  .catch(function (err) {
-				//                      console.log(err);
-				//                  });
-				//          } else {
-				//              var ob = {
-				//                  categories: document.getElementById('cat_add')
-				//                      .value,
-
-				//              };
-				//              db.collection('category')
-				//                  .doc(usingname)
-				//                  .set(ob);
-				//              window.alert('Profile Updated');
-				//              //console.log(ob.name);
-				//          }
-				//      });
-				//  }
-				// });
+				
 			}
 		</script>
 </body>
