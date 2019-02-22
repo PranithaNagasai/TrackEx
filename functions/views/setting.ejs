@@ -272,7 +272,7 @@
 					if (doc.exists) {
 							xyz.delete().then(function() {
 	window.alert("Document successfully deleted!");
-	//window.location.reload('/settings');
+	window.location.reload('/settings');
 	
 }).catch(function(error) {
     window.alert("Error removing document: ", error);
