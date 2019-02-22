@@ -98,7 +98,7 @@
 				<div class="thumbnail">
 					
 					<img src="img/newgreen2.PNG" />
-					<div class="centered"><%= obj[i] %></div>
+					<div class="centered"><h4 id="cat_head"><%= obj[i] %></h4></div>
 					
 					<div class="caption">
 						<p>
@@ -110,6 +110,10 @@
 						<br />
 						<button type="button" class="btn" style="margin-top: 18px" onclick="openshop()">
 							View Shops
+						</button>
+
+						<button type="button" class="btn" style="margin-top: 18px" onclick="remove()">
+							Remove
 						</button>
 					</div>
 				</div>
@@ -234,6 +238,46 @@
 
 				}
 				}
+
+				function remove(){
+				
+				var db = firebase.firestore();
+				var user = firebase.auth().currentUser;
+				if (user) {
+
+					
+					 var x = user.email;
+					 var c = document.getElementById('cat_head').innerHTML;
+					 var sch = db.collection('sign').doc(x).collection('categories');
+					
+					window.alert(c);
+					 var xyz = sch.doc(c);
+									
+
+					xyz.get().then(doc => {
+					if (doc.exists) {
+							xyz.delete().then(function() {
+	window.alert("Document successfully deleted!");
+	//window.location.reload('/settings');
+	
+}).catch(function(error) {
+    window.alert("Error removing document: ", error);
+});
+
+						}
+						else {
+							window.alert("else");
+							
+						}
+					}).catch(err => {
+						window.alert(err);
+					})
+					
+				}
+
+				
+			}
+				
 		</script>
 </body>
 
