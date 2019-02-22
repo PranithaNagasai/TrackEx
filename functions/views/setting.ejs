@@ -22,9 +22,7 @@
 		<script>
 			function initApp() {
 				var db = firebase.firestore();
-				//window.alert(obj);
-				//var user = firebase.auth().currentUser;
-				//window.alert(user.username);
+				
 				firebase.auth().onAuthStateChanged(function (user) {
 					if (user) {
 						document.getElementById('qwe').value=user.email;
@@ -32,10 +30,10 @@
 						var x = user.email;
 						document.getElementById('x').value = x;
 						
-						//console.log(user.phoneNumber);
+						
 						
 					} else {
-						//window.alert("No User");
+						
 					}
 				});
 			}
@@ -91,17 +89,17 @@
 		</div>
 		<br />
 		<div class="row" id="myrow1">
-			<!-- put a for loop for the no. of details in the db... refer home.ejs..but tht is mongodb xD-->
+			
             
 			<% for(var i=0;i<Object.keys(obj).length;i++) { %>
 				
 				
 			<div class="col-xs-18 col-sm-6 col-md-3">
 				<div class="thumbnail">
-					<!-- choose any 1 from these 2-->
+					
 					<img src="img/newgreen2.PNG" />
 					<div class="centered"><%= obj[i] %></div>
-					<!-- category name & details should come from db-->
+					
 					<div class="caption">
 						<p>
 							current:<%= obj1[i].current %>
@@ -118,24 +116,7 @@
 			</div>
 
 			<% }%>
-			<!-- <div class="col-xs-18 col-sm-6 col-md-3">
-				<div class="thumbnail">
-					<img src="img/green.png" />
-					<div class="centered">Category</div>
-					 category name & details should come from db
-					<div class="caption">
-						<p>
-							Limit: 200
-							<br /> Usage % : 20%
-							<br />
-						</p>
-						<br />
-						<button type="button" class="btn" style="margin-top: 18px" onclick="openshop()">
-							View Shops
-						</button>
-					</div>
-				</div>
-			</div> -->
+			
 		</div>
 		<div class="form-popup" id="myForm">
 			<div class="modal-content">
@@ -209,7 +190,7 @@
 				var user = firebase.auth().currentUser;
 				if (user) {
 
-//window.alert("2");
+
 					console.log(user);
 					var x = user.email;
 					var c = document.getElementById('cat_name').value;
@@ -217,16 +198,15 @@
 
 
 					var xyz = sch.doc(c);
-					//window.alert("NEW");
-					//window.alert(c);
+					
 					xyz.get().then(doc => {
-						//window.alert("A");
+						
 						if (doc.exists) {
 							window.alert("Category exits");
 							document.getElementById('myForm').style.display = 'none';
 						}
 						else {
-							//window.alert("3");
+						
 							var ob = {
 								current: 0,
 								limit: document.getElementById('cat_limit').value
@@ -234,7 +214,7 @@
 							};
 							xyz.set(ob)
 								.then(function () {
-									//window.alert("4");
+									
 									window.alert("Category successfully added!");
 									document.getElementById('myForm').style.display = 'none';
 									$("#hi").submit();
@@ -253,10 +233,7 @@
 					window.alert("User not found");
 
 				}
-
-
-				
-			}
+				}
 		</script>
 </body>
 
