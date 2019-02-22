@@ -29,12 +29,10 @@
 		<script>
 			function initApp() {
 				var db = firebase.firestore();
-
 				firebase.auth().onAuthStateChanged(function(user) {
 					if (user) {
 						console.log(user);
 						var x = user.email;
-
 						if (user.email) {
 							var sch = db.collection('category').doc(x);
 							console.log(sch);
@@ -46,7 +44,6 @@
 										document.getElementById(
 											'cat_head'
 										).innerHTML = doc.data().sharedWith[0].categories;
-
 										document.getElementById(
 											'cat_lim'
 										).innerHTML = doc.data().sharedWith[0].limit;
@@ -81,7 +78,6 @@
 						var ob = {
 							categories: document.getElementById('cat_name')
 								.value,
-
 							limit: document.getElementById('cat_limit').value
 						};
 						window.alert(ob.limit);
@@ -291,7 +287,6 @@
 			function closeshop() {
 				document.getElementById('myshop').style.display = 'none';
 			}
-
 			function Addcategory() {
 				var sch = db.collection('category').doc(usingname);
 				firebase.auth().onAuthStateChanged(function(user) {
@@ -312,7 +307,6 @@
 								};
 								return sch
 									.update(ob)
-
 									.then(function() {
 										window.alert('Profile Updated');
 										//db.collection("sign").doc(usingname).update(ob);
