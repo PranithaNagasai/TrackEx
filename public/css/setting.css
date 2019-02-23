@@ -178,8 +178,14 @@ input[type=text], select, textarea {
   border: 1px solid #888;
   width: 40%;
   padding: 10px;
+  
 }
 
 #hi{
   visibility: hidden;
+}
+
+#del{
+  margin-left: 70px;
+  
 }

@@ -85,13 +85,17 @@
 				<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openForm()">
 					+ Add Category
 				</button>
+				<button type="button" id="del" class="btn btn-danger" style="margin-top: 18px" onclick="openDelForm()">
+					- Delete Category
+				</button>
 			</div>
 		</div>
 		<br />
 		<div class="row" id="myrow1">
 			
             
-			<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+			<% for(var i=0;i<Object.keys(obj).length;i++) { 
+				 %>
 				
 				
 			<div class="col-xs-18 col-sm-6 col-md-3">
@@ -111,10 +115,7 @@
 						<button type="button" class="btn" style="margin-top: 18px" onclick="openshop()">
 							View Shops
 						</button>
-
-						<button type="button" class="btn" style="margin-top: 18px" onclick="remove()">
-							Remove
-						</button>
+						
 					</div>
 				</div>
 			</div>
@@ -160,6 +161,26 @@
 			</div>
 		</div>
 
+		<div class="form-popup" id="delcategory">
+			<div class="modal-content">
+				<h1>Remove Category</h1>
+				<select id="del_cat" type="text">
+					<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+							<option><%= obj[i] %></option>
+					<% } %>
+				</select>
+					
+				<button type="button" class="btn btn-danger" style="margin-top:20px" onclick="remove()">
+					Remove
+				</button>
+				<button type="button" class="btn btn-success" style="margin-top:20px" onclick="closeDelForm()">
+					Cancel
+				</button>
+			
+			</div>
+			
+		</div>
+
 		<div class="form-popup" id="myshop">
 			<div class="modal-content">
 				<h2>Shops</h2>
@@ -187,6 +208,13 @@
 				document.getElementById('myshop').style.display = 'none';
 			}
 
+			function openDelForm(){
+				document.getElementById('delcategory').style.display='block';
+			}
+			function closeDelForm(){
+				document.getElementById('delcategory').style.display='none';
+			}
+
 			function Addcategory() {
 
 				var k = document.getElementById('cat_name').value;
@@ -203,7 +231,7 @@
 					document.getElementById('myForm').style.display = 'none';
 					return;
 				}
-				//window.alert("1");
+				
 				var db = firebase.firestore();
 				var user = firebase.auth().currentUser;
 				if (user) {
@@ -261,10 +289,10 @@
 
 					
 					 var x = user.email;
-					 var c = document.getElementById('cat_head').innerHTML;
+					 var c = document.getElementById('del_cat').value;
 					 var sch = db.collection('sign').doc(x).collection('categories');
 					
-					window.alert(c);
+					
 					 var xyz = sch.doc(c);
 									
 
@@ -280,7 +308,7 @@
 
 						}
 						else {
-							window.alert("else");
+							window.alert("category doesn't exist");
 							
 						}
 					}).catch(err => {
@@ -291,6 +319,8 @@
 
 				
 			}
+
+			
 				
 		</script>
 </body>
