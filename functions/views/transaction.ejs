@@ -44,7 +44,7 @@
 		</div>
 		<div class="col-md-6 blue">
 			<h4 align="left" id="x1">
-				<a href="/profi1le">TrackeX</a>
+				<a href="/profile">TrackeX</a>
 			</h4>
 			<h5 align="left">Have Expense your way!!!</h5>
 			<h6 id="x"></h6>
@@ -85,9 +85,9 @@
 		
 		  <select id="category" name="category">
 
-  <option>shopping</option>
-  <option>Food</option>
-  <option>Movies</option>
+				<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+					<option><%= obj[i] %></option>
+			<% } %>
  
   
 
@@ -133,9 +133,9 @@
 				<div class="cat">
 				<select id="category" name="category">
 
-  <option>shopping</option>
-  <option>Food</option>
-  <option>Movies</option>
+					<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+						<option><%= obj[i] %></option>
+				<% } %>
 </select>
 </div>
 <div class="row" id="bu1">
@@ -165,7 +165,7 @@
 
 			</div>
 		</div>
-        <form id="hi" name="justname" action="/setting">
+        <form id="hi" name="justname" action="/transaction">
             <input name="qwe" id="qwe" class="hidden">
 
         </form>

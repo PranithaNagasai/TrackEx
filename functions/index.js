@@ -66,7 +66,29 @@ app.get('/graph', (req, res) => {
 });
 
 app.get('/transaction', (req, res) => {
-	res.render('transaction');
+	var i = 0,j=0,
+		obj,
+		school = new Array();
+		fields = new Array();
+		var user = req.query.qwe;
+		//console.log("\n\n\n\n", user)
+	db.collection('sign').doc(user).collection('categories')
+		.get()
+		.then(querySnapshot => {
+			querySnapshot.forEach(childSnapshot => {
+				school[i] = childSnapshot.id;
+				fields[i] = childSnapshot.data();
+				i++;
+			});
+			obj = Object.assign({}, school);
+			obj1 = Object.assign({}, fields);
+			res.render('transaction',{ obj, obj1 });
+			//return;		
+
+		})
+		.catch(err => {
+			console.log(err);
+		});
 });
 
 
