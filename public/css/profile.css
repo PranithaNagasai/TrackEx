@@ -223,3 +223,6 @@ input[type=submit]:hover {
 .hidden {
      visibility:hidden;
 }
+#hi{
+  visibility: hidden;
+}

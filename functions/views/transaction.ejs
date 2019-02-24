@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<% include meta.ejs %>
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/x.css" />
+		<title></title>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		<script>
+			function signOut() {
+				firebase.auth().signOut();
+				window.location = '/';
+			}
+        </script>
+        <script>
+            function initApp() {
+                var db = firebase.firestore();
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        document.getElementById('qwe').value = user.email;
+                    }
+                });
+            }
+            window.onload = initApp();
+            </script>
+
+<script>
+    function senddata() {
+        $("#hi").submit();
+    }
+</script>
+
+		<body>
+	<div class="row">
+		<div class="col-md-2 blue">
+			<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
+		</div>
+		<div class="col-md-6 blue">
+			<h4 align="left" id="x1">
+				<a href="/profi1le">TrackeX</a>
+			</h4>
+			<h5 align="left">Have Expense your way!!!</h5>
+			<h6 id="x"></h6>
+		</div>
+
+		<div class="col-md-4 blue1">
+			<button type="button" class="btn btn-outline-info" onclick="signOut()">
+				Log Out
+			</button>
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="sidenav">
+			<a href="/profile" id="pro">
+				<button class="btn btn-danger btn-lg">Profile</button>
+			</a>
+			<a>
+				<button class="btn btn-primary btn-lg" onclick="senddata()">Settings</button>
+			</a>
+			<a href="#">
+				<button class="btn btn-warning btn-lg">
+					Show Analysis
+				</button>
+			</a>
+		</div>
+	</div>
+
+
+	<div class="container" align="center" margin-top: "100px" ;>
+		<br />
+		
+		<div class="row">
+			<div class="col-25">
+      <label for="category">Category</label>
+    </div>
+    <div class="cat">
+		
+		  <select id="category" name="category">
+
+  <option>shopping</option>
+  <option>Food</option>
+  <option>Movies</option>
+ 
+  
+
+
+</select>
+   </div>
+   </div>
+   <br>
+<div class="row">
+   <div class="col-25">
+				<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openView()">
+				  View transactions
+				</button>
+			</div>
+			
+<div class="col-40">
+			<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openMove()">
+				  Move transaction
+				</button>
+				</div>
+	<div class="col-80">		
+
+<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openDel()">
+				  Delete transaction
+				</button>
+			</div>
+		</div>
+<div class="form-popup" id="myView">
+			<div class="modal-content">
+				<h1>Transaction Message</h1>
+
+				<button type="button" class="btn btn-danger" onclick="closeView()">
+						Cancel
+					</button>
+				</div>
+			</div>
+			<div class="form-popup" id="myMove">
+			<div class="modal-content">
+				<h1>Move Transaction to</h1>
+				<label for="email">
+					<b>Category Name</b>
+				</label>
+				<div class="cat">
+				<select id="category" name="category">
+
+  <option>shopping</option>
+  <option>Food</option>
+  <option>Movies</option>
+</select>
+</div>
+<div class="row" id="bu1">
+					<a onclick="Addcategory()">
+						<button type="submit" class="btn btn-success">Move</button>
+					</a>
+
+<button type="button" class="btn btn-danger" onclick="closeMove()">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-popup" id="myDel">
+			<div class="modal-content">
+				<h1>Are you sure you want to delete?</h1>
+				<br>
+		<div class="row" id="bu1">
+					<a onclick="">
+						<button type="submit" class="btn btn-success">Yes</button>
+					</a>
+
+<button type="button" class="btn btn-danger" onclick="closeDel()">Cancel</button>
+				</div>
+		
+
+
+
+			</div>
+		</div>
+        <form id="hi" name="justname" action="/setting">
+            <input name="qwe" id="qwe" class="hidden">
+
+        </form>
+
+
+		<script>
+			function openView() {
+				document.getElementById('myView').style.display = 'block';
+			}
+			function closeView() {
+				document.getElementById('myView').style.display = 'none';
+			}
+			function openMove() {
+				document.getElementById('myMove').style.display = 'block';
+			}
+			function closeMove() {
+				document.getElementById('myMove').style.display = 'none';
+			}
+			function openDel() {
+				document.getElementById('myDel').style.display = 'block';
+			}
+			function closeDel() {
+				document.getElementById('myDel').style.display = 'none';
+			}
+        </script>
+        </div>
+        </body>
+</head>
+</html>
