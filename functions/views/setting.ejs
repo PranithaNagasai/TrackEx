@@ -29,113 +29,53 @@
 		<script>
 			function initApp() {
 				var db = firebase.firestore();
-				firebase.auth().onAuthStateChanged(function(user) {
+				
+				firebase.auth().onAuthStateChanged(function (user) {
 					if (user) {
 						console.log(user);
 						var x = user.email;
-						if (user.email) {
-							var sch = db.collection('category').doc(x);
-							console.log(sch);
-							console.log(sch.get());
-							sch.get()
-								.then(doc => {
-									if (doc.exists) {
-										console.log(doc.data());
-										document.getElementById(
-											'cat_head'
-										).innerHTML = doc.data().sharedWith[0].categories;
-										document.getElementById(
-											'cat_lim'
-										).innerHTML = doc.data().sharedWith[0].limit;
-										window.alert('Category exists');
-									} else {
-										window.alert('No category');
-									}
-								})
-								.catch(err => {
-									console.log(err);
-								});
-						} else {
-							// document.getElementById('num').value = user.phoneNumber;
-						}
+						document.getElementById('x').value = x;
+						
+						
+						
 					} else {
-						//window.alert("No User");
+						
 					}
 				});
 			}
 			window.onload = initApp();
 		</script>
 
-		<script>
-			function Add() {
-				var db = firebase.firestore();
-				firebase.auth().onAuthStateChanged(function(user) {
-					if (user) {
-						console.log(user);
-						var x = user.email;
-						window.alert(x);
-						var sch = db.collection('category');
-						var ob = {
-							categories: document.getElementById('cat_name')
-								.value,
-							limit: document.getElementById('cat_limit').value
-						};
-						window.alert(ob.limit);
-						db.collection('category');
-						sch.doc(x)
-							//.update("categories","array-contains",ob.categories)
-							.set(
-								{
-									sharedWith: [
-										{
-											categories: ob.categories,
-											limit: ob.limit
-										},
-										{ categories: 'SHopping', limit: '700' }
-									]
-								},
-								{ merge: true }
-							) //dynamic and static categories
-							.then(function() {
-								window.alert('Done');
-								console.log('Document successfully written!');
-							})
-							.catch(function(error) {
-								console.error(
-									'Error writing document: ',
-									error
-								);
-							});
-						window.alert('Profile Updated');
-					}
-					//window.alert("Hello");
-				});
-			}
-		</script>
-		<% include meta.ejs %>
-	</head>
+<body>
+	<div class="row">
+		<div class="col-md-2 blue">
+			<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
+		</div>
+		<div class="col-md-6 blue">
+			<h4 align="left" id="x1">
+				<a href="/profile">TrackeX</a>
+			</h4>
+			<h5 align="left">Have Expense your way!!!</h5>
+			<h6 id="x"></h6>
+		</div>
 
-	<body>
-		<div class="row">
-			<div class="col-md-2 blue">
-				<img src="img/logo2.png" height="100px" width="100px" id="img1"
-				margin-left: "10px" />
-			</div>
-			<div class="col-md-6 blue">
-				<h4 align="left" id="x1">
-					<a href="/profile">TrackeX</a>
-				</h4>
-				<h5 align="left">Have Expense your way!</h5>
-				<h6 id="x">%x%</h6>
-			</div>
-
-			<div class="col-md-4 blue1">
-				<button
-					type="button"
-					class="btn btn-outline-info"
-					onclick="signOut()"
-				>
-					Log Out
+		<div class="col-md-4 blue1">
+			<button type="button" class="btn btn-outline-info" onclick="signOut()">
+				Log Out
+			</button>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="sidenav">
+			<a href="/profile" id="pro">
+				<button class="btn btn-danger btn-lg">Profile</button>
+			</a>
+			<a onclick="initApp()">
+				<button class="btn btn-primary btn-lg">Settings</button>
+			</a>
+			<a href="/showana">
+				<button class="btn btn-warning btn-lg">
+					Show Analysis
 				</button>
 			</div>
 		</div>
@@ -169,17 +109,25 @@
 				>
 					+ Add Category
 				</button>
+				<button type="button" id="del" class="btn btn-danger" style="margin-top: 18px" onclick="openDelForm()">
+					- Delete Category
+				</button>
 			</div>
 		</div>
 		<br />
 		<div class="row" id="myrow1">
-			<!-- put a for loop for the no. of details in the db... refer home.ejs..but tht is mongodb xD-->
+			
+            
+			<% for(var i=0;i<Object.keys(obj).length;i++) { 
+				 %>
+				
+				
 			<div class="col-xs-18 col-sm-6 col-md-3">
 				<div class="thumbnail">
-					<!-- choose any 1 from these 2-->
-					<img src="img/newgreen2.png" />
-					<div class="centered"><h4 id="cat_head"></h4></div>
-					<!-- category name & details should come from db-->
+					
+					<img src="img/newgreen2.PNG" />
+					<div class="centered"><h4 id="cat_head"><%= obj[i] %></h4></div>
+					
 					<div class="caption">
 						<p>
 							Limit:
@@ -196,33 +144,28 @@
 						>
 							View Shops
 						</button>
+						
 					</div>
 				</div>
 			</div>
 
-			<div class="col-xs-18 col-sm-6 col-md-3">
-				<div class="thumbnail">
-					<img src="img/green.png" />
-					<div class="centered">Category</div>
-					<!-- category name & details should come from db-->
-					<div class="caption">
-						<p>
-							Limit: 200<br />
-							Usage % : 20% <br />
-						</p>
-						<br />
-						<button
-							type="button"
-							class="btn"
-							style="margin-top: 18px"
-							onclick="openshop()"
-						>
-							View Shops
-						</button>
-					</div>
-				</div>
-			</div>
+			<% }%>
+			
 		</div>
+
+		<h2 style="margin-top:100px;">Message Pattern</h2></br>
+		<div class="row" style="margin-left:150px;" >
+			<div class="col-md-4 " style="border: 3px solid green; margin-right:100px; height:450px; padding:50px; ">
+				 <p>Transaction:</p></br>
+				 <p>Rs.(money)</br> debited from ATM card</br>Date:(date)</br>Main charge in your account: Rs(amount)</br>Thankyou for using our services!</p>
+			</div>
+			<div class="col-md-4 " style="border: 3px solid green; height:450px; padding:50px;">
+				<p>Payment:</p>
+				<p>Rs.(money)</br> debited from ATM card</br>Date:(date)</br>Main charge in your account: Rs(current)</br>Amount after payment:Rs.(amount)</br>Thankyou for using our services,</br>Hope you had a good experience!</br> </p>
+			</div>
+			
+	   </div>
+	   
 		<div class="form-popup" id="myForm">
 			<form action="#" class="modal-content">
 				<h1>Add new Category</h1>
@@ -260,6 +203,26 @@
 			</form>
 		</div>
 
+		<div class="form-popup" id="delcategory">
+			<div class="modal-content">
+				<h1>Remove Category</h1>
+				<select id="del_cat" type="text">
+					<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+							<option><%= obj[i] %></option>
+					<% } %>
+				</select>
+					
+				<button type="button" class="btn btn-danger" style="margin-top:20px" onclick="remove()">
+					Remove
+				</button>
+				<button type="button" class="btn btn-success" style="margin-top:20px" onclick="closeDelForm()">
+					Cancel
+				</button>
+			
+			</div>
+			
+		</div>
+
 		<div class="form-popup" id="myshop">
 			<div class="modal-content">
 				<h2>Shops</h2>
@@ -274,6 +237,9 @@
 			</div>
 		</div>
 
+		<form id="hi" name="justname" style="visibility: hidden;">
+			<input name="qwe" id="qwe">
+		</form>
 		<script>
 			function openForm() {
 				document.getElementById('myForm').style.display = 'block';
@@ -287,52 +253,121 @@
 			function closeshop() {
 				document.getElementById('myshop').style.display = 'none';
 			}
-			function Addcategory() {
-				var sch = db.collection('category').doc(usingname);
-				firebase.auth().onAuthStateChanged(function(user) {
-					if (user) {
-						console.log(user);
-						//var x = user.email;
-						//window.alert(x);
-						//console.log(x);
-						var x = document.getElementById('x').value;
-						var sch = db.collection('category').doc(x);
-						//console.log(sch.username);
-						sch.get().then(doc => {
-							if (doc.exists) {
-								var ob = {
-									categories: document.getElementById(
-										'cat_add'
-									).value
-								};
-								return sch
-									.update(ob)
-									.then(function() {
-										window.alert('Profile Updated');
-										//db.collection("sign").doc(usingname).update(ob);
-										console.log('Success');
-										//res.redirect('/login'); .update()
-										//document.getElementById('uname').value
-									})
-									.catch(function(err) {
-										console.log(err);
-									});
-							} else {
-								var ob = {
-									categories: document.getElementById(
-										'cat_add'
-									).value
-								};
-								db.collection('category')
-									.doc(usingname)
-									.set(ob);
-								window.alert('Profile Updated');
-								//console.log(ob.name);
-							}
-						});
-					}
-				});
+
+			function openDelForm(){
+				document.getElementById('delcategory').style.display='block';
 			}
+			function closeDelForm(){
+				document.getElementById('delcategory').style.display='none';
+			}
+
+			function Addcategory() {
+
+				var k = document.getElementById('cat_name').value;
+				if (!(k.match('^[a-zA-Z]*$'))){
+					window.alert('Enter valid category name.');
+					window.alert('Not updated');
+					document.getElementById('myForm').style.display = 'none';
+					return;
+				}
+				var checklim = document.getElementById('cat_limit').value;
+				if (!(checklim.match('^[0-9]*$')&& checklim>0 && checklim.length>2)){
+					window.alert('Enter valid category limit');
+					window.alert('Not updated');
+					document.getElementById('myForm').style.display = 'none';
+					return;
+				}
+				
+				var db = firebase.firestore();
+				var user = firebase.auth().currentUser;
+				if (user) {
+
+
+					console.log(user);
+					var x = user.email;
+					var c = document.getElementById('cat_name').value;
+					var sch = db.collection('sign').doc(x).collection('categories');
+
+
+					var xyz = sch.doc(c);
+					
+					xyz.get().then(doc => {
+						
+						if (doc.exists) {
+							window.alert("Category exits");
+							document.getElementById('myForm').style.display = 'none';
+						}
+						else {
+						
+							var ob = {
+								current: 0,
+								limit: document.getElementById('cat_limit').value
+
+							};
+							xyz.set(ob)
+								.then(function () {
+									
+									window.alert("Category successfully added!");
+									document.getElementById('myForm').style.display = 'none';
+									$("#hi").submit();
+									
+								})
+								.catch(function (error) {
+									console.log("Error writing document: ", error);
+								});
+						}
+					}).catch(err => {
+						window.alert(err);
+					})
+				}
+
+				else {
+					window.alert("User not found");
+
+				}
+				}
+
+				function remove(){
+				
+				var db = firebase.firestore();
+				var user = firebase.auth().currentUser;
+				if (user) {
+
+					
+					 var x = user.email;
+					 var c = document.getElementById('del_cat').value;
+					 var sch = db.collection('sign').doc(x).collection('categories');
+					
+					
+					 var xyz = sch.doc(c);
+									
+
+					xyz.get().then(doc => {
+					if (doc.exists) {
+							xyz.delete().then(function() {
+	window.alert("Document successfully deleted!");
+	window.location.reload('/settings');
+	
+}).catch(function(error) {
+    window.alert("Error removing document: ", error);
+});
+
+						}
+						else {
+							window.alert("category doesn't exist");
+							
+						}
+					}).catch(err => {
+						window.alert(err);
+					})
+					
+				}
+
+				
+			}
+
+			
+				
 		</script>
 	</body>
 </html>

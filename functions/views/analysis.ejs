@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<% include meta.ejs %>
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/profile.css" />
+		<title></title>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		<script>
+			function signOut() {
+				firebase.auth().signOut();
+				window.location = '/';
+			}
+		</script>
+		<script>
+			function initApp() {
+				var db = firebase.firestore();
+				firebase.auth().onAuthStateChanged(function (user) {
+					if (user) {
+						document.getElementById('qwe').value = user.email;
+					}
+				});
+			}
+			window.onload = initApp();
+			</script>
+
+<script>
+	function senddata() {
+		$("#hi").submit();
+	}
+</script>
+
+		<body>
+			<div class="row">
+				<div class="col-md-2 blue">
+					<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
+				</div>
+				<div class="col-md-6 blue">
+					<h4 align="left" id="x1">
+						<a href="/profi1le">TrackeX</a>
+					</h4>
+					<h5 align="left">Have Expense your way!!!</h5>
+					<h6 id="x"></h6>
+				</div>
+
+				<div class="col-md-4 blue1">
+					<button type="button" class="btn btn-outline-info" onclick="signOut()">
+						Log Out
+					</button>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="sidenav">
+					<a href="/profile" id="pro">
+						<button class="btn btn-danger btn-lg">Profile</button>
+					</a>
+					<a>
+						<button class="btn btn-primary btn-lg" onclick="senddata()">Settings</button>
+					</a>
+					<a href="#">
+						<button class="btn btn-warning btn-lg">
+							Show Analysis
+						</button>
+					</a>
+				</div>
+			</div>
+
+
+			<div class="container" align="center" margin-top: "100px" style="margin-left: 200px;">
+				<br />
+				<div class="row">
+					<div class="col-md-2">
+						<h3>Categories</h3>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="top1">
+
+						<h4>From :</h4>
+						<select id="from" name="month" type="date">
+
+							<option>January</option>
+							<option>February</option>
+							<option>March</option>
+							<option>April</option>
+							<option>May</option>
+							<option>June</option>
+							<option>July</option>
+							<option>August</option>
+							<option>September</option>
+							<option>October</option>
+							<option>November</option>
+							<option>December</option>
+
+
+
+						</select>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="top1">
+
+
+						<h4>To :</h4>
+						<select id="from" name="month" type="date">
+
+							<option>January</option>
+							<option>February</option>
+							<option>March</option>
+							<option>April</option>
+							<option>May</option>
+							<option>June</option>
+							<option>July</option>
+							<option>August</option>
+							<option>September</option>
+							<option>October</option>
+							<option>November</option>
+							<option>December</option>
+
+
+
+						</select>
+					</div>
+
+				</div>
+			</div>
+			<form id="hi" name="justname" action="/setting">
+				<input name="qwe" id="qwe" class="hidden">
+
+			</form>
+		</body>
+</head>
+
+</html>

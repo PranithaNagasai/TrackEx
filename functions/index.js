@@ -53,6 +53,23 @@ app.get('/pwd', (req, res) => {
 	res.render('pwd');
 });
 
+app.get('/showana', (req, res) => {
+	res.render('showanalysis');
+});
+
+app.get('/analysis', (req, res) => {
+	res.render('analysis');
+});
+
+app.get('/graph', (req, res) => {
+	res.render('graph');
+});
+
+app.get('/transaction', (req, res) => {
+	res.render('transaction');
+});
+
+
 app.get('/setting', (req, res) => {
 	res.render('setting');
 });
