@@ -24,7 +24,8 @@
 			var db = firebase.firestore();
 			firebase.auth().onAuthStateChanged(function (user) {
 				if (user) {
-                    document.getElementById('qwe').value = user.email;
+					document.getElementById('qwe').value = user.email;
+					document.getElementById('qwe2').value = user.email;
                 }
             });
         }
@@ -33,6 +34,10 @@
 <script>
     function senddata() {
         $("#hi").submit();
+	}
+	
+	function senddata2() {
+        $("#by").submit();
     }
 </script>
 
@@ -62,9 +67,9 @@
 				<button class="btn btn-danger btn-lg">Profile</button>
 			</a>
 			<a>
-				<button class="btn btn-primary btn-lg" onclick="senddata()">Settings</button>
+				<button class="btn btn-primary btn-lg" onclick="senddata2()">Settings</button>
 			</a>
-			<a href="#">
+			<a >
 				<button class="btn btn-warning btn-lg">
 					Show Analysis
 				</button>
@@ -89,7 +94,9 @@
                 </div>
                 <form id="hi" name="justname" action="/transaction">
 					<input name="qwe" id="qwe" class="hidden">
-
+				</form>
+				<form id="by" name="justname" action="/setting">
+					<input name="qwe" id="qwe2" class="hidden">
 				</form>
 			</body>
 		</head>
