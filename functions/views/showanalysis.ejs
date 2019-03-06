@@ -35,8 +35,14 @@
     function senddata() {
         $("#hi").submit();
 	}
+<<<<<<< HEAD
 	function senddata2() {
         $("#hi2").submit();
+=======
+	
+	function senddata2() {
+        $("#by").submit();
+>>>>>>> d24c9fd84e13e000e31bdba0928262b061a301b9
     }
 </script>
 
@@ -66,9 +72,9 @@
 				<button class="btn btn-danger btn-lg">Profile</button>
 			</a>
 			<a>
-				<button class="btn btn-primary btn-lg" onclick="senddata()">Settings</button>
+				<button class="btn btn-primary btn-lg" onclick="senddata2()">Settings</button>
 			</a>
-			<a href="#">
+			<a >
 				<button class="btn btn-warning btn-lg">
 					Show Analysis
 				</button>
@@ -93,7 +99,9 @@
                 </div>
                 <form id="hi" name="justname" action="/transaction">
 					<input name="qwe" id="qwe" class="hidden">
-
+				</form>
+				<form id="by" name="justname" action="/setting">
+					<input name="qwe" id="qwe2" class="hidden">
 				</form>
 				<form id="hi2" name="justname" action="/graph">
 					<input name="qwe" id="qwe2" class="hidden">
