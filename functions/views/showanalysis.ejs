@@ -27,6 +27,7 @@
 					document.getElementById('qwe').value = user.email;
 					document.getElementById('qwe2').value = user.email;
 					document.getElementById('qwe3').value = user.email;
+					document.getElementById('qwe4').value = user.email;
                 }
             });
         }
@@ -36,12 +37,16 @@
     function senddata() {
         $("#hi").submit();
 	}
+
 	
 	function senddata2() {
         $("#hi2").submit();
 	}
 	function senddata3() {
         $("#hi3").submit();
+	}
+	function senddata4() {
+        $("#hi4").submit();
     }
 </script>
 
@@ -90,7 +95,7 @@
 					</a>
 
 					<a>
-						<button type="submit" class="btn btn-success">Graphical View</button>
+						<button type="submit" class="btn btn-success" onclick="senddata4()">Graphical View</button>
 					</a>
 					
 						<button type="submit" class="btn btn-success" onclick="senddata()">Transactions</button>
@@ -104,6 +109,9 @@
 				</form>
 				<form id="hi3" name="justname" action="/analysis">
 					<input name="qwe" id="qwe3" class="hidden">
+				<form id="hi4" name="justname" action="/graph">
+					<input name="qwe" id="qwe4" class="hidden">
+
 				</form>
 			</body>
 		</head>
