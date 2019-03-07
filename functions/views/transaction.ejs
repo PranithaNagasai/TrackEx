@@ -2,366 +2,449 @@
 <html>
 
 <head>
-  <% include meta.ejs %>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="css/x.css" />
-    <title></title>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="/__/firebase/5.8.2/firebase-app.js"></script>
-    <script src="/__/firebase/5.8.2/firebase-auth.js"></script>
-    <script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
-    <script src="/__/firebase/init.js"></script>
-    <script>
-      function signOut() {
-        firebase.auth().signOut();
-        window.location = '/';
-      }
-        </script>
-        <script>
-          
-            function initApp() {
-                var db = firebase.firestore();
-                firebase.auth().onAuthStateChanged(function (user) {
-                    if (user) {
-            document.getElementById('qwe').value = user.email;
-            document.getElementById('qwe2').value = user.email;
-                    }
-                });
-            }
-            window.onload = initApp();
-            </script>
-            
-            <script>
-              var i=0;
-            function submitAdd(){
-              var k = document.getElementById('shop_name').value;
-        if (!(k.match('^[a-zA-Z]*$'))){
-          window.alert('Enter valid shop name.');
-          window.alert('Not updated');
-          document.getElementById('myForm').style.display = 'none';
-          return;
-        }
-        var checklim = document.getElementById('shop_amt').value;
-        if (!(checklim.match('^[0-9]*$')&& checklim>0 && checklim.length>2)){
-          window.alert('Enter valid amount');
-          window.alert('Not updated');
-          document.getElementById('myForm').style.display = 'none';
-          return;
-        }
-        var checkcat=document.getElementById('myCat').value;
-        
-        var db = firebase.firestore();
-        var user = firebase.auth().currentUser;
-        //var time = firebase.database.ServerValue.TIMESTAMP;
-        //console.log(time);
-        if (user) {
-            //window.alert('1');
+	<% include meta.ejs %>
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/x.css" />
+		<title></title>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		<script>
+			function signOut() {
+				firebase.auth().signOut();
+				window.location = '/';
+			}
+		</script>
+		<script>
 
-          console.log(user);
-          var x = user.email;
-          var c = checkcat;
-          var sch = db.collection('sign').doc(x).collection('transaction');
-         // window.alert('2');
+			function initApp() {
+				var db = firebase.firestore();
+				firebase.auth().onAuthStateChanged(function (user) {
+					if (user) {
+						document.getElementById('qwe').value = user.email;
+						document.getElementById('qwe2').value = user.email;
+					}
+				});
+			}
+			window.onload = initApp();
+		</script>
 
-          var xyz = sch.doc(c);
-          console.log(c);
-          //window.alert('3');
-          xyz.get().then(doc => {
-            //window.alert('311111');
-            if (doc.exists) {
-              //window.alert('3222');
-            var mytran = "tran"+i;
-              //console.log("hell"+doc.data());
-            //window.alert('4');
-            var obj = {
-              [mytran]:{
-                name:document.getElementById('shop_name').value,
-                amount:document.getElementById('shop_amt').value,
-                create:new Date()
-              }
-            };
-            //window.alert('5');
-            //window.alert(obj);
-            //console.log(obj);
-            xyz.set(obj)
-            .then(function(){
-              window.alert("Transaction successfully added!");
-              i++;
-            //  document.getElementById('myForm').style.display = 'none';
-              $("#hi").submit();
-            })
-            .catch(function(error){
-              console.log("Error writing document",error);
-            });
-            }
-            else {
-            
-              var ob = {
-                current: 0,
-                limit: document.getElementById('cat_limit').value
+		<script>
+			var i = 0;
+			function submitAdd() {
+				var k = document.getElementById('shop_name').value;
+				if (!(k.match('^[a-zA-Z]*$'))) {
+					window.alert('Enter valid shop name.');
+					window.alert('Not updated');
+					document.getElementById('myForm').style.display = 'none';
+					return;
+				}
+				var checklim = document.getElementById('shop_amt').value;
+				if (!(checklim.match('^[0-9]*$') && checklim > 0 && checklim.length > 2)) {
+					window.alert('Enter valid amount');
+					window.alert('Not updated');
+					document.getElementById('myForm').style.display = 'none';
+					return;
+				}
+				var checkcat = document.getElementById('myCat').value;
 
-              };
-              xyz.set(ob)
-                .then(function () {
-                  
-                  window.alert("Category successfully added!");
-                  document.getElementById('myForm').style.display = 'none';
-                  $("#hi").submit();
-                  
-                })
-                .catch(function (error) {
-                  console.log("Error writing document: ", error);
-                });
-            }
-          }).catch(err => {
-            window.alert(err);
-          })
-        }
+				var db = firebase.firestore();
+				var user = firebase.auth().currentUser;
+				//var time = firebase.database.ServerValue.TIMESTAMP;
+				//console.log(time);
+				if (user) {
+					//window.alert('1');
 
-        else {
-          window.alert("User not found");
+					console.log(user);
+					var x = user.email;
+					var c = checkcat;
+					var sch = db.collection('sign').doc(x).collection('transaction');
+					// window.alert('2');
 
-        }
-        
-      }
-            </script>
+					var xyz = sch.doc(c);
+					console.log(c);
+					//window.alert('3');
+					xyz.get().then(doc => {
+						//window.alert('311111');
+						if (doc.exists) {
+							//window.alert('3222');
+							var mytran = "tran" + i;
+							//console.log("hell"+doc.data());
+							//window.alert('4');
+							var obj = {
+								[mytran]: {
+									name: document.getElementById('shop_name').value,
+									amount: document.getElementById('shop_amt').value,
+									create: new Date()
+								}
+							};
+							//window.alert('5');
+							//window.alert(obj);
+							//console.log(obj);
+							xyz.set(obj)
+								.then(function () {
+									window.alert("Transaction successfully added!");
+									i++;
+									//  document.getElementById('myForm').style.display = 'none';
+									$("#hi").submit();
+								})
+								.catch(function (error) {
+									console.log("Error writing document", error);
+								});
+						}
+						else {
 
-<script>
-    function senddata() {
-        $("#hi").submit();
-  }
-  
-  function senddata2() {
-        $("#by").submit();
-    }
-</script>
+							var ob = {
+								current: 0,
+								limit: document.getElementById('cat_limit').value
 
-    <body>
-  <div class="row">
-    <div class="col-md-2 blue">
-      <img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
-    </div>
-    <div class="col-md-6 blue">
-      <h4 align="left" id="x1">
-        <a href="/profile">TrackeX</a>
-      </h4>
-      <h5 align="left">Have Expense your way!!!</h5>
-      <h6 id="x"></h6>
-    </div>
+							};
+							xyz.set(ob)
+								.then(function () {
 
-    <div class="col-md-4 blue1">
-      <button type="button" class="btn btn-outline-info" onclick="signOut()">
-        Log Out
-      </button>
-    </div>
-  </div>
+									window.alert("Category successfully added!");
+									document.getElementById('myForm').style.display = 'none';
+									$("#hi").submit();
 
-  <div class="col-md-3">
-    <div class="sidenav">
-      <a href="/profile" id="pro">
-        <button class="btn btn-danger btn-lg">Profile</button>
-      </a>
-      <a>
-        <button class="btn btn-primary btn-lg" onclick="senddata2()">Settings</button>
-      </a>
-      <a href="/showana">
-        <button class="btn btn-warning btn-lg">
-          Show Analysis
-        </button>
-      </a>
-    </div>
-  </div>
+								})
+								.catch(function (error) {
+									console.log("Error writing document: ", error);
+								});
+						}
+					}).catch(err => {
+						window.alert(err);
+					})
+				}
 
+				else {
+					window.alert("User not found");
 
-  <div class="container" align="center" margin-top: "100px" ;>
-    <br />
-    
-    <div class="row">
-      <div class="col-25">
-      <label for="category">Category</label>
-    </div>
-    
-    <div class="cat">
-    
-      <select id="category" name="category">
+				}
 
-        <% for(var i=0;i<Object.keys(obj).length;i++) { %>
-          <option><%= obj[i] %></option>
-      <% } %>
- 
-  
+			}
+		</script>
+
+		<script>
+			function senddata() {
+				$("#hi").submit();
+			}
+
+			function senddata2() {
+				$("#by").submit();
+			}
+		</script>
+		<style>
+			td {
+				border: 1px #DDD solid;
+				padding: 5px;
+				cursor: pointer;
+			}
+
+			.selected {
+				background-color: brown;
+				color: #FFF;
+			}
+		</style>
+
+		<body>
+			<div class="row">
+				<div class="col-md-2 blue">
+					<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
+				</div>
+				<div class="col-md-6 blue">
+					<h4 align="left" id="x1">
+						<a href="/profile">TrackeX</a>
+					</h4>
+					<h5 align="left">Have Expense your way!!!</h5>
+					<h6 id="x"></h6>
+				</div>
+
+				<div class="col-md-4 blue1">
+					<button type="button" class="btn btn-outline-info" onclick="signOut()">
+						Log Out
+					</button>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="sidenav">
+					<a href="/profile" id="pro">
+						<button class="btn btn-danger btn-lg">Profile</button>
+					</a>
+					<a>
+						<button class="btn btn-primary btn-lg" onclick="senddata2()">Settings</button>
+					</a>
+					<a href="/showana">
+						<button class="btn btn-warning btn-lg">
+							Show Analysis
+						</button>
+					</a>
+				</div>
+			</div>
 
 
-</select>
-   </div>
-   <button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openAdd()">Add Transaction</button>
-   </div>
-   <br>
-<div class="row">
-   <div class="col-25">
-        <button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openView()">
-          View transactions
-        </button>
-      </div>
-      
-<div class="col-40">
-      <button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openMove()">
-          Move transaction
-        </button>
-        </div>
-  <div class="col-80">    
+			<div class="container" align="center" margin-top: "100px" ;>
+				<br />
 
-<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openDel()">
-          Delete transaction
-        </button>
-      </div>
-    </div>
+				<div class="row">
+					<div class="col-25">
+						<label for="category">Month</label>
+					</div>
 
-    <div class="form-popup" id="myAdd">
-        <div class="modal-content">
-              <h4>Enter the details:</h4>
-              <h4>Category</h4>
-              <div class="row" >
-                <select id="myCat" style="width: 70%;
+					<div class="cat">
+
+						<select id="category" name="Month">
+							<option>January</option>
+							<option>February</option>
+							<option>March</option>
+							<option>April</option>
+							<option>May</option>
+							<option>June</option>
+							<option>July</option>
+							<option>August</option>
+							<option>September</option>
+							<option>October</option>
+							<option>November</option>
+							<option>December</option>
+						</select>
+					</div>
+					<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openAdd()">Add Transaction</button>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-25">
+						<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openView()">
+							View transactions
+						</button>
+					</div>
+
+					<div class="col-40">
+						<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openMove()">
+							Move transaction
+						</button>
+					</div>
+					<div class="col-80">
+
+						<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openDel()">
+							Delete transaction
+						</button>
+					</div>
+				</div>
+				<div class="col-md-50 table" style="margin:100px;">
+					<table style="width:80%" id="trantable">
+						<tr>
+							<th>Sr. No.</th>
+							<th>Category</th>
+							<th>Title</th>
+							<th>Amount</th>
+						</tr>
+						<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+							<tr>
+								<td><%= i+1%></td>
+								<td>
+									<%=obj[i]%>
+								</td>
+								<td>
+									<%=obj1[i].name%>
+								</td>
+								<td>
+									<%=obj1[i].amount%>
+								</td>
+							</tr>
+							<% } %>
+
+					</table>
+				</div>
+				<div class="form-popup" id="myAdd">
+					<div class="modal-content">
+						<h4>Enter the details:</h4>
+						<h4>Category</h4>
+						<div class="row">
+							<select id="myCat" style="width: 70%;
                 padding: 20px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 resize: vertical;">
-                  <% for(var i=0;i<Object.keys(obj).length;i++){ %>
-                    <option><%=obj[i] %></option>
-                    <%}%>
+								<% for(var i=0;i<Object.keys(obj).length;i++){ %>
+									<option>
+										<%=obj[i] %>
+									</option>
+									<%}%>
 
-                </select>
-              </div>
-            <div class="row"><input type="text" id="shop_name" name="shop_name" value="Title" style="width: 70%;
+							</select>
+						</div>
+						<div class="row">
+							<input type="text" id="shop_name" name="shop_name" value="Title" style="width: 70%;
               padding: 20px;
               border: 1px solid #ccc;
               border-radius: 4px;
-              resize: vertical;"></input></input>
-            </div>
-            <div class="row"><input type="text" id="shop_amt" name="myAdd" value="Amount" style="width: 70%;
+              resize: vertical;">
+
+						</div>
+						<div class="row">
+							<input type="text" id="shop_amt" name="myAdd" value="Amount" style="width: 70%;
               padding: 20px;
               border: 1px solid #ccc;
               border-radius: 4px;
-              resize: vertical;"></input></input>
-            </div>
+              resize: vertical;">
 
-                
-          <button type="button" class="btn btn-danger" onclick="closeAdd()" style="margin-top:50px;">
-              Cancel
-            </button>
-            <button type="submit" class="btn btn-success" onclick="submitAdd()" style="margin-top:50px;">
-                Submit
-              </button>
-          </div>
-        </div>
-    
-
-<div class="form-popup" id="myView">
-      <div class="modal-content">
-          <table style="width:100%">
-              <tr>
-                <th>Category</th>
-                <th>Title</th> 
-                <th>Amount</th>
-              </tr>
-              <% for(var i=0;i<Object.keys(obj).length;i++) { %>
-              <tr>
-                <td></td>
-                <td><%=obj[i]%></td> 
-                <td><%=obj1[i].amount%></td>
-              </tr>
-              <% } %>
-              
-          </table>
-        <button type="button" class="btn btn-danger" onclick="closeView()" style="margin-top:50px;">
-            Cancel
-          </button>
-        </div>
-      </div>
-      <div class="form-popup" id="myMove">
-      <div class="modal-content">
-        <h1>Move Transaction to</h1>
-        <label for="email">
-          <b>Category Name</b>
-        </label>
-        <div class="cat">
-        <select id="category" name="category">
-
-          <% for(var i=0;i<Object.keys(obj).length;i++) { %>
-            <option><%= obj[i] %></option>
-        <% } %>
-</select>
-</div>
-<div class="row" id="bu1">
-          <a onclick="Addcategory()">
-            <button type="submit" class="btn btn-success">Move</button>
-          </a>
-
-<button type="button" class="btn btn-danger" onclick="closeMove()">Cancel</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-popup" id="myDel">
-      <div class="modal-content">
-        <h1>Are you sure you want to delete?</h1>
-        <br>
-    <div class="row" id="bu1">
-          <a onclick="">
-            <button type="submit" class="btn btn-success">Yes</button>
-          </a>
-
-<button type="button" class="btn btn-danger" onclick="closeDel()">Cancel</button>
-        </div>
-    
+						</div>
 
 
-
-      </div>
-    </div>
-        <form id="hi" name="justname" action="/transaction">
-            <input name="qwe" id="qwe" class="hidden">
-
-    </form>
-    
-    <form id="by" name="justname" action="/setting">
-            <input name="qwe" id="qwe2" class="hidden">
-
-        </form>
+						<button type="button" class="btn btn-danger" onclick="closeAdd()" style="margin-top:50px;">
+							Cancel
+						</button>
+						<button type="submit" class="btn btn-success" onclick="submitAdd()" style="margin-top:50px;">
+							Submit
+						</button>
+					</div>
+				</div>
 
 
-    <script>
-      function openAdd()
-      {
-        document.getElementById('myAdd').style.display='block';
-      }
-      function closeAdd()
-      {
-        document.getElementById('myAdd').style.display='none';
-      }
-      function openView() {
-        document.getElementById('myView').style.display = 'block';
-      }
-      function closeView() {
-        document.getElementById('myView').style.display = 'none';
-      }
-      function openMove() {
-        document.getElementById('myMove').style.display = 'block';
-      }
-      function closeMove() {
-        document.getElementById('myMove').style.display = 'none';
-      }
-      function openDel() {
-        document.getElementById('myDel').style.display = 'block';
-      }
-      function closeDel() {
-        document.getElementById('myDel').style.display = 'none';
-      }
-        </script>
-        </div>
-        </body>
+				<div class="form-popup" id="myView">
+					<div class="modal-content">
+						<table style="width:100%">
+							<tr>
+								<th>Category</th>
+								<th>Title</th>
+								<th>Amount</th>
+							</tr>
+							<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+								<tr>
+									<td>
+										<%=obj[i]%>
+									</td>
+									<td>
+										<%=obj1[i].name%>
+									</td>
+									<td>
+										<%=obj1[i].amount%>
+									</td>
+								</tr>
+								<% } %>
+
+						</table>
+						<button type="button" class="btn btn-danger" onclick="closeView()" style="margin-top:50px;">
+							Cancel
+						</button>
+					</div>
+				</div>
+				<div class="form-popup" id="myMove">
+					<div class="modal-content">
+						<h1>Move Transaction to</h1>
+						<label for="email">
+							<b>Category Name</b>
+						</label>
+						<div class="cat">
+							<select id="category" name="category">
+
+								<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+									<option>
+										<%= obj[i] %>
+									</option>
+									<% } %>
+							</select>
+						</div>
+						<div class="row" id="bu1">
+							<a onclick="Addcategory()">
+								<button type="submit" class="btn btn-success">Move</button>
+							</a>
+
+							<button type="button" class="btn btn-danger" onclick="closeMove()">Cancel</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-popup" id="myDel">
+					<div class="modal-content">
+						<h1>Are you sure you want to delete?</h1>
+						<br>
+						<div class="row" id="bu1">
+							<a >
+									<input type="button" name="OK" class="ok" value="OK"/>
+								
+							</a>
+
+							<button type="button" class="btn btn-danger" onclick="closeDel()">Cancel</button>
+						</div>
+
+
+
+
+					</div>
+				</div>
+				<form id="hi" name="justname" action="/transaction">
+					<input name="qwe" id="qwe" class="hidden">
+
+				</form>
+
+				<form id="by" name="justname" action="/setting">
+					<input name="qwe" id="qwe2" class="hidden">
+
+				</form>
+
+
+				<script>
+					function openAdd() {
+						document.getElementById('myAdd').style.display = 'block';
+					}
+					function closeAdd() {
+						document.getElementById('myAdd').style.display = 'none';
+					}
+					function openView() {
+						document.getElementById('myView').style.display = 'block';
+					}
+					function closeView() {
+						document.getElementById('myView').style.display = 'none';
+					}
+					function openMove() {
+						$('.ok').on('click', function (e) {
+							alert($("#table tr.selected td:first").html());
+						});
+						document.getElementById('myMove').style.display = 'block';
+					}
+					function closeMove() {
+						document.getElementById('myMove').style.display = 'none';
+					}
+					function openDel() {
+						document.getElementById('myDel').style.display = 'block';
+					}
+					function closeDel() {
+						document.getElementById('myDel').style.display = 'none';
+					}
+					
+				</script>
+				<script>
+					var tableData;
+					$("#trantable tr").click(function () {
+
+						$(this).addClass('selected').siblings().removeClass('selected');
+                     tableData = $(this).children("td").map(function() {
+                        return $(this).text();
+                    }).get()
+                    var td=tableData[0]+'*'+tableData[1]+'*'+ tableData[2]+'*'+tableData[3];
+					alert(td);
+					
+
+						// $(this).addClass('selected').siblings().removeClass('selected');
+						// var value = $(this).find('td:first').html();
+						// alert("tran"+value);
+					});
+					
+					$('.ok').on('click', function (e) {
+						alert(tableData[1]);
+						var value =$("#trantable tr.selected td:first").html();
+						alert(value);
+					});
+
+					
+				</script>
+			</div>
+		</body>
 </head>
+
 </html>

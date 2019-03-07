@@ -122,16 +122,19 @@ app.get('/transaction', (req, res) => {
 		fields = new Array();
 		var user = req.query.qwe;
 		//console.log("\n\n\n\n", user)
-	db.collection('sign').doc(user).collection('categories')
+	db.collection('sign').doc(user).collection('transaction')
 		.get()
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
 				school[i] = childSnapshot.id;
-				fields[i] = childSnapshot.data();
+				fields[i] = childSnapshot.data().tran0;
+				//console.log(childSnapshot.data().tran0);
 				i++;
 			});
 			obj = Object.assign({}, school);
 			obj1 = Object.assign({}, fields);
+			console.log("\n\nobj\n",obj);
+			console.log("\n\nobj1\n",obj1);
 			res.render('transaction',{ obj, obj1 });
 			//return;		
 
@@ -154,11 +157,14 @@ app.get('/setting', (req, res) => {
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
 				school[i] = childSnapshot.id;
+				if(childSnapshot.data()!="undefined"){
 				fields[i] = childSnapshot.data();
+				}
 				i++;
 			});
 			obj = Object.assign({}, school);
 			obj1 = Object.assign({}, fields);
+			//console.log("\n\nobj1\n",obj1);
 			res.render('setting', { obj, obj1 });
 			//return;		
 
