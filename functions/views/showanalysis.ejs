@@ -26,6 +26,7 @@
 				if (user) {
 					document.getElementById('qwe').value = user.email;
 					document.getElementById('qwe2').value = user.email;
+					document.getElementById('qwe3').value = user.email;
                 }
             });
         }
@@ -37,7 +38,10 @@
 	}
 	
 	function senddata2() {
-        $("#by").submit();
+        $("#hi2").submit();
+	}
+	function senddata3() {
+        $("#hi3").submit();
     }
 </script>
 
@@ -81,11 +85,11 @@
 <br>
 <br>
 <div class="row" id="bu1" align="center">
-					<a href="/analysis">
-						<button type="submit" class="btn btn-success">List of categories</button>
+					<a>
+						<button type="submit" class="btn btn-success" onclick="senddata3()">List of categories</button>
 					</a>
 
-					<a href="/graph">
+					<a>
 						<button type="submit" class="btn btn-success">Graphical View</button>
 					</a>
 					
@@ -95,8 +99,11 @@
                 <form id="hi" name="justname" action="/transaction">
 					<input name="qwe" id="qwe" class="hidden">
 				</form>
-				<form id="by" name="justname" action="/setting">
+				<form id="hi2" name="justname" action="/setting">
 					<input name="qwe" id="qwe2" class="hidden">
+				</form>
+				<form id="hi3" name="justname" action="/analysis">
+					<input name="qwe" id="qwe3" class="hidden">
 				</form>
 			</body>
 		</head>
