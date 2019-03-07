@@ -76,7 +76,9 @@ app.get('/analysis', (req, res) => {
 			});
 			obj = Object.assign({}, school);
 			obj1 = Object.assign({}, fields);
+			console.log("\n\n\n",obj1);
 			res.render('analysis', { obj, obj1 });
+
 			//return;		
 
 		})
@@ -86,29 +88,29 @@ app.get('/analysis', (req, res) => {
 });
 
 app.get('/graph', (req, res) => {
-	var i = 0,j=0,
-		obj,
-		school = new Array();
-		fields = new Array();
-		var user = req.query.qwe;
-		//console.log("\n\n\n\n", user)
-	db.collection('sign').doc(user).collection('categories')
-		.get()
-		.then(querySnapshot => {
-			querySnapshot.forEach(childSnapshot => {
-				school[i] = childSnapshot.id;
-				fields[i] = childSnapshot.data();
-				i++;
-			});
-			obj = Object.assign({}, school);
-			obj1 = Object.assign({}, fields);
-			res.render('graph',{ obj, obj1 });
-			//return;		
+	// var i = 0,j=0,
+	// 	obj,
+	// 	school = new Array();
+	// 	fields = new Array();
+	// 	var user = req.query.qwe;
+	// 	//console.log("\n\n\n\n", user)
+	// db.collection('sign').doc(user).collection('categories')
+	// 	.get()
+	// 	.then(querySnapshot => {
+	// 		querySnapshot.forEach(childSnapshot => {
+	// 			school[i] = childSnapshot.id;
+	// 			fields[i] = childSnapshot.data();
+	// 			i++;
+	// 		});
+	// 		obj = Object.assign({}, school);
+	// 		obj1 = Object.assign({}, fields);
+	// 		res.render('graph',{ obj, obj1 });
+	// 		//return;		
 
-		})
-		.catch(err => {
-			console.log(err);
-		});
+	// 	})
+	// 	.catch(err => {
+	// 		console.log(err);
+	// 	});
 
 	res.render('graph');
 });

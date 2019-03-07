@@ -73,7 +73,7 @@
 			<a>
 				<button class="btn btn-primary btn-lg" onclick="senddata()">Settings</button>
 			</a>
-			<a href="#">
+			<a href="/showana">
 				<button class="btn btn-warning btn-lg">
 					Show Analysis
 				</button>
@@ -141,17 +141,21 @@
 		</div>
 
 		<div class="col-md-4 catdisplay">
+			
 			<ul>
-				<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+				<% for(var i=0;i<Object.keys(obj).length;i++) {  %>
+					
 				<li><%= obj[i] %></li>
 				<% } %>
 			</ul>
 		</div>
 	</div>
+	
 	<form id="hi" name="justname" action="/setting">
 		<input name="qwe" id="qwe" class="hidden">
 
 	</form>
+	
 </body>
 
 
