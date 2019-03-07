@@ -133,8 +133,8 @@ app.get('/transaction', (req, res) => {
 			});
 			obj = Object.assign({}, school);
 			obj1 = Object.assign({}, fields);
-			console.log("\n\nobj\n",obj);
-			console.log("\n\nobj1\n",obj1);
+			//console.log("\n\nobj\n",obj);
+			//console.log("\n\nobj1\n",obj1);
 			res.render('transaction',{ obj, obj1 });
 			//return;		
 
