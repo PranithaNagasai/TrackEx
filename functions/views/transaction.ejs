@@ -72,11 +72,11 @@
 								},
 								pointer: i
 							};
-							xyz.set(obj)
+							xyz.set(obj, {merge: true})
 								.then(function () {
 									window.alert("Transaction successfully added!");
 									yId('myForm').style.display = 'none';
-									$("#hi").submit();
+									window.location.reload('/transaction');
 								})
 								.catch(function (error) {
 									console.log("Error writing document", error);
@@ -228,21 +228,24 @@
 							<th>Title</th>
 							<th>Amount</th>
 						</tr>
-						<% if (obj1) { %>
+						
 						<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+								
 							<tr>
 								<td><%= i+1%></td>
 								<td>
 									<%=obj[i]%>
 								</td>
+								<% if (obj1[i]) { %>
 								<td>
 									<%=obj1[i].name%>
 								</td>
 								<td>
 									<%=obj1[i].amount%>
 								</td>
+								
 							</tr>
-							<% } %>
+							
 							<% } %>
 
 					</table>
@@ -302,6 +305,7 @@
 								<th>Amount</th>
 							</tr>
 							<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+									<% if (obj1[i]) { %>
 								<tr>
 									<td>
 										<%=obj[i]%>
@@ -313,6 +317,7 @@
 										<%=obj1[i].amount%>
 									</td>
 								</tr>
+								<% } %>
 								<% } %>
 
 						</table>

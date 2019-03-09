@@ -114,25 +114,6 @@ app.get('/graph', (req, res) => {
 
 	res.render('graph');
 });
-function getCategory(user) {
-	console.log('\n\nUser is\n',user);
-	var i = 0,
-		obj,
-		categories = new Array();
-	db.collection('sign').doc(user).collection('categories')
-.get()
-.then(querySnapshot => {
-	querySnapshot.forEach(childSnapshot => {
-		categories[i] = childSnapshot.id;
-		i++;
-	});
-	obj = Object.assign({}, categories);
-	return obj;
-})
-.catch(err => {
-	console.log(err);
-});
-}
 
 app.get('/transaction', (req, res) => {
 	var i = 0,
@@ -145,14 +126,14 @@ app.get('/transaction', (req, res) => {
 			querySnapshot.forEach(childSnapshot => {
 				var tran = 'tran' + i;
 				console.log('\n\n\n', tran);
+				categories[i] = childSnapshot.id;
 				transactions[i] = childSnapshot.data()[tran];
 				i++;
 			});
-			var user = req.query.qwe;
-			console.log('\n\nCategory is\n',getCategory(user));
-			obj = getCategory(user);
-			
+			obj = Object.assign({}, categories);
 			obj1 = Object.assign({}, transactions);
+			console.log('\n\nobj is', obj);
+			console.log('\n\nobj1 is', obj1);
 			res.render('transaction',{ obj, obj1 });
 		})
 		.catch(err => {
