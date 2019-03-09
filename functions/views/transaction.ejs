@@ -34,7 +34,6 @@
 		</script>
 
 		<script>
-			var i = 0;
 			function submitAdd() {
 				var k = document.getElementById('shop_name').value;
 				if (!(k.match('^[a-zA-Z]*$'))) {
@@ -54,42 +53,29 @@
 
 				var db = firebase.firestore();
 				var user = firebase.auth().currentUser;
-				//var time = firebase.database.ServerValue.TIMESTAMP;
-				//console.log(time);
 				if (user) {
-					//window.alert('1');
-
 					console.log(user);
 					var x = user.email;
 					var c = checkcat;
 					var sch = db.collection('sign').doc(x).collection('transaction');
-					// window.alert('2');
-
 					var xyz = sch.doc(c);
-					console.log(c);
-					//window.alert('3');
 					xyz.get().then(doc => {
-						//window.alert('311111');
 						if (doc.exists) {
-							//window.alert('3222');
-							var mytran = "tran" + i;
-							//console.log("hell"+doc.data());
-							//window.alert('4');
+							var i = doc.data().pointer;
+							var mytran = "tran"+i ;
+							i++;
 							var obj = {
 								[mytran]: {
 									name: document.getElementById('shop_name').value,
 									amount: document.getElementById('shop_amt').value,
 									create: new Date()
-								}
+								},
+								pointer: i
 							};
-							//window.alert('5');
-							//window.alert(obj);
-							//console.log(obj);
 							xyz.set(obj)
 								.then(function () {
 									window.alert("Transaction successfully added!");
-									i++;
-									//  document.getElementById('myForm').style.display = 'none';
+									yId('myForm').style.display = 'none';
 									$("#hi").submit();
 								})
 								.catch(function (error) {
@@ -242,6 +228,7 @@
 							<th>Title</th>
 							<th>Amount</th>
 						</tr>
+						<% if (obj1) { %>
 						<% for(var i=0;i<Object.keys(obj).length;i++) { %>
 							<tr>
 								<td><%= i+1%></td>
@@ -255,6 +242,7 @@
 									<%=obj1[i].amount%>
 								</td>
 							</tr>
+							<% } %>
 							<% } %>
 
 					</table>

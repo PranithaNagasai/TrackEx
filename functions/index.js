@@ -114,30 +114,46 @@ app.get('/graph', (req, res) => {
 
 	res.render('graph');
 });
+function getCategory(user) {
+	console.log('\n\nUser is\n',user);
+	var i = 0,
+		obj,
+		categories = new Array();
+	db.collection('sign').doc(user).collection('categories')
+.get()
+.then(querySnapshot => {
+	querySnapshot.forEach(childSnapshot => {
+		categories[i] = childSnapshot.id;
+		i++;
+	});
+	obj = Object.assign({}, categories);
+	return obj;
+})
+.catch(err => {
+	console.log(err);
+});
+}
 
 app.get('/transaction', (req, res) => {
-	var i = 0,j=0,
-		obj,
-		school = new Array();
-		fields = new Array();
-		var user = req.query.qwe;
-		//console.log("\n\n\n\n", user)
-	db.collection('sign').doc(user).collection('transaction')
+	var i = 0,
+		obj, obj1,
+		categories = new Array(),
+		transactions = new Array();
+	db.collection('sign').doc(req.query.qwe).collection('transaction')
 		.get()
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
-				school[i] = childSnapshot.id;
-				fields[i] = childSnapshot.data().tran0;
-				//console.log(childSnapshot.data().tran0);
+				var tran = 'tran' + i;
+				console.log('\n\n\n', tran);
+				transactions[i] = childSnapshot.data()[tran];
 				i++;
 			});
-			obj = Object.assign({}, school);
-			obj1 = Object.assign({}, fields);
-			//console.log("\n\nobj\n",obj);
-			//console.log("\n\nobj1\n",obj1);
+			var user = req.query.qwe;
+			console.log('\n\nCategory is\n',getCategory(user));
+			obj = getCategory(user);
+			
+			obj1 = Object.assign({}, transactions);
 			res.render('transaction',{ obj, obj1 });
-			//return;		
-
 		})
 		.catch(err => {
 			console.log(err);

@@ -272,46 +272,12 @@
 							};
 							xyz.set(ob)
 								.then(function () {
-
-									window.alert("Category successfully added!");
 									document.getElementById('myForm').style.display = 'none';
 									$("#hi").submit();
 
 								})
 								.catch(function (error) {
-									console.log("Error writing document: ", error);
-								});
-						}
-					}).catch(err => {
-						window.alert(err);
-					})
-
-					var sch2 = db.collection('sign').doc(x).collection('transaction');
-
-
-					var xyz2 = sch2.doc(c);
-
-					xyz2.get().then(doc => {
-
-						if (doc.exists) {
-							//window.alert("Category exits");
-							document.getElementById('myForm').style.display = 'none';
-						}
-						else {
-
-							var ob = {
-								date: new Date()
-							};
-							xyz2.set(ob)
-								.then(function () {
-
-									//window.alert("trans successfully added!");
-									document.getElementById('myForm').style.display = 'none';
-									//$("#hi").submit();
-
-								})
-								.catch(function (error) {
-									console.log("Error writing document: ", error);
+									window.alert("Error writing document: ", error);
 								});
 						}
 					}).catch(err => {
@@ -358,6 +324,30 @@
 					}).catch(err => {
 						window.alert(err);
 					})
+
+					var sch1 = db.collection('sign').doc(x).collection('transaction');
+
+
+					var xyz1= sch1.doc(c);	
+					xyz1.get().then(doc => {
+						if (doc.exists) {
+							xyz1.delete().then(function () {
+								window.alert("Document successfully deleted from transaction!");
+								window.location.reload('/settings');
+
+							}).catch(function (error) {
+								window.alert("Error removing document: ", error);
+							});
+
+						}
+						else {
+							window.alert("category doesn't exist");
+
+						}
+					}).catch(err => {
+						window.alert(err);
+					})
+
 
 				}
 
