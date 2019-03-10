@@ -58,29 +58,71 @@ app.get('/showana', (req, res) => {
 });
 
 app.get('/analysis', (req, res) => {
-
-
-	var i = 0,j=0,obj1,
+	var i = 0,
+		j = 0,
+		obj1,
 		obj,
 		school = new Array(),
 		fields = new Array();
-		var user = req.query.qwe;
-		//console.log("\n\n\n\n", user)
-	db.collection('sign').doc(user).collection('categories')
+	var user = req.query.qwe;
+	//console.log("\n\n\n\n", user)
+	db.collection('sign')
+		.doc(user)
+		.collection('categories')
 		.get()
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
 				school[i] = childSnapshot.id;
 				fields[i] = childSnapshot.data();
+				console.log(
+					'\ndate\n',
+					childSnapshot.data().date.substring(4, 7)
+				);
 				i++;
 			});
 			obj = Object.assign({}, school);
 			obj1 = Object.assign({}, fields);
-			console.log("\n\n\n",obj1);
+			console.log('\n\n\n', obj1);
 			res.render('analysis', { obj, obj1 });
 
-			//return;		
+			//return;
+		})
+		.catch(err => {
+			console.log(err);
+		});
+});
 
+app.get('/month', (req, res) => {
+	var mymon = req.query.mon;
+	console.log('\nmymon\n', mymon);
+	var i = 0,
+		j = 0,
+		obj1,
+		obj,
+		school = new Array(),
+		fields = new Array();
+	var user = req.query.qwenew;
+	//console.log("\n\n\n\n", user)
+	db.collection('sign')
+		.doc(user)
+		.collection('categories')
+		.get()
+		.then(querySnapshot => {
+			querySnapshot.forEach(childSnapshot => {
+				if (childSnapshot.data().date.substring(4, 7) == mymon) {
+					console.log('\n\nhere');
+					school[i] = childSnapshot.id;
+					fields[i] = childSnapshot.data();
+					//console.log("\ndate\n",childSnapshot.data().date.substring(4,7))
+					i++;
+				}
+			});
+			obj = Object.assign({}, school);
+			obj1 = Object.assign({}, fields);
+			console.log('\n\n\n', obj1);
+			res.render('analysis', { obj, obj1 });
+
+			//return;
 		})
 		.catch(err => {
 			console.log(err);
@@ -105,7 +147,7 @@ app.get('/graph', (req, res) => {
 	// 		obj = Object.assign({}, school);
 	// 		obj1 = Object.assign({}, fields);
 	// 		res.render('graph',{ obj, obj1 });
-	// 		//return;		
+	// 		//return;
 
 	// 	})
 	// 	.catch(err => {
@@ -114,67 +156,57 @@ app.get('/graph', (req, res) => {
 
 	res.render('graph');
 });
-function getCategory(user) {
-	console.log('\n\nUser is\n',user);
-	var i = 0,
-		obj,
-		categories = new Array();
-	db.collection('sign').doc(user).collection('categories')
-.get()
-.then(querySnapshot => {
-	querySnapshot.forEach(childSnapshot => {
-		categories[i] = childSnapshot.id;
-		i++;
-	});
-	obj = Object.assign({}, categories);
-	return obj;
-})
-.catch(err => {
-	console.log(err);
-});
-}
 
 app.get('/transaction', (req, res) => {
 	var i = 0,
-		obj, obj1,
+		obj,
+		obj1,
 		categories = new Array(),
 		transactions = new Array();
-	db.collection('sign').doc(req.query.qwe).collection('transaction')
+	db.collection('sign')
+		.doc(req.query.qwe)
+		.collection('transaction')
 		.get()
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
+				categories[i] = childSnapshot.id;
 				var tran = 'tran' + i;
 				console.log('\n\n\n', tran);
+				console.log('\n\nchild is\n', childSnapshot.data());
 				transactions[i] = childSnapshot.data()[tran];
+				console.log('\n\ntran array is\n', transactions[i]);
 				i++;
 			});
-			var user = req.query.qwe;
-			console.log('\n\nCategory is\n',getCategory(user));
-			obj = getCategory(user);
-			
+			obj = Object.assign({}, categories);
 			obj1 = Object.assign({}, transactions);
-			res.render('transaction',{ obj, obj1 });
+			console.log('\n\nobj is', obj);
+			console.log('\n\nobj1 is', obj1);
+			res.render('transaction', { obj, obj1 });
 		})
 		.catch(err => {
 			console.log(err);
 		});
 });
 
-
 app.get('/setting', (req, res) => {
-	var i = 0,j=0,obj1,
+	var i = 0,
+		j = 0,
+		obj1,
+		k = 0,
 		obj,
 		school = new Array(),
 		fields = new Array();
-		var user = req.query.qwe;
-		//console.log("\n\n\n\n", user)
-	db.collection('sign').doc(user).collection('categories')
+	var user = req.query.qwe;
+	//console.log("\n\n\n\n", user)
+	db.collection('sign')
+		.doc(user)
+		.collection('categories')
 		.get()
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
 				school[i] = childSnapshot.id;
-				if(childSnapshot.data()!="undefined"){
-				fields[i] = childSnapshot.data();
+				if (childSnapshot.data() != 'undefined') {
+					fields[i] = childSnapshot.data();
 				}
 				i++;
 			});
@@ -182,13 +214,11 @@ app.get('/setting', (req, res) => {
 			obj1 = Object.assign({}, fields);
 			//console.log("\n\nobj1\n",obj1);
 			res.render('setting', { obj, obj1 });
-			//return;		
-
+			//return;
 		})
 		.catch(err => {
 			console.log(err);
 		});
-	
 });
 
 app.get('/send', (req, res) => {

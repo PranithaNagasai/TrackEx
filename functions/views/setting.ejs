@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<% include meta.ejs %>
-		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-		<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
+	<head>
+		<% include meta.ejs %>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Acme"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Merienda+One"
+			rel="stylesheet"
+		/>
 		<link rel="stylesheet" type="text/css" href="css/setting.css" />
 		<title></title>
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -23,80 +32,88 @@
 			function initApp() {
 				var db = firebase.firestore();
 
-				firebase.auth().onAuthStateChanged(function (user) {
+				firebase.auth().onAuthStateChanged(function(user) {
 					if (user) {
 						document.getElementById('qwe').value = user.email;
 						console.log(user);
 						var x = user.email;
 						document.getElementById('x').value = x;
-
-
-
 					} else {
-
 					}
 				});
 			}
 			window.onload = initApp();
 		</script>
-</head>
+	</head>
 
-<body>
-	<div class="row">
-		<div class="col-md-2 blue">
-			<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
-		</div>
-		<div class="col-md-6 blue">
-			<h4 align="left" id="x1">
-				<a href="/profile">TrackeX</a>
-			</h4>
-			<h5 align="left">Have Expense your way!!!</h5>
-			<h6 id="x"></h6>
-		</div>
+	<body>
+		<div class="row">
+			<div class="col-md-2 blue">
+				<img src="img/logo2.png" height="100px" width="100px" id="img1"
+				margin-left: "10px" />
+			</div>
+			<div class="col-md-6 blue">
+				<h4 align="left" id="x1">
+					<a href="/profile">TrackeX</a>
+				</h4>
+				<h5 align="left">Have Expense your way!!!</h5>
+				<h6 id="x"></h6>
+			</div>
 
-		<div class="col-md-4 blue1">
-			<button type="button" class="btn btn-outline-info" onclick="signOut()">
-				Log Out
-			</button>
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="sidenav">
-			<a href="/profile" id="pro">
-				<button class="btn btn-danger btn-lg">Profile</button>
-			</a>
-			<a onclick="initApp()">
-				<button class="btn btn-primary btn-lg">Settings</button>
-			</a>
-			<a href="/showana">
-				<button class="btn btn-warning btn-lg">
-					Show Analysis
+			<div class="col-md-4 blue1">
+				<button
+					type="button"
+					class="btn btn-outline-info"
+					onclick="signOut()"
+				>
+					Log Out
 				</button>
-			</a>
+			</div>
 		</div>
-	</div>
-	<div class="container" align="center" margin-top: "100px" ;>
+		<div class="col-md-3">
+			<div class="sidenav">
+				<a href="/profile" id="pro">
+					<button class="btn btn-danger btn-lg">Profile</button>
+				</a>
+				<a onclick="initApp()">
+					<button class="btn btn-primary btn-lg">Settings</button>
+				</a>
+				<a href="/showana">
+					<button class="btn btn-warning btn-lg">
+						Show Analysis
+					</button>
+				</a>
+			</div>
+		</div>
+		<div class="container" align="center" margin-top: "100px" ;>
 		<br />
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Categories</h2>
 			</div>
 			<div class="col-md-4">
-				<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openForm()">
+				<button
+					type="button"
+					class="btn btn-success"
+					style="margin-top: 18px"
+					onclick="openForm()"
+				>
 					+ Add Category
 				</button>
-				<button type="button" id="del" class="btn btn-danger" style="margin-top: 18px" onclick="openDelForm()">
+				<button
+					type="button"
+					id="del"
+					class="btn btn-danger"
+					style="margin-top: 18px"
+					onclick="openDelForm()"
+				>
 					- Delete Category
 				</button>
 			</div>
 		</div>
 		<br />
 		<div class="row" id="myrow1">
-
-
-			<% for(var i=0;i<Object.keys(obj).length;i++) { 
-				 %>
-
+			<% for(var i=0;i<Object.keys(obj).length;i++) { %>
 
 				<div class="col-xs-18 col-sm-6 col-md-3">
 					<div class="thumbnail">
@@ -126,25 +143,37 @@
 				</div>
 
 				<% }%>
-
 		</div>
 
 		<h2 style="margin-top:100px;">Message Pattern</h2>
-		</br>
+		<br />
 		<div class="row" style="margin-left:150px;">
-			<div class="col-md-4 " style="border: 3px solid green; margin-right:100px; height:450px; padding:50px; ">
+			<div
+				class="col-md-4 "
+				style="border: 3px solid green; margin-right:100px; height:450px; padding:50px; "
+			>
 				<p>Transaction:</p>
-				</br>
-				<p>Rs.(money)</br> debited from ATM card</br>Date:(date)</br>Main charge in your account: Rs(amount)</br>Thankyou for using
-					our services!</p>
-			</div>
-			<div class="col-md-4 " style="border: 3px solid green; height:450px; padding:50px;">
-				<p>Payment:</p>
-				<p>Rs.(money)</br> debited from ATM card</br>Date:(date)</br>Main charge in your account: Rs(current)</br>Amount after payment:Rs.(amount)</br>Thankyou
-					for using our services,</br>Hope you had a good experience!</br>
+				<br />
+				<p>
+					Rs.(money)<br />
+					debited from ATM card<br />Date:(date)<br />Main charge in
+					your account: Rs(amount)<br />Thankyou for using our
+					services!
 				</p>
 			</div>
-
+			<div
+				class="col-md-4 "
+				style="border: 3px solid green; height:450px; padding:50px;"
+			>
+				<p>Payment:</p>
+				<p>
+					Rs.(money)<br />
+					debited from ATM card<br />Date:(date)<br />Main charge in
+					your account: Rs(current)<br />Amount after
+					payment:Rs.(amount)<br />Thankyou for using our services,<br />Hope
+					you had a good experience!<br />
+				</p>
+			</div>
 		</div>
 
 		<div class="form-popup" id="myForm">
@@ -154,17 +183,34 @@
 				<label for="email">
 					<b>Category Name</b>
 				</label>
-				<input type="text" name="cat_name" id="cat_name" placeholder="Ex:Shopping" required />
+				<input
+					type="text"
+					name="cat_name"
+					id="cat_name"
+					placeholder="Ex:Shopping"
+					required
+				/>
 
 				<label for="psw">
 					<b>Limit</b>
 				</label>
-				<input type="number" id="cat_limit" placeholder="Ex:200" required />
+				<input
+					type="number"
+					id="cat_limit"
+					placeholder="Ex:200"
+					required
+				/>
 				<div class="row" id="bu1">
 					<a onclick="Addcategory()">
-						<button type="submit" class="btn btn-success">Add</button>
+						<button type="submit" class="btn btn-success">
+							Add
+						</button>
 					</a>
-					<button type="button" class="btn btn-danger" onclick="closeForm()">
+					<button
+						type="button"
+						class="btn btn-danger"
+						onclick="closeForm()"
+					>
 						Cancel
 					</button>
 				</div>
@@ -182,29 +228,41 @@
 						<% } %>
 				</select>
 
-				<button type="button" class="btn btn-danger" style="margin-top:20px" onclick="remove()">
+				<button
+					type="button"
+					class="btn btn-danger"
+					style="margin-top:20px"
+					onclick="remove()"
+				>
 					Remove
 				</button>
-				<button type="button" class="btn btn-success" style="margin-top:20px" onclick="closeDelForm()">
+				<button
+					type="button"
+					class="btn btn-success"
+					style="margin-top:20px"
+					onclick="closeDelForm()"
+				>
 					Cancel
 				</button>
-
 			</div>
-
 		</div>
 
 		<div class="form-popup" id="myshop">
 			<div class="modal-content">
 				<h2>Shops</h2>
 				List shops from db here!
-				<button type="button" class="btn btn-danger" onclick="closeshop()">
+				<button
+					type="button"
+					class="btn btn-danger"
+					onclick="closeshop()"
+				>
 					Cancel
 				</button>
 			</div>
 		</div>
 
 		<form id="hi" name="justname" style="visibility: hidden;">
-			<input name="qwe" id="qwe">
+			<input name="qwe" id="qwe" />
 		</form>
 		<script>
 			function openForm() {
@@ -228,16 +286,21 @@
 			}
 
 			function Addcategory() {
-
 				var k = document.getElementById('cat_name').value;
-				if (!(k.match('^[a-zA-Z]*$'))) {
+				if (!k.match('^[a-zA-Z]*$')) {
 					window.alert('Enter valid category name.');
 					window.alert('Not updated');
 					document.getElementById('myForm').style.display = 'none';
 					return;
 				}
 				var checklim = document.getElementById('cat_limit').value;
-				if (!(checklim.match('^[0-9]*$') && checklim > 0 && checklim.length > 2)) {
+				if (
+					!(
+						checklim.match('^[0-9]*$') &&
+						checklim > 0 &&
+						checklim.length > 2
+					)
+				) {
 					window.alert('Enter valid category limit');
 					window.alert('Not updated');
 					document.getElementById('myForm').style.display = 'none';
@@ -247,20 +310,20 @@
 				var db = firebase.firestore();
 				var user = firebase.auth().currentUser;
 				if (user) {
-
-
 					console.log(user);
 					var x = user.email;
 					var c = document.getElementById('cat_name').value;
-					var sch = db.collection('sign').doc(x).collection('categories');
-
+					var sch = db
+						.collection('sign')
+						.doc(x)
+						.collection('categories');
 
 					var xyz = sch.doc(c);
 
 					xyz.get().then(doc => {
 
 						if (doc.exists) {
-							window.alert("Category exits");
+							window.alert("Category exists");
 							document.getElementById('myForm').style.display = 'none';
 						}
 						else {
@@ -268,7 +331,7 @@
 							var ob = {
 								current: 0,
 								limit: document.getElementById('cat_limit').value,
-								date: new Date()
+								date: firebase.firestore.Timestamp.now().toDate().toString()
 							};
 							xyz.set(ob)
 								.then(function () {
@@ -283,80 +346,141 @@
 					}).catch(err => {
 						window.alert(err);
 					})
-				}
-
-				else {
-					window.alert("User not found");
-
-				}
-			}
-
-			function remove() {
-
-				var db = firebase.firestore();
-				var user = firebase.auth().currentUser;
-				if (user) {
-
-
-					var x = user.email;
-					var c = document.getElementById('del_cat').value;
-					var sch = db.collection('sign').doc(x).collection('categories');
-
-
-					var xyz = sch.doc(c);
-
-
-					xyz.get().then(doc => {
-						if (doc.exists) {
-							xyz.delete().then(function () {
-								window.alert("Document successfully deleted!");
-								window.location.reload('/settings');
-
-							}).catch(function (error) {
-								window.alert("Error removing document: ", error);
-							});
-
-						}
-						else {
-							window.alert("category doesn't exist");
-
-						}
-					}).catch(err => {
-						window.alert(err);
-					})
 
 					var sch1 = db.collection('sign').doc(x).collection('transaction');
 
 
 					var xyz1= sch1.doc(c);	
 					xyz1.get().then(doc => {
+
 						if (doc.exists) {
-							xyz1.delete().then(function () {
-								window.alert("Document successfully deleted from transaction!");
-								window.location.reload('/settings');
-
-							}).catch(function (error) {
-								window.alert("Error removing document: ", error);
-							});
-
+							window.alert("Transaction exists");
+							document.getElementById('myForm').style.display = 'none';
 						}
 						else {
-							window.alert("category doesn't exist");
 
+							var ob = {
+								pointer: 0
+							};
+							xyz1.set(ob)
+								.then(function () {
+									document.getElementById('myForm').style.display = 'none';
+									$("#hi").submit();
+
+								})
+								.catch(function (error) {
+									window.alert("Error writing document: ", error);
+								});
 						}
-					}).catch(err => {
+						}).catch(err => {
 						window.alert(err);
-					})
+						})
+						.catch(err => {
+							window.alert(err);
+						});
 
+					var sch1 = db
+						.collection('sign')
+						.doc(x)
+						.collection('transaction');
 
+					var xyz1 = sch1.doc(c);
+					xyz1.get()
+						.then(doc => {
+							if (doc.exists) {
+								window.alert('Transaction exists');
+								document.getElementById(
+									'myForm'
+								).style.display = 'none';
+							} else {
+								var ob = {
+									pointer: 0
+								};
+								xyz1.set(ob)
+									.then(function() {
+										document.getElementById(
+											'myForm'
+										).style.display = 'none';
+										$('#hi').submit();
+									})
+									.catch(function(error) {
+										window.alert(
+											'Error writing document: ',
+											error
+										);
+									});
+							}
+						})
+						.catch(err => {
+							window.alert(err);
+						});
+				} else {
+					window.alert('User not found');
 				}
-
-
 			}
 
+			function remove() {
+				var db = firebase.firestore();
+				var user = firebase.auth().currentUser;
+				if (user) {
+					var x = user.email;
+					var c = document.getElementById('del_cat').value;
+					var sch = db
+						.collection('sign')
+						.doc(x)
+						.collection('categories');
 
+					var xyz = sch.doc(c);
 
+					xyz.get()
+						.then(doc => {
+							if (doc.exists) {
+								xyz.delete()
+									.then(function() {
+										window.location.reload('/settings');
+									})
+									.catch(function(error) {
+										window.alert(
+											'Error removing document: ',
+											error
+										);
+									});
+							} else {
+								window.alert("category doesn't exist");
+							}
+						})
+						.catch(err => {
+							window.alert(err);
+						});
+
+					var sch1 = db
+						.collection('sign')
+						.doc(x)
+						.collection('transaction');
+
+					var xyz1 = sch1.doc(c);
+					xyz1.get()
+						.then(doc => {
+							if (doc.exists) {
+								xyz1.delete()
+									.then(function() {
+										window.location.reload('/settings');
+									})
+									.catch(function(error) {
+										window.alert(
+											'Error removing document: ',
+											error
+										);
+									});
+							} else {
+								window.alert("category doesn't exist");
+							}
+						})
+						.catch(err => {
+							window.alert(err);
+						});
+				}
+			}
 		</script>
-</body>
-
+	</body>
 </html>
