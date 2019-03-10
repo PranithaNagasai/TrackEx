@@ -34,7 +34,6 @@
 					//window.alert(user);
 					var jus = document.getElementById('trackid').value;
 					if (user.email == jus) {
-						
 						var reepass = document.getElementById('repass').value;
 						var newPassword = document.getElementById('newpass')
 							.value;
@@ -44,7 +43,9 @@
 								.currentUser.updatePassword(newPassword)
 								.then(function() {
 									// Update successful.
-									window.alert('Update successful.. Please login again!');
+									window.alert(
+										'Update successful.. Please login again!'
+									);
 								})
 								.catch(function(error) {
 									// An error happened.
@@ -62,7 +63,9 @@
 						return sch
 							.update(ob)
 							.then(function() {
-								window.alert('Profile Updated..Please login again!');
+								window.alert(
+									'Profile Updated..Please login again!'
+								);
 								//console.log('Success');
 							})
 
@@ -82,12 +85,11 @@
 									newPassword
 								)
 								.then(function() {
-									
-									window.alert('Update successful..Please login again!');
-									
+									window.alert(
+										'Update successful..Please login again!'
+									);
 								})
 								.catch(function(error) {
-									
 									var errorCode = error.code;
 									var errorMessage = error.message;
 									// ...
@@ -95,7 +97,7 @@
 							window.alert('User created..Please login again!');
 						}
 					}
-					window.location='/';
+					window.location = '/';
 				});
 			}
 		</script>
@@ -162,10 +164,9 @@
 		<div>
 			<div class="container">
 				<div class="col-60">
-					
 					<form method="get" name="reg_form">
 						<h3>Profile</h3>
-						
+
 						<div class="row">
 							<div class="col-35">
 								<label for="pass">Email ID</label>
@@ -259,7 +260,6 @@
 									check_repass();
 								}
 							);
-							
 
 							function check_newpass() {
 								var $regexname = /^([a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]{1,10})$/;
@@ -325,12 +325,9 @@
 										err_newpass === false &&
 										err_repass === false
 									) {
-										
 										alert('Ok');
 										return true;
 									} else {
-										
-
 										return false;
 									}
 								});
