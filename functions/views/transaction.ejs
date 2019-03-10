@@ -90,7 +90,7 @@
 										amount: document.getElementById(
 											'shop_amt'
 										).value,
-										create: new Date()
+										create: firebase.firestore.Timestamp.now().toDate().toString()
 									},
 									pointer: i
 								};
