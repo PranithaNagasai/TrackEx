@@ -46,8 +46,7 @@
 				var k = document.getElementById('shop_name').value;
 				if (!k.match('^[a-zA-Z]*$')) {
 					window.alert('Enter valid shop name.');
-					window.alert('Not updated');
-					document.getElementById('myForm').style.display = 'none';
+					document.getElementById('myAdd').style.display = 'none';
 					return;
 				}
 				var checklim = document.getElementById('shop_amt').value;
@@ -55,12 +54,11 @@
 					!(
 						checklim.match('^[0-9]*$') &&
 						checklim > 0 &&
-						checklim.length > 2
+						checklim.length > 1
 					)
 				) {
 					window.alert('Enter valid amount');
-					window.alert('Not updated');
-					document.getElementById('myForm').style.display = 'none';
+					document.getElementById('myAdd').style.display = 'none';
 					return;
 				}
 				var checkcat = document.getElementById('myCat').value;
@@ -68,7 +66,6 @@
 				var db = firebase.firestore();
 				var user = firebase.auth().currentUser;
 				if (user) {
-					console.log(user);
 					var x = user.email;
 					var c = checkcat;
 					var sch = db
@@ -96,7 +93,7 @@
 								};
 								xyz.set(obj, { merge: true })
 									.then(function() {
-										yId('myForm').style.display = 'none';
+										document.getElementById('myAdd').style.display = 'none';
 										$('#hi').submit();
 										window.location.reload('/transaction');
 									})
@@ -114,11 +111,8 @@
 								};
 								xyz.set(ob)
 									.then(function() {
-										window.alert(
-											'Category successfully added!'
-										);
 										document.getElementById(
-											'myForm'
+											'myAdd'
 										).style.display = 'none';
 										$('#hi').submit();
 									})
