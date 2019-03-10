@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<% include meta.ejs %>
-		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-		<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
+	<head>
+		<% include meta.ejs %>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Acme"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Merienda+One"
+			rel="stylesheet"
+		/>
 		<link rel="stylesheet" type="text/css" href="css/x.css" />
 		<title></title>
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -19,103 +28,126 @@
 				window.location = '/';
 			}
 		</script>
-        <script>
-        function initApp() {
-			var db = firebase.firestore();
-			firebase.auth().onAuthStateChanged(function (user) {
-				if (user) {
-					document.getElementById('qwe').value = user.email;
-					document.getElementById('qwe2').value = user.email;
-					document.getElementById('qwe3').value = user.email;
-					document.getElementById('qwe4').value = user.email;
-                }
-            });
-        }
-        window.onload = initApp();
-        </script>
-<script>
-    function senddata() {
-        $("#hi").submit();
-	}
+		<script>
+			function initApp() {
+				var db = firebase.firestore();
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						document.getElementById('qwe').value = user.email;
+						document.getElementById('qwe2').value = user.email;
+						document.getElementById('qwe3').value = user.email;
+						document.getElementById('qwe4').value = user.email;
+					}
+				});
+			}
+			window.onload = initApp();
+		</script>
+		<script>
+			function senddata() {
+				$('#hi').submit();
+			}
 
-	
-	function senddata2() {
-        $("#hi2").submit();
-	}
-	function senddata3() {
-        $("#hi3").submit();
-	}
-	function senddata4() {
-        $("#hi4").submit();
-    }
-</script>
+			function senddata2() {
+				$('#hi2').submit();
+			}
+			function senddata3() {
+				$('#hi3').submit();
+			}
+			function senddata4() {
+				$('#hi4').submit();
+			}
+		</script>
 
 		<body>
-	<div class="row">
-		<div class="col-md-2 blue">
-			<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
-		</div>
-		<div class="col-md-6 blue">
-			<h4 align="left" id="x1">
-				<a href="/profile">TrackeX</a>
-			</h4>
-			<h5 align="left">Have Expense your way!!!</h5>
-			<h6 id="x"></h6>
-		</div>
+			<div class="row">
+				<div class="col-md-2 blue">
+					<img src="img/logo2.png" height="100px" width="100px"
+					id="img1" margin-left: "10px" />
+				</div>
+				<div class="col-md-6 blue">
+					<h4 align="left" id="x1">
+						<a href="/profile">TrackeX</a>
+					</h4>
+					<h5 align="left">Have Expense your way!!!</h5>
+					<h6 id="x"></h6>
+				</div>
 
-		<div class="col-md-4 blue1">
-			<button type="button" class="btn btn-outline-info" onclick="signOut()">
-				Log Out
-			</button>
-		</div>
-	</div>
+				<div class="col-md-4 blue1">
+					<button
+						type="button"
+						class="btn btn-outline-info"
+						onclick="signOut()"
+					>
+						Log Out
+					</button>
+				</div>
+			</div>
 
-	<div class="col-md-3">
-		<div class="sidenav">
-			<a href="/profile" id="pro">
-				<button class="btn btn-danger btn-lg">Profile</button>
-			</a>
-			<a>
-				<button class="btn btn-primary btn-lg" onclick="senddata2()">Settings</button>
-			</a>
-			<a >
-				<button class="btn btn-warning btn-lg">
-					Show Analysis
+			<div class="col-md-3">
+				<div class="sidenav">
+					<a href="/profile" id="pro">
+						<button class="btn btn-danger btn-lg">Profile</button>
+					</a>
+					<a>
+						<button
+							class="btn btn-primary btn-lg"
+							onclick="senddata2()"
+						>
+							Settings
+						</button>
+					</a>
+					<a>
+						<button class="btn btn-warning btn-lg">
+							Show Analysis
+						</button>
+					</a>
+				</div>
+			</div>
+			<br />
+			<br />
+			<br />
+			<br />
+			<div class="row" id="bu1" align="center">
+				<a>
+					<button
+						type="submit"
+						class="btn btn-success"
+						onclick="senddata3()"
+					>
+						List of categories
+					</button>
+				</a>
+
+				<a>
+					<button
+						type="submit"
+						class="btn btn-success"
+						onclick="senddata4()"
+					>
+						Graphical View
+					</button>
+				</a>
+
+				<button
+					type="submit"
+					class="btn btn-success"
+					onclick="senddata()"
+				>
+					Transactions
 				</button>
-			</a>
-		</div>
-	</div>
-	<br>
-<br>
-<br>
-<br>
-<div class="row" id="bu1" align="center">
-					<a>
-						<button type="submit" class="btn btn-success" onclick="senddata3()">List of categories</button>
-					</a>
-
-					<a>
-						<button type="submit" class="btn btn-success" onclick="senddata4()">Graphical View</button>
-					</a>
-					
-						<button type="submit" class="btn btn-success" onclick="senddata()">Transactions</button>
-					
-                </div>
-                <form id="hi" name="justname" action="/transaction">
-					<input name="qwe" id="qwe" class="hidden">
-				</form>
-				<form id="hi2" name="justname" action="/setting">
-					<input name="qwe" id="qwe2" class="hidden">
-				</form>
-				<form id="hi3" name="justname" action="/analysis">
-					<input name="qwe" id="qwe3" class="hidden">
-				</form>	
-				<form id="hi4" name="justname" action="/graph">
-					<input name="qwe" id="qwe4" class="hidden">
-
-				</form>
-			</body>
-		</head>
-		</html>
-
-
+			</div>
+			<form id="hi" name="justname" action="/transaction">
+				<input name="qwe" id="qwe" class="hidden" />
+			</form>
+			<form id="hi2" name="justname" action="/setting">
+				<input name="qwe" id="qwe2" class="hidden" />
+			</form>
+			<form id="hi3" name="justname" action="/analysis">
+				<input name="qwe" id="qwe3" class="hidden" />
+			</form>
+			<form id="hi4" name="justname" action="/graph">
+				<input name="qwe" id="qwe4" class="hidden" />
+			</form>
+		</body>
+	</head>
+</html>

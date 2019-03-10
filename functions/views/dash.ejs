@@ -30,7 +30,7 @@
 				var db = firebase.firestore();
 				firebase.auth().onAuthStateChanged(function(user) {
 					if (user.email) {
-						document.getElementById('qwe').value=user.email;
+						document.getElementById('qwe').value = user.email;
 						var x = user.email;
 						var sch = db.collection('sign').doc(x);
 						sch.get()
@@ -74,10 +74,10 @@
 			}
 		</style>
 		<script>
-				function senddata(){
-					$("#hi").submit();
-				}
-			</script>
+			function senddata() {
+				$('#hi').submit();
+			}
+		</script>
 		<% include meta.ejs %>
 	</head>
 
@@ -109,7 +109,9 @@
 					<button class="btn btn-danger">Profile</button>
 				</a>
 				<a>
-					<button class="btn btn-primary" onclick="senddata()">Settings</button>
+					<button class="btn btn-primary" onclick="senddata()">
+						Settings
+					</button>
 				</a>
 				<a href="/showana">
 					<button class="btn btn-warning">
@@ -124,8 +126,7 @@
 			<h2>Welcome to Trackex...Your expense tracker!</h2>
 		</div>
 		<form id="hi" name="justname" action="/setting">
-			<input name="qwe" id="qwe" class="hidden">
-
+			<input name="qwe" id="qwe" class="hidden" />
 		</form>
 	</body>
 </html>
