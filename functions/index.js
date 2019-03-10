@@ -170,16 +170,11 @@ app.get('/transaction', (req, res) => {
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
 				categories[i] = childSnapshot.id;
-				var tran = 'tran' + i;
-				console.log('\n\n\n', tran);
-				console.log('\n\nchild is\n', childSnapshot.data());
-				transactions[i] = childSnapshot.data()[tran];
-				console.log('\n\ntran array is\n', transactions[i]);
+				transactions[i] = childSnapshot.data();
 				i++;
 			});
 			obj = Object.assign({}, categories);
 			obj1 = Object.assign({}, transactions);
-			console.log('\n\nobj is', obj);
 			console.log('\n\nobj1 is', obj1);
 			res.render('transaction', { obj, obj1 });
 		})
