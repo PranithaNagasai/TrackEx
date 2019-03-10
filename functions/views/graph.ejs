@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<% include meta.ejs %>
-		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-		<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
+	<head>
+		<% include meta.ejs %>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Acme"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Merienda+One"
+			rel="stylesheet"
+		/>
 		<link rel="stylesheet" type="text/css" href="css/profile.css" />
 		<title></title>
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -18,160 +27,164 @@
 				firebase.auth().signOut();
 				window.location = '/';
 			}
-        </script>
-        <script>
-            function initApp() {
-                var db = firebase.firestore();
-                firebase.auth().onAuthStateChanged(function (user) {
-                    if (user) {
-                        document.getElementById('qwe').value = user.email;
-                    }
-                });
-            }
-            window.onload = initApp();
-            </script>
+		</script>
+		<script>
+			function initApp() {
+				var db = firebase.firestore();
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						document.getElementById('qwe').value = user.email;
+					}
+				});
+			}
+			window.onload = initApp();
+		</script>
 
-<script>
-    function senddata() {
-        $("#hi").submit();
-    }
-</script>
+		<script>
+			function senddata() {
+				$('#hi').submit();
+			}
+		</script>
+	</head>
 
-		<body>
-	<div class="row">
-		<div class="col-md-2 blue">
-			<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
-		</div>
-		<div class="col-md-6 blue">
-			<h4 align="left" id="x1">
-				<a href="/profile">TrackeX</a>
-			</h4>
-			<h5 align="left">Have Expense your way!!!</h5>
-			<h6 id="x"></h6>
-		</div>
+	<body>
+		<div class="row">
+			<div class="col-md-2 blue">
+				<img src="img/logo2.png" height="100px" width="100px" id="img1"
+				margin-left: "10px" />
+			</div>
+			<div class="col-md-6 blue">
+				<h4 align="left" id="x1">
+					<a href="/profile">TrackeX</a>
+				</h4>
+				<h5 align="left">Have Expense your way!!!</h5>
+				<h6 id="x"></h6>
+			</div>
 
-		<div class="col-md-4 blue1">
-			<button type="button" class="btn btn-outline-info" onclick="signOut()">
-				Log Out
-			</button>
-		</div>
-	</div>
-<div class="col-md-3">
-		<div class="sidenav">
-			<a href="/profile" id="pro">
-				<button class="btn btn-danger btn-lg">Profile</button>
-			</a>
-			<a>
-				<button class="btn btn-primary btn-lg" onclick="senddata()">Settings</button>
-			</a>
-			<a href="/showana">
-				<button class="btn btn-warning btn-lg">
-					Show Analysis
+			<div class="col-md-4 blue1">
+				<button
+					type="button"
+					class="btn btn-outline-info"
+					onclick="signOut()"
+				>
+					Log Out
 				</button>
-			</a>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2">
-			<h4>Month :</h4> <select id="from" name="month" type="date">
+		<div class="col-md-3">
+			<div class="sidenav">
+				<a href="/profile" id="pro">
+					<button class="btn btn-danger btn-lg">Profile</button>
+				</a>
+				<a>
+					<button class="btn btn-primary btn-lg" onclick="senddata()">
+						Settings
+					</button>
+				</a>
+				<a href="/showana">
+					<button class="btn btn-warning btn-lg">
+						Show Analysis
+					</button>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<h4>Month :</h4>
+				<select id="from" name="month" type="date">
+					<option>January</option>
+					<option>February</option>
+					<option>March</option>
+					<option>April</option>
+					<option>May</option>
+					<option>June</option>
+					<option>July</option>
+					<option>August</option>
+					<option>September</option>
+					<option>October</option>
+					<option>November</option>
+					<option>December</option>
+				</select>
+			</div>
+		</div>
+		<form id="hi" name="justname" action="/setting">
+			<input name="qwe" id="qwe" class="hidden" />
+		</form>
+		<script>
+			window.onload = function() {
+				var chart = new CanvasJS.Chart('chartContainer', {
+					animationEnabled: true,
+					title: {
+						text: 'Categories with limit and current expenses'
+					},
+					axisY: {
+						title: 'Limit',
+						titleFontColor: '#4F81BC',
+						lineColor: '#4F81BC',
+						labelFontColor: '#4F81BC',
+						tickColor: '#4F81BC'
+					},
+					axisY2: {
+						title: 'current expense',
+						titleFontColor: '#C0504E',
+						lineColor: '#C0504E',
+						labelFontColor: '#C0504E',
+						tickColor: '#C0504E'
+					},
+					toolTip: {
+						shared: true
+					},
+					legend: {
+						cursor: 'pointer',
+						itemclick: toggleDataSeries
+					},
+					data: [
+						{
+							type: 'column',
+							name: 'Proven Oil Reserves (bn)',
+							legendText: 'Proven Oil Reserves',
+							showInLegend: true,
+							dataPoints: [
+								{ label: 'food', y: 2000 },
+								{ label: 'education', y: 5000 },
+								{ label: 'shopping', y: 1000 },
+								{ label: 'movies', y: 5000 }
+							]
+						},
+						{
+							type: 'column',
+							name: 'Oil Production (million/day)',
+							legendText: 'Oil Production',
+							axisYType: 'secondary',
+							showInLegend: true,
+							dataPoints: [
+								{ label: 'food', y: 1700 },
+								{ label: 'education', y: 3000 },
+								{ label: 'shopping', y: 400 },
+								{ label: 'movies', y: 300 }
+							]
+						}
+					]
+				});
+				chart.render();
 
-  <option>January</option>
-  <option>February</option>
-  <option>March</option>
-  <option>April</option>
-  <option>May</option>
-  <option>June</option>
-  <option>July</option>
-  <option>August</option>
-  <option>September</option>
-  <option>October</option>
-  <option>November</option>
-  <option>December</option>
-  
-
-
-</select>
-</div>
-</div>
-<form id="hi" name="justname" action="/setting">
-    <input name="qwe" id="qwe" class="hidden">
-
-</form>
-	<script>
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	title:{
-		text: "Categories with limit and current expenses"
-	},	
-	axisY: {
-		title: "Limit",
-		titleFontColor: "#4F81BC",
-		lineColor: "#4F81BC",
-		labelFontColor: "#4F81BC",
-		tickColor: "#4F81BC"
-	},
-	axisY2: {
-		title: "current expense",
-		titleFontColor: "#C0504E",
-		lineColor: "#C0504E",
-		labelFontColor: "#C0504E",
-		tickColor: "#C0504E"
-	},	
-	toolTip: {
-		shared: true
-	},
-	legend: {
-		cursor:"pointer",
-		itemclick: toggleDataSeries
-	},
-	data: [{
-		type: "column",
-		name: "Proven Oil Reserves (bn)",
-		legendText: "Proven Oil Reserves",
-		showInLegend: true, 
-		dataPoints:[
-			{ label: "food", y: 2000 },
-			{ label: "education", y: 5000 },
-			{ label: "shopping", y: 1000 },
-			{ label: "movies", y: 5000 },
-			
-		]
-	},
-	{
-		type: "column",	
-		name: "Oil Production (million/day)",
-		legendText: "Oil Production",
-		axisYType: "secondary",
-		showInLegend: true,
-		dataPoints:[
-			{ label: "food", y: 1700 },
-			{ label: "education", y: 3000 },
-			{ label: "shopping", y: 400 },
-			{ label: "movies", y: 300 },
-			
-		]
-	}]
-});
-chart.render();
-
-function toggleDataSeries(e) {
-	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-	}
-	else {
-		e.dataSeries.visible = true;
-	}
-	chart.render();
-}
-
-}
-</script>
-</head>
-<body>
-<div id="chartContainer" style="height: 370px; width: 80%;     margin-left: 270px;
-    margin-top: 65px;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</body>
+				function toggleDataSeries(e) {
+					if (
+						typeof e.dataSeries.visible === 'undefined' ||
+						e.dataSeries.visible
+					) {
+						e.dataSeries.visible = false;
+					} else {
+						e.dataSeries.visible = true;
+					}
+					chart.render();
+				}
+			};
+		</script>
+		<div
+			id="chartContainer"
+			style="height: 370px; width: 80%; margin-left: 270px; margin-top: 65px;"
+		></div>
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	</body>
 </html>
