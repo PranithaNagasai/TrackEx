@@ -1,371 +1,424 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		/>
+		<link rel="stylesheet" type="text/css" href="css/profile.css" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Acme"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Merienda+One"
+			rel="stylesheet"
+		/>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
-<head>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="css/profile.css" />
-	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
-	<title></title>
-	<script src="/__/firebase/5.8.2/firebase-app.js"></script>
-	<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
-	<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
-	<script src="/__/firebase/init.js"></script>
-	<script>
-		function signOut() {
-			firebase.auth().signOut();
-			window.location = '/';
-		}
-	</script>
-	<script>
-		function initApp() {
-			var db = firebase.firestore();
-			firebase.auth().onAuthStateChanged(function (user) {
-				if (user) {
-					document.getElementById('qwe').value = user.email;
-					console.log(user);
-					var x = user.email;
-					document.getElementById('uname').value = x;
-					if (user.email) {
-						var sch = db.collection('sign').doc(x);
-						console.log(sch);
-						console.log(sch.get());
-						sch.get()
-							.then(doc => {
-								if (doc.exists) {
-									console.log(doc.data());
-									document.getElementById(
-										'uname'
-									).value = doc.data().username;
-									document.getElementById(
-										'fname'
-									).value = doc.data().name;
-									document.getElementById(
-										'addr'
-									).value = doc.data().addr;
-									document.getElementById(
-										'num'
-									).value = doc.data().phone;
-									document.getElementById(
-										'dob'
-									).value = doc.data().dob;
-								} else {
-									window.alert("User doesn't exist");
-								}
-							})
-							.catch(err => {
-								console.log(err);
-							});
-					} else {
-
-					}
-				} else {
-
-				}
-			});
-
-		}
-		window.onload = initApp();
-	</script>
-
-	<script>
-		function senddata() {
-			$("#hi").submit();
-		}
-	</script>
-	<script>
-		function myfun() {
-			var db = firebase.firestore();
-			var usingname = document.getElementById('uname').value;
-			var z = document.getElementById('num').value;
-			var m = document.getElementById('dob').value;
-			var k = document.getElementById('fname').value;
-			if (z.length != 10) {
-				window.alert('Enter valid mobile no.');
-				window.alert('Not updated');
-				return;
+		<title></title>
+		<script src="/__/firebase/5.8.2/firebase-app.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+		<script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
+		<script src="/__/firebase/init.js"></script>
+		<script>
+			function signOut() {
+				firebase.auth().signOut();
+				window.location = '/';
 			}
-			if (m.length < 10) {
-				window.alert('Enter valid dob');
-				window.alert('Not updated');
-				return;
-			}
-			if (!(k.match('^[a-zA-Z]*$'))) {
-				window.alert('Enter valid category name.');
-				window.alert('Not updated');
-				return;
-			}
-
-			var sch = db.collection('sign').doc(usingname);
-			firebase.auth().onAuthStateChanged(function (user) {
-				if (user) {
-
-					var x = document.getElementById('uname').value;
-					var sch = db.collection('sign').doc(x);
-					console.log(sch.username);
-					sch.get().then(doc => {
-						if (doc.exists) {
-							var ob = {
-								username: document.getElementById('uname')
-									.value,
-								name: document.getElementById('fname')
-									.value,
-								addr: document.getElementById('addr').value,
-								phone: document.getElementById('num').value,
-								dob: document.getElementById('dob').value
-							};
-							return sch
-								.update(ob)
-
-								.then(function () {
-									window.alert('Profile Updated');
-
-									//console.log('Success');
-
+		</script>
+		<script>
+			function initApp() {
+				var db = firebase.firestore();
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						document.getElementById('qwe').value = user.email;
+						console.log(user);
+						var x = user.email;
+						document.getElementById('uname').value = x;
+						if (user.email) {
+							var sch = db.collection('sign').doc(x);
+							console.log(sch);
+							console.log(sch.get());
+							sch.get()
+								.then(doc => {
+									if (doc.exists) {
+										console.log(doc.data());
+										document.getElementById(
+											'uname'
+										).value = doc.data().username;
+										document.getElementById(
+											'fname'
+										).value = doc.data().name;
+										document.getElementById(
+											'addr'
+										).value = doc.data().addr;
+										document.getElementById(
+											'num'
+										).value = doc.data().phone;
+										document.getElementById(
+											'dob'
+										).value = doc.data().dob;
+									} else {
+										window.alert("User doesn't exist");
+									}
 								})
-								.catch(function (err) {
+								.catch(err => {
 									console.log(err);
 								});
 						} else {
-							var ob = {
-								username: document.getElementById('uname')
-									.value,
-								name: document.getElementById('fname')
-									.value,
-								addr: document.getElementById('addr').value,
-								phone: document.getElementById('num').value,
-								dob: document.getElementById('dob').value
-							};
-							db.collection('sign')
-								.doc(usingname)
-								.set(ob);
-							window.alert('Profile Updated');
-
 						}
-					});
-				} else {
+					} else {
+					}
+				});
+			}
+			window.onload = initApp();
+		</script>
 
+		<script>
+			function senddata() {
+				$('#hi').submit();
+			}
+		</script>
+		<script>
+			function myfun() {
+				var db = firebase.firestore();
+				var usingname = document.getElementById('uname').value;
+				var z = document.getElementById('num').value;
+				var m = document.getElementById('dob').value;
+				var k = document.getElementById('fname').value;
+				if (z.length != 10) {
+					window.alert('Enter valid mobile no.');
+					window.alert('Not updated');
+					return;
 				}
-			});
-		}
-	</script>
-	<% include meta.ejs %>
-</head>
+				if (m.length < 10) {
+					window.alert('Enter valid dob');
+					window.alert('Not updated');
+					return;
+				}
+				if (!k.match('^[a-zA-Z]*$')) {
+					window.alert('Enter valid category name.');
+					window.alert('Not updated');
+					return;
+				}
 
-<body>
-	<div class="header">
-		<div class="row">
-			<div class="col-md-2 blue">
-				<img src="img/logo2.png" height="100px" width="100px" id="img1" />
-			</div>
-			<div class="col-md-6 blue">
-				<h4 align="left" id="x1">
-					<a href="/dash">TrackeX</a>
-				</h4>
-				<h5 align="left">Have Expense your way!</h5>
-			</div>
+				var sch = db.collection('sign').doc(usingname);
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						var x = document.getElementById('uname').value;
+						var sch = db.collection('sign').doc(x);
+						console.log(sch.username);
+						sch.get().then(doc => {
+							if (doc.exists) {
+								var ob = {
+									username: document.getElementById('uname')
+										.value,
+									name: document.getElementById('fname')
+										.value,
+									addr: document.getElementById('addr').value,
+									phone: document.getElementById('num').value,
+									dob: document.getElementById('dob').value
+								};
+								return sch
+									.update(ob)
 
-			<div class="col-md-4 blue1">
-				<button type="button" class="btn btn-outline-info" onclick="signOut()">
-					Log Out
-				</button>
+									.then(function() {
+										window.alert('Profile Updated');
+
+										//console.log('Success');
+									})
+									.catch(function(err) {
+										console.log(err);
+									});
+							} else {
+								var ob = {
+									username: document.getElementById('uname')
+										.value,
+									name: document.getElementById('fname')
+										.value,
+									addr: document.getElementById('addr').value,
+									phone: document.getElementById('num').value,
+									dob: document.getElementById('dob').value
+								};
+								db.collection('sign')
+									.doc(usingname)
+									.set(ob);
+								window.alert('Profile Updated');
+							}
+						});
+					} else {
+					}
+				});
+			}
+		</script>
+		<% include meta.ejs %>
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="row">
+				<div class="col-md-2 blue">
+					<img
+						src="img/logo2.png"
+						height="100px"
+						width="100px"
+						id="img1"
+					/>
+				</div>
+				<div class="col-md-6 blue">
+					<h4 align="left" id="x1">
+						<a href="/dash">TrackeX</a>
+					</h4>
+					<h5 align="left">Have Expense your way!</h5>
+				</div>
+
+				<div class="col-md-4 blue1">
+					<button
+						type="button"
+						class="btn btn-outline-info"
+						onclick="signOut()"
+					>
+						Log Out
+					</button>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="sidenav">
-			<a href="/profile" id="pro">
-				<button class="btn btn-danger btn-lg">Profile</button>
-			</a>
-			<a>
-				<button class="btn btn-primary btn-lg" onclick="senddata()">Settings</button>
-			</a>
-			<a href="/showana">
-				<button class="btn btn-warning btn-lg">
-					Show Analysis
-				</button>
-			</a>
+		<div class="col-md-3">
+			<div class="sidenav">
+				<a href="/profile" id="pro">
+					<button class="btn btn-danger btn-lg">Profile</button>
+				</a>
+				<a>
+					<button class="btn btn-primary btn-lg" onclick="senddata()">
+						Settings
+					</button>
+				</a>
+				<a href="/showana">
+					<button class="btn btn-warning btn-lg">
+						Show Analysis
+					</button>
+				</a>
+			</div>
 		</div>
-	</div>
 
-	<div class="top">
-		<button type="button" class="btn btn-outline-info" name="edit" value="edit">
-			Edit
-		</button>
-		<br />
-		<br />
-		<a onclick="myfun()">
-			<button type="button" class="btn btn-success" name="submit" value="submit">
-				Submit
+		<div class="top">
+			<button
+				type="button"
+				class="btn btn-outline-info"
+				name="edit"
+				value="edit"
+			>
+				Edit
 			</button>
-		</a>
-	</div>
-	<div>
-		<div class="container">
-			<div class="col-60">
+			<br />
+			<br />
+			<a onclick="myfun()">
+				<button
+					type="button"
+					class="btn btn-success"
+					name="submit"
+					value="submit"
+				>
+					Submit
+				</button>
+			</a>
+		</div>
+		<div>
+			<div class="container">
+				<div class="col-60">
+					<form
+						action="/profile"
+						onSubmit="return check_all()"
+						method="get"
+						name="reg_form"
+					>
+						<h3>Profile</h3>
 
-				<form action="/profile" onSubmit="return check_all()" method="get" name="reg_form">
-					<h3>Profile</h3>
-
-
-					<div class="row">
-						<div class="col-25">
-							<label for="uname">Trackex ID</label>
-						</div>
-						<div class="col-75">
-							<input type="text" id="uname" name="uname" value="" style="width: 100%;
+						<div class="row">
+							<div class="col-25">
+								<label for="uname">Trackex ID</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="text"
+									id="uname"
+									name="uname"
+									value=""
+									style="width: 100%;
 							padding: 20px;
 							border: 1px solid #ccc;
 							border-radius: 4px;
-							resize: vertical;" disabled />
-							<span class="emsg4 hidden" id="error_uname">Email ID</span>
+							resize: vertical;"
+									disabled
+								/>
+								<span class="emsg4 hidden" id="error_uname"
+									>Email ID</span
+								>
 
+								<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+								<script>
+									$(document).ready(function() {
+										$(
+											'form input[type=text],input[type=number],select'
+										).prop('disabled', true);
 
-							<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-							<script>
-								$(document).ready(function () {
-									$(
-										'form input[type=text],input[type=number],select'
-									).prop('disabled', true);
+										$('button[name=edit]').on(
+											'click',
+											function() {
+												$(
+													'input[type=text],input[type=number],select'
+												).removeAttr('disabled');
+											}
+										);
 
-									$('button[name=edit]').on(
-										'click',
-										function () {
-											$(
-												'input[type=text],input[type=number],select'
-											).removeAttr('disabled');
-										}
-									);
-
-									$('button[name=submit]').on(
-										'click',
-										function () {
-											$(
-												'input[type=text],input[type=number],select'
-											).prop('disabled', true);
-										}
-									);
-								});
-							</script>
+										$('button[name=submit]').on(
+											'click',
+											function() {
+												$(
+													'input[type=text],input[type=number],select'
+												).prop('disabled', true);
+											}
+										);
+									});
+								</script>
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-25">
-							<label for="mail">Name</label>
+						<div class="row">
+							<div class="col-25">
+								<label for="mail">Name</label>
+							</div>
+
+							<div class="col-75">
+								<input
+									type="text"
+									id="fname"
+									name="fname"
+									value=""
+									disabled
+								/>
+								<span class="emsg1 hidden" id="error_phone"
+									>Enter valid name</span
+								>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="addr">Address</label>
+							</div>
+
+							<div class="col-75">
+								<select
+									id="addr"
+									name="addr"
+									type="text"
+									disabled
+								>
+									<option>Bangalore</option>
+									<option>Newdelhi</option>
+									<option>Hyderabad</option>
+									<option>Ahmedabad</option>
+									<option>Chennai</option>
+									<option>Kolkata</option>
+									<option>Pune</option>
+									<option>Lucknow</option>
+									<option>Jaipur</option>
+									<option>Srinagar</option>
+									<option>Dispur</option>
+									<option>Vishakaptnam</option>
+									<option>Patna</option>
+									<option>Madhurai</option>
+									<option>Coimbatore</option>
+									<option>Tiruvanthapuram</option>
+									<option>Kochi</option>
+									<option>Vijayawada</option>
+									<option>Tirupathi</option>
+									<option>Mysore</option>
+									<option>Tiruchirapalli</option>
+									<option>Dehradun</option>
+									<option>Pondicherry</option>
+									<option>Guntur</option>
+									<option>Nellore</option>
+									<option>Rourkela</option>
+								</select>
+							</div>
 						</div>
 
-						<div class="col-75">
-							<input type="text" id="fname" name="fname" value="" disabled />
-							<span class="emsg1 hidden" id="error_phone">Enter valid name</span>
+						<div class="row">
+							<div class="col-25">
+								<label for="num">Mobile number</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="number"
+									id="num"
+									name="num"
+									value=""
+									disabled
+								/>
+								<span class="emsg2 hidden" id="error_phone"
+									>10 digit number</span
+								>
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-25">
-							<label for="addr">Address</label>
+						<div class="row">
+							<div class="col-25">
+								<label for="num">DOB</label>
+							</div>
+							<div class="col-75">
+								<input
+									type="text"
+									id="dob"
+									name="dob"
+									value=""
+									disabled
+								/>
+								<span class="emsg3 hidden" id="error_dob"
+									>dd/mm/yyyy</span
+								>
+							</div>
 						</div>
-
-						<div class="col-75">
-							<select id="addr" name="addr" type="text" disabled>
-
-								<option>Bangalore</option>
-								<option>Newdelhi</option>
-								<option>Hyderabad</option>
-								<option>Ahmedabad</option>
-								<option>Chennai</option>
-								<option>Kolkata</option>
-								<option>Pune</option>
-								<option>Lucknow</option>
-								<option>Jaipur</option>
-								<option>Srinagar</option>
-								<option>Dispur</option>
-								<option>Vishakaptnam</option>
-								<option>Patna</option>
-								<option>Madhurai</option>
-								<option>Coimbatore</option>
-								<option>Tiruvanthapuram</option>
-								<option>Kochi</option>
-								<option>Vijayawada</option>
-								<option>Tirupathi</option>
-								<option>Mysore</option>
-								<option>Tiruchirapalli</option>
-								<option>Dehradun</option>
-								<option>Pondicherry</option>
-								<option>Guntur</option>
-								<option>Nellore</option>
-								<option>Rourkela</option>
-
-
-							</select>
+						<br />
+						<div class="row">
+							<a href="/pwd">
+								<button
+									type="button"
+									class="btn btn-danger"
+									id="s1"
+								>
+									change Password
+								</button>
+							</a>
 						</div>
-					</div>
+					</form>
 
-					<div class="row">
-						<div class="col-25">
-							<label for="num">Mobile number</label>
-						</div>
-						<div class="col-75">
+					<form id="hi" name="justname" action="/setting">
+						<input name="qwe" id="qwe" class="hidden" />
+					</form>
 
-							<input type="number" id="num" name="num" value="" disabled />
-							<span class="emsg2 hidden" id="error_phone">10 digit number</span>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-25">
-							<label for="num">DOB</label>
-						</div>
-						<div class="col-75">
-							<input type="text" id="dob" name="dob" value="" disabled />
-							<span class="emsg3 hidden" id="error_dob">dd/mm/yyyy</span>
-						</div>
-					</div>
-					<br />
-					<div class="row">
-						<a href="/pwd">
-							<button type="button" class="btn btn-danger" id="s1">
-								change Password
-							</button>
-						</a>
-					</div>
-				</form>
+					<script type="text/javascript">
+						$('#fname').on('keypress keydown keyup', function() {
+							check_fname();
+						});
 
-				<form id="hi" name="justname" action="/setting">
-					<input name="qwe" id="qwe" class="hidden">
-
-				</form>
-
-				<script type="text/javascript">
-					
-						
-						$('#fname').on(
-							'keypress keydown keyup',
-							function () {
-								check_fname();
-							}
-						);
-
-						$('#num').on('keypress keydown keyup', function () {
+						$('#num').on('keypress keydown keyup', function() {
 							check_num();
 						});
 
-						$('#dob').on('keypress keydown keyup', function () {
+						$('#dob').on('keypress keydown keyup', function() {
 							check_dob();
 						});
 
-						$('#uname').on(
-							'keypress keydown keyup',
-							function () {
-								check_uname();
-							}
-						);
-
+						$('#uname').on('keypress keydown keyup', function() {
+							check_uname();
+						});
 
 						function check_fname() {
 							var $regexname = /^([a-zA-Z]{3,16})$/;
 							$('#fname').on(
 								'keypress keydown keyup',
-								function () {
+								function() {
 									if (
 										!$(this)
 											.val()
@@ -386,49 +439,43 @@
 
 						function check_num() {
 							var $regexname = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
-							$('#num').on(
-								'keypress keydown keyup',
-								function () {
-									if (
-										!$(this)
-											.val()
-											.match($regexname)
-									) {
-										// there is a mismatch, hence show the error message
-										$('.emsg2').removeClass('hidden');
-										$('.emsg2').show();
-										err_phone = true;
-									} else {
-										// else, do not display message
-										$('.emsg2').addClass('hidden');
-										err_phone = false;
-									}
+							$('#num').on('keypress keydown keyup', function() {
+								if (
+									!$(this)
+										.val()
+										.match($regexname)
+								) {
+									// there is a mismatch, hence show the error message
+									$('.emsg2').removeClass('hidden');
+									$('.emsg2').show();
+									err_phone = true;
+								} else {
+									// else, do not display message
+									$('.emsg2').addClass('hidden');
+									err_phone = false;
 								}
-							);
+							});
 						}
 						//(((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))[-]((?:0[1-9])|(?:1[0-2]))[-](19[0-9][0-9]|2000))
 
 						function check_dob() {
 							var $regexname = /^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19[0-9][0-9]|2000)$/;
-							$('#dob').on(
-								'keypress keydown keyup',
-								function () {
-									if (
-										!$(this)
-											.val()
-											.match($regexname)
-									) {
-										// there is a mismatch, hence show the error message
-										$('.emsg3').removeClass('hidden');
-										$('.emsg3').show();
-										err_dob = true;
-									} else {
-										// else, do not display message
-										$('.emsg3').addClass('hidden');
-										err_dob = false;
-									}
+							$('#dob').on('keypress keydown keyup', function() {
+								if (
+									!$(this)
+										.val()
+										.match($regexname)
+								) {
+									// there is a mismatch, hence show the error message
+									$('.emsg3').removeClass('hidden');
+									$('.emsg3').show();
+									err_dob = true;
+								} else {
+									// else, do not display message
+									$('.emsg3').addClass('hidden');
+									err_dob = false;
 								}
-							);
+							});
 						}
 						//
 
@@ -436,7 +483,7 @@
 							var $regexname = /^([a-zA-Z]+[a-zA-Z0-9+]{0,10}\b@trackex.com\b)$/;
 							$('#uname').on(
 								'keypress keydown keyup',
-								function () {
+								function() {
 									if (
 										!$(this)
 											.val()
@@ -454,11 +501,9 @@
 								}
 							);
 						}
-
-				</script>
+					</script>
+				</div>
 			</div>
 		</div>
-	</div>
-</body>
-
+	</body>
 </html>
