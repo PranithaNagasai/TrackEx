@@ -31,7 +31,7 @@
 			function passup() {
 				var db = firebase.firestore();
 				firebase.auth().onAuthStateChanged(function(user) {
-					//window.alert(user);
+					window.alert(user);
 					var jus = document.getElementById('trackid').value;
 					if (user.email == jus) {
 						var reepass = document.getElementById('repass').value;
@@ -42,7 +42,6 @@
 								.auth()
 								.currentUser.updatePassword(newPassword)
 								.then(function() {
-									// Update successful.
 									window.alert(
 										'Update successful.. Please login again!'
 									);
@@ -94,7 +93,7 @@
 									var errorMessage = error.message;
 									// ...
 								});
-							window.alert('User created..Please login again!');
+							window.alert('User created');
 						}
 					}
 					window.location = '/';

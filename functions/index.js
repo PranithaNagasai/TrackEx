@@ -38,7 +38,7 @@ app.get('/mob_config', (req, res) => {
 });
 
 app.get('/email_config', (req, res) => {
-	res.render('dash');
+	res.render('email_config');
 });
 
 app.get('/dash', (req, res) => {
