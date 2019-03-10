@@ -74,7 +74,10 @@ app.get('/analysis', (req, res) => {
 			querySnapshot.forEach(childSnapshot => {
 				school[i] = childSnapshot.id;
 				fields[i] = childSnapshot.data();
-				console.log("\ndate\n",childSnapshot.data().date.substring(4,7))
+				console.log(
+					'\ndate\n',
+					childSnapshot.data().date.substring(4, 7)
+				);
 				i++;
 			});
 			obj = Object.assign({}, school);
@@ -89,43 +92,42 @@ app.get('/analysis', (req, res) => {
 		});
 });
 
-
-app.get('/month',(req,res) =>{
+app.get('/month', (req, res) => {
 	var mymon = req.query.mon;
-	console.log("\nmymon\n",mymon);
-	var i = 0,j=0,obj1,
+	console.log('\nmymon\n', mymon);
+	var i = 0,
+		j = 0,
+		obj1,
 		obj,
 		school = new Array(),
 		fields = new Array();
-		var user = req.query.qwenew;
-		//console.log("\n\n\n\n", user)
-	db.collection('sign').doc(user).collection('categories')
+	var user = req.query.qwenew;
+	//console.log("\n\n\n\n", user)
+	db.collection('sign')
+		.doc(user)
+		.collection('categories')
 		.get()
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
-				if(childSnapshot.data().date.substring(4,7)==mymon){
-					console.log("\n\nhere");
-				school[i] = childSnapshot.id;
-				fields[i] = childSnapshot.data();
-				//console.log("\ndate\n",childSnapshot.data().date.substring(4,7))
-				i++;
-			}
+				if (childSnapshot.data().date.substring(4, 7) == mymon) {
+					console.log('\n\nhere');
+					school[i] = childSnapshot.id;
+					fields[i] = childSnapshot.data();
+					//console.log("\ndate\n",childSnapshot.data().date.substring(4,7))
+					i++;
+				}
 			});
 			obj = Object.assign({}, school);
 			obj1 = Object.assign({}, fields);
-			console.log("\n\n\n",obj1);
+			console.log('\n\n\n', obj1);
 			res.render('analysis', { obj, obj1 });
 
-			//return;		
-		
+			//return;
 		})
 		.catch(err => {
 			console.log(err);
 		});
-	
 });
-
-
 
 app.get('/graph', (req, res) => {
 	// var i = 0,j=0,
