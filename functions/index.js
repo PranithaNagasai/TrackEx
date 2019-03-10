@@ -143,7 +143,7 @@ app.get('/transaction', (req, res) => {
 
 
 app.get('/setting', (req, res) => {
-	var i = 0,j=0,obj1,
+	var i = 0,j=0,obj1,k=0,
 		obj,
 		school = new Array(),
 		fields = new Array();

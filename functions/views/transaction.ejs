@@ -76,6 +76,7 @@
 								.then(function () {
 									window.alert("Transaction successfully added!");
 									yId('myForm').style.display = 'none';
+									$("#hi").submit();
 									window.location.reload('/transaction');
 								})
 								.catch(function (error) {
@@ -230,22 +231,20 @@
 						</tr>
 						
 						<% for(var i=0;i<Object.keys(obj).length;i++) { %>
-								
+								<% if (obj1[i]) { %>
 							<tr>
 								<td><%= i+1%></td>
 								<td>
 									<%=obj[i]%>
 								</td>
-								<% if (obj1[i]) { %>
 								<td>
 									<%=obj1[i].name%>
 								</td>
 								<td>
 									<%=obj1[i].amount%>
 								</td>
-								
 							</tr>
-							
+							<% } %>
 							<% } %>
 
 					</table>
