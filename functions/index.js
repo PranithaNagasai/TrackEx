@@ -169,10 +169,12 @@ app.get('/transaction', (req, res) => {
 		.get()
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
+				categories[i] = childSnapshot.id;
 				var tran = 'tran' + i;
 				console.log('\n\n\n', tran);
-				categories[i] = childSnapshot.id;
+				console.log('\n\nchild is\n', childSnapshot.data());
 				transactions[i] = childSnapshot.data()[tran];
+				console.log('\n\ntran array is\n', transactions[i]);
 				i++;
 			});
 			obj = Object.assign({}, categories);

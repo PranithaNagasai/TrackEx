@@ -96,9 +96,6 @@
 								};
 								xyz.set(obj, { merge: true })
 									.then(function() {
-										window.alert(
-											'Transaction successfully added!'
-										);
 										yId('myForm').style.display = 'none';
 										$('#hi').submit();
 										window.location.reload('/transaction');
