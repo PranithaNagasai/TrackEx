@@ -268,7 +268,7 @@
 							var ob = {
 								current: 0,
 								limit: document.getElementById('cat_limit').value,
-								date: new Date()
+								date: firebase.firestore.Timestamp.now().toDate().toString()
 							};
 							xyz.set(ob)
 								.then(function () {

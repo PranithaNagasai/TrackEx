@@ -26,6 +26,8 @@
 			firebase.auth().onAuthStateChanged(function (user) {
 				if (user) {
 					document.getElementById('qwe').value = user.email;
+					document.getElementById('qwe2').value = user.email;
+					
 				}
 			});
 		}
@@ -35,6 +37,12 @@
 	<script>
 		function senddata() {
 			$("#hi").submit();
+		}
+		function sendmon(){
+			var pol= document.getElementById('from').value;
+			window.alert(pol);
+			document.getElementById('month').value =pol;
+			$("#mymon").submit();
 		}
 	</script>
 	<style>
@@ -92,59 +100,40 @@
 		<div class="col-md-5">
 			<div class="top1">
 
-				<h4>From :</h4>
+				<h4>Month :</h4>
 				<select id="from" name="month" type="date">
 
-					<option>January</option>
-					<option>February</option>
-					<option>March</option>
-					<option>April</option>
+					<option>Jan</option>
+					<option>Feb</option>
+					<option>Mar</option>
+					<option>Apr</option>
 					<option>May</option>
-					<option>June</option>
-					<option>July</option>
-					<option>August</option>
-					<option>September</option>
-					<option>October</option>
-					<option>November</option>
-					<option>December</option>
+					<option>Jun</option>
+					<option>Jul</option>
+					<option>Aug</option>
+					<option>Sep</option>
+					<option>Oct</option>
+					<option>Nov</option>
+					<option>Dec</option>
 
 
 
 				</select>
 			</div>
+			<button class="btn btn-primary btn-lg" onclick="sendmon()">OK</button>
 		</div>
-		<div class="col-md-5">
-			<div class="top1">
-
-
-				<h4>To :</h4>
-				<select id="from" name="month" type="date">
-
-					<option>January</option>
-					<option>February</option>
-					<option>March</option>
-					<option>April</option>
-					<option>May</option>
-					<option>June</option>
-					<option>July</option>
-					<option>August</option>
-					<option>September</option>
-					<option>October</option>
-					<option>November</option>
-					<option>December</option>
-
-
-
-				</select>
-			</div>
-
-		</div>
+		
+		<form id="mymon" name="justname" action="/month">
+			<input name="mon" id="month" class="hidden">
+			<input name="qwenew" id="qwe2" class="hidden">
+		</form>
 
 		<div class="col-md-4 catdisplay">
 			
 			<ul>
-				<% for(var i=0;i<Object.keys(obj).length;i++) {  %>
 					
+				<% for(var i=0;i<Object.keys(obj).length;i++) {  %>
+				
 				<li><%= obj[i] %></li>
 				<% } %>
 			</ul>
