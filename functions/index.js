@@ -159,24 +159,25 @@ app.get('/graph', (req, res) => {
 
 app.get('/transaction', (req, res) => {
 	var i = 0,
-		obj,
-		obj1,
+		obj, obj1,
 		categories = new Array(),
 		transactions = new Array();
-	db.collection('sign')
-		.doc(req.query.qwe)
-		.collection('transaction')
+	db.collection('sign').doc(req.query.qwe).collection('transaction')
 		.get()
 		.then(querySnapshot => {
+			//console.log("\nquerysnap ",querySnapshot);
 			querySnapshot.forEach(childSnapshot => {
+				var tran = 'tran' + i;
+				console.log('\n\n\n', tran);
 				categories[i] = childSnapshot.id;
-				transactions[i] = childSnapshot.data();
+				transactions[i] = childSnapshot.data()[tran];
 				i++;
 			});
 			obj = Object.assign({}, categories);
 			obj1 = Object.assign({}, transactions);
+			console.log('\n\nobj is', obj);
 			console.log('\n\nobj1 is', obj1);
-			res.render('transaction', { obj, obj1 });
+			res.render('transaction',{ obj, obj1 });
 		})
 		.catch(err => {
 			console.log(err);

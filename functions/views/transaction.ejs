@@ -73,6 +73,7 @@
 						.doc(x)
 						.collection('transaction');
 					var xyz = sch.doc(c);
+					window.alert("Adding transaction...");
 					xyz.get()
 						.then(doc => {
 							if (doc.exists) {
@@ -247,7 +248,7 @@
 				</button>
 			</div>
 
-			<div class="col-40">
+			<!-- <div class="col-40">
 				<button
 					type="button"
 					class="btn btn-success"
@@ -256,7 +257,7 @@
 				>
 					Move transaction
 				</button>
-			</div>
+			</div> -->
 			<div class="col-80">
 				<button
 					type="button"
@@ -385,37 +386,21 @@
 
 		<div class="form-popup" id="myView">
 			<div class="modal-content">
-				<table style="width:100%">
-					<tr>
-						<th>Category</th>
-						<th>Title</th>
-						<th>Amount</th>
-					</tr>
-					<% for(var i=0;i<Object.keys(obj).length;i++) { %>
-									<% if (obj1[i]) { %>
-								<tr>
-									<td>
-										<%=obj[i]%>
-									</td>
-									<td>
-										<%=obj1[i].name%>
-									</td>
-									<td>
-										<%=obj1[i].amount%>
-									</td>
-								</tr>
-								<% } %>
-								<% } %>
-				</table>
-
-				<button
-					type="button"
-					class="btn btn-danger"
-					onclick="closeView()"
-					style="margin-top:50px;"
-				>
-					Cancel
-				</button>
+				<h4><p>Transaction:</p>
+					<br />
+					<p>
+						Rs.<h4 id="vmon"></h4><br />
+						debited from ATM card<br />at<h4 id="vdate"></h4><br />Thankyou for using our
+						services!
+					</p></h4>
+					<button
+						type="button"
+						class="btn btn-danger"
+						onclick="closeView()"
+					>
+						Cancel
+					</button>
+			
 			</div>
 		</div>
 		<div class="form-popup" id="myMove">
@@ -425,7 +410,7 @@
 					<b>Category Name</b>
 				</label>
 				<div class="cat">
-					<select id="category" name="category">
+					<select id="catmove" name="category">
 						<% for(var i=0;i<Object.keys(obj).length;i++) { %>
 									<option>
 										<%= obj[i] %>
@@ -434,7 +419,7 @@
 					</select>
 				</div>
 				<div class="row" id="bu1">
-					<a onclick="Addcategory()">
+					<a onclick="movetran()">
 						<button type="submit" class="btn btn-success">
 							Move
 						</button>
@@ -508,38 +493,79 @@
 			}
 		</script>
 		<script>
-			var tableData;
-			$('#trantable tr').click(function() {
-				$(this)
-					.addClass('selected')
-					.siblings()
-					.removeClass('selected');
-				tableData = $(this)
-					.children('td')
-					.map(function() {
-						return $(this).text();
-					})
-					.get();
-				var td =
-					tableData[0] +
-					'*' +
-					tableData[1] +
-					'*' +
-					tableData[2] +
-					'*' +
-					tableData[3];
-				alert(td);
+				var tableData;
+				$('#trantable tr').click(function () {
+					$(this)
+						.addClass('selected')
+						.siblings()
+						.removeClass('selected');
+					tableData = $(this)
+						.children('td')
+						.map(function () {
+							return $(this).text().trim()
+						})
+						.get();
+					var td = tableData[1].toString();				
+					var tdx = tableData[2].toString();	
+					document.getElementById('vdate').innerHTML=tableData[2];
+					document.getElementById('vmon').innerHTML=tableData[3];			
+				});
+	
+				$('.ok').on('click', function (e) {
+					var db = firebase.firestore();
+					var user = firebase.auth().currentUser;
+					if (user) {
+						var x = user.email;
+						var c = tableData[1];
+						var flag=0;
+						var sch = db
+							.collection('sign')
+							.doc(x)
+							.collection('transaction');
+						
+						var xyz = sch.doc(c);
+	
+						xyz.get()
+							.then(doc => {
+								window.alert("Deleting..");
+								var mydata = doc.data();
+								var flag=0;
+								for (var j = 0; j < doc.data().pointer; j++) {
+									var tran = "tran" + j;
+									console.log(mydata);
+									console.log(tran);
+									console.log(doc.data());
+									
+									if (doc.data().tran0.name == tableData[2]) {
+										flag=1;
+										xyz.update({
+											tran0: firebase.firestore.FieldValue.delete()
+											
+										});
+										doc.data().pointer=doc.data().pointer-1;
+										document.getElementById('myDel').style.display = 'none';
+										//$("#hi").submit();
+										window.alert("DONE");
+										$("#hi").submit();
+										
+									}
+								}
+	
+							})
+							.catch(err => {
+								window.alert(err);
+							});
+	
+						
+					}
+	
+					
+	
+				});
 
-				// $(this).addClass('selected').siblings().removeClass('selected');
-				// var value = $(this).find('td:first').html();
-				// alert("tran"+value);
-			});
+				
+			</script>
 
-			$('.ok').on('click', function(e) {
-				alert(tableData[1]);
-				var value = $('#trantable tr.selected td:first').html();
-				alert(value);
-			});
-		</script>
+			
 	</body>
 </html>
