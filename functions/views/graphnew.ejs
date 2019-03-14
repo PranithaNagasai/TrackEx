@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include meta.ejs %>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
+        <script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+        <script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/profile.css" />
+        <title></title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="/__/firebase/5.8.2/firebase-app.js"></script>
+        <script src="/__/firebase/5.8.2/firebase-auth.js"></script>
+        <script src="/__/firebase/5.8.2/firebase-firestore.js"></script>
+        <script src="/__/firebase/init.js"></script>
+        <script>
+            function signOut() {
+                firebase.auth().signOut();
+                window.location = '/';
+            }
+        </script>
+        <script>
+            function initApp() {
+                var db = firebase.firestore();
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        document.getElementById('qwe').value = user.email;
+                        document.getElementById('qwe2').value = user.email;
+                    }
+                });
+            }
+            window.onload = initApp();
+        </script>
+
+        <script>
+            function senddata() {
+                $('#hi').submit();
+            }
+            function sendmon() {
+                var pol = document.getElementById('from').value;
+                
+                document.getElementById('month').value = pol;
+                var pol2 = document.getElementById('myCat').value;
+               
+                document.getElementById('catname').value = pol2;
+                $("#mymon").submit();
+            }
+        </script>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-2 blue">
+            <img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
+        </div>
+        <div class="col-md-6 blue">
+            <h4 align="left" id="x1">
+                <a href="/profile">TrackeX</a>
+            </h4>
+            <h5 align="left">Have Expense your way!!!</h5>
+            <h6 id="x"></h6>
+        </div>
+
+        <div class="col-md-4 blue1">
+            <button type="button" class="btn btn-outline-info" onclick="signOut()">
+                Log Out
+            </button>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="sidenav">
+            <a href="/profile" id="pro">
+                <button class="btn btn-danger btn-lg">Profile</button>
+            </a>
+            <a>
+                <button class="btn btn-primary btn-lg" onclick="senddata()">
+                    Settings
+                </button>
+            </a>
+            <a href="/showana">
+                <button class="btn btn-warning btn-lg">
+                    Show Analysis
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" style="margin-left:200px;">
+                <h3>View pie Charts by category!&nbsp;&nbsp;&nbsp;Select month and category</h3><br>
+            <div class="col-md-2">
+                <h4>
+                    <b>Month :</b>
+                </h4>
+                <select id="from" name="month" type="date">
+                    <option>Jan</option>
+                    <option>Feb</option>
+                    <option>Mar</option>
+                    <option>Apr</option>
+                    <option>May</option>
+                    <option>Jun</option>
+                    <option>Jul</option>
+                    <option>Aug</option>
+                    <option>Sep</option>
+                    <option>Oct</option>
+                    <option>Nov</option>
+                    <option>Dec</option>
+                </select>
+            </div>
+            <div class="col-md-2" style="margin-left:100px;">
+                    <h4><b>Category:</b></h4>
+                    
+                        <select
+                            id="myCat"
+                            style="width: auto;
+                    padding: 20px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    resize: vertical;"
+                        >
+                            <% for(var i=0;i<Object.keys(catg).length;i++){ %>
+                                        <option>
+                                            <%=catg[i] %>
+                                        </option>
+                                        <%}%>
+                        </select>
+                    
+                </div>
+                <div class="col-md-2" style="margin-left: 100px;margin-top: 50px;" >
+                <button class="btn btn-primary btn-lg" onclick="sendmon()">OK</button>
+                </div>
+        </div>
+        <br><br>
+        <div id="Container" style="height: 370px; width: 50%; margin-left: 245px; margin-top: 5px;"></div>
+    </div>
+</body>
+
+<form id="hi" name="justname" action="/setting">
+    <input name="qwe" id="qwe" class="hidden" />
+</form>
+
+<form id="mymon" name="justname" action="/graphmonth">
+    <input name="mon" id="month" class="hidden">
+    <input name="catname" id="catname" class="hidden">
+    <input name="qwenew" id="qwe2" class="hidden">
+</form>
+<% if(Object.keys(catg).length>0){%>
+<h3 id="obj_current" class="hidden">
+    <%=obj1[0].current%>
+</h3>
+<h3 id="obj_limit" class="hidden">
+    <%=obj1[0].limit%>
+</h3>
+<h3 id="obj_cat" class="hidden"><%=obj[0]%></h3>
+<%}%>
+
+<script>
+    anychart.onDocumentReady(function () {
+        var gracat = document.getElementById('obj_cat').innerHTML;
+        var gracurr = document.getElementById('obj_current').innerHTML;
+        var gralim = document.getElementById('obj_limit').innerHTML;
+        
+        // set the data
+        var data = [
+            { x: "Limit", value: gralim },
+            { x: "Current", value: gracurr },
+        ];
+
+        // create the chart
+        var chart = anychart.pie();
+
+        // set the chart title
+        chart.title("Pie chart for category: "+gracat);
+
+        // add the data
+        chart.data(data);
+
+        // display the chart in the container
+        chart.container('Container');
+        chart.draw();
+
+    });
+</script>
+
+</html>

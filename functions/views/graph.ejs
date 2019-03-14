@@ -15,6 +15,9 @@
 			href="https://fonts.googleapis.com/css?family=Merienda+One"
 			rel="stylesheet"
 		/>
+		<script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+      <script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+
 		<link rel="stylesheet" type="text/css" href="css/profile.css" />
 		<title></title>
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -34,6 +37,7 @@
 				firebase.auth().onAuthStateChanged(function(user) {
 					if (user) {
 						document.getElementById('qwe').value = user.email;
+						document.getElementById('qwe2').value = user.email;
 					}
 				});
 			}
@@ -44,6 +48,15 @@
 			function senddata() {
 				$('#hi').submit();
 			}
+			function sendmon(){
+			var pol= document.getElementById('from').value;
+			
+			document.getElementById('month').value =pol;
+			var pol2=document.getElementById('myCat').value;
+			
+			document.getElementById('catname').value=pol2;
+			$("#mymon").submit();
+		}
 		</script>
 	</head>
 
@@ -88,27 +101,62 @@
 				</a>
 			</div>
 		</div>
-		<div class="row">
+		<div class="container">
+		<div class="row" style="margin-left:200px;">
+			<h3>View pie Charts by category! Select month and category</h3><br>
 			<div class="col-md-2">
-				<h4>Month :</h4>
+				<h4><b>Month :</b></h4>
 				<select id="from" name="month" type="date">
-					<option>January</option>
-					<option>February</option>
-					<option>March</option>
-					<option>April</option>
+					<option>Jan</option>
+					<option>Feb</option>
+					<option>Mar</option>
+					<option>Apr</option>
 					<option>May</option>
-					<option>June</option>
-					<option>July</option>
-					<option>August</option>
-					<option>September</option>
-					<option>October</option>
-					<option>November</option>
-					<option>December</option>
+					<option>Jun</option>
+					<option>Jul</option>
+					<option>Aug</option>
+					<option>Sep</option>
+					<option>Oct</option>
+					<option>Nov</option>
+					<option>Dec</option>
 				</select>
 			</div>
+			<div class="col-md-2" style="margin-left:100px;">
+				<h4><b>Category:</b></h4>
+				
+					<select
+						id="myCat"
+						style="width: auto;
+				padding: 20px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				resize: vertical;"
+					>
+						<% for(var i=0;i<Object.keys(obj).length;i++){ %>
+									<option>
+										<%=obj[i] %>
+									</option>
+									<%}%>
+					</select>
+				
+			</div>
+			<div class="col-md-2" style="margin-left: 100px;margin-top: 50px;" >
+			<button class="btn btn-primary btn-lg" onclick="sendmon()">OK</button>
+			</div>
 		</div>
+		
+		
+		</div>
+		</body>
+		
 		<form id="hi" name="justname" action="/setting">
 			<input name="qwe" id="qwe" class="hidden" />
+		</form>
+
+		<form id="mymon" name="justname" action="/graphmonth">
+			<input name="mon" id="month" class="hidden">
+			<input name="catname" id="catname" class="hidden">
+			<input name="qwenew" id="qwe2" class="hidden">
 		</form>
 		<script>
 			window.onload = function() {
@@ -186,5 +234,5 @@
 			style="height: 370px; width: 80%; margin-left: 270px; margin-top: 65px;"
 		></div>
 		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-	</body>
+	
 </html>
