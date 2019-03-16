@@ -72,7 +72,34 @@
 						.collection('sign')
 						.doc(x)
 						.collection('transaction');
+
+					var sch1 = db
+						.collection('sign')
+						.doc(x)
+						.collection('categories');
+
 					var xyz = sch.doc(c);
+					var xyz1 = sch1.doc(c);
+					xyz1.get()
+						.then(doc=>{
+							if(doc.exists){
+								
+								var cur= parseInt( doc.data().current);
+								var amt= parseInt(document.getElementById('shop_amt').value);
+								cur= cur+ amt;
+								doc.data().current=cur;
+								
+							}
+							else{
+								window.alert("no data");
+							}
+
+							xyz1.update({
+								current : cur
+							})
+						})
+
+						 
 					window.alert("Adding transaction...");
 					xyz.get()
 						.then(doc => {
@@ -347,7 +374,7 @@
 						type="text"
 						id="shop_name"
 						name="shop_name"
-						value="Title"
+						placeholder="Title"
 						style="width: 70%;
               padding: 20px;
               border: 1px solid #ccc;
@@ -360,7 +387,7 @@
 						type="text"
 						id="shop_amt"
 						name="myAdd"
-						value="Amount"
+						placeholder="Amount"
 						style="width: 70%;
               padding: 20px;
               border: 1px solid #ccc;
