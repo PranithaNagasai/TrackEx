@@ -278,7 +278,7 @@
 					<th>Amount</th>
 				</tr>
 
-				<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+				<!-- <% for(var i=0;i<Object.keys(obj).length;i++) { %>
 								<% if (obj1[i]) { %>
 							<tr>
 								<td><%= i+1%></td>
@@ -293,29 +293,33 @@
 								</td>
 							</tr>
 							<% } %>
-							<% } %>
+							<% } %> -->
 
-<!-- 							
-	Test code
+							
 
-	<h2>
-	<%=Object.keys(obj)%>
-</h2>
+	
 				<% for(var i=0;i<Object.keys(obj).length;i++) { %>
 								<% if (obj1[i]) { %>
+									<% for(var j=0;i<obj[i].pointer;j++) { %>
 							<tr>
 								<td><%= i+1%></td>
 								<td>
 									<%=obj[i]%>
 								</td>
 								<td>
-									<%Object.keys(obj1)%>
+									<%= obj1[j].name%>
+								<!--<%Object.keys(obj1)%>-->
 								</td>
+								<td>
+										<%= obj1[j].amount%>
+									<!--<%Object.keys(obj1)%>-->
+									</td>
 								
 							</tr>
 							<% } %>
 							<% } %>
-							 -->
+							<% } %>
+							
 			</table>
 		</div>
 		<div class="form-popup" id="myAdd">
