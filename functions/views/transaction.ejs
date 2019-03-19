@@ -115,7 +115,8 @@
 										amount: document.getElementById(
 											'shop_amt'
 										).value,
-										create: firebase.firestore.Timestamp.now().toDate().toString()
+										create: firebase.firestore.Timestamp.now().toDate().toString(),
+										category:document.getElementById('myCat').value
 									},
 									pointer: i
 								};
@@ -305,12 +306,13 @@
 					<th>Amount</th>
 				</tr>
 
-				<!-- <% for(var i=0;i<Object.keys(obj).length;i++) { %>
+				 <% for(var i=0,k=0;i<Object.keys(obj1).length;i++) { %>
 								<% if (obj1[i]) { %>
 							<tr>
 								<td><%= i+1%></td>
 								<td>
-									<%=obj[i]%>
+									<!-- <%=obj[k]%> -->
+									<%=obj1[i].category%>
 								</td>
 								<td>
 									<%=obj1[i].name%>
@@ -320,12 +322,12 @@
 								</td>
 							</tr>
 							<% } %>
-							<% } %> -->
+							<% } %> 
 
 							
 
 	
-				<% for(var i=0;i<Object.keys(obj).length;i++) { %>
+				<!-- <% for(var i=0;i<Object.keys(obj).length;i++) { %>
 								<% if (obj1[i]) { %>
 									<% for(var j=0;i<obj[i].pointer;j++) { %>
 							<tr>
@@ -335,17 +337,17 @@
 								</td>
 								<td>
 									<%= obj1[j].name%>
-								<!--<%Object.keys(obj1)%>-->
+								<%Object.keys(obj1)%>
 								</td>
 								<td>
 										<%= obj1[j].amount%>
-									<!--<%Object.keys(obj1)%>-->
+									<%Object.keys(obj1)%>
 									</td>
 								
 							</tr>
 							<% } %>
 							<% } %>
-							<% } %>
+							<% } %> -->
 							
 			</table>
 		</div>

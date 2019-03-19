@@ -246,7 +246,7 @@ app.get('/graphmonth', (req, res) => {
 });
 
 app.get('/transaction', (req, res) => {
-	var i = 0,
+	var i = 0,j=0,
 		obj, obj1,
 		categories = new Array(),
 		transactions = new Array();
@@ -255,11 +255,19 @@ app.get('/transaction', (req, res) => {
 		.then(querySnapshot => {
 			//console.log("\nquerysnap ",querySnapshot);
 			querySnapshot.forEach(childSnapshot => {
-				var tran = 'tran' + i;
+				console.log("\n\npointer",childSnapshot.data().pointer);
+				var point = childSnapshot.data().pointer;
+				categories[j] = childSnapshot.id;
+				while(point>0){
+
+				var tran = 'tran' + (point-1);
 				console.log('\n\n\n', tran);
-				categories[i] = childSnapshot.id;
+				
 				transactions[i] = childSnapshot.data()[tran];
+				point--;
 				i++;
+				}
+				j++;
 			});
 			obj = Object.assign({}, categories);
 			obj1 = Object.assign({}, transactions);
