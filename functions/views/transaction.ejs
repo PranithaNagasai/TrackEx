@@ -1,20 +1,11 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<% include meta.ejs %>
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css?family=Acme"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css?family=Merienda+One"
-			rel="stylesheet"
-		/>
+
+<head>
+	<% include meta.ejs %>
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/x.css" />
 		<title></title>
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -31,7 +22,7 @@
 		<script>
 			function initApp() {
 				var db = firebase.firestore();
-				firebase.auth().onAuthStateChanged(function(user) {
+				firebase.auth().onAuthStateChanged(function (user) {
 					if (user) {
 						document.getElementById('qwe').value = user.email;
 						document.getElementById('qwe2').value = user.email;
@@ -81,25 +72,28 @@
 					var xyz = sch.doc(c);
 					var xyz1 = sch1.doc(c);
 					xyz1.get()
-						.then(doc=>{
-							if(doc.exists){
-								
-								var cur= parseInt( doc.data().current);
-								var amt= parseInt(document.getElementById('shop_amt').value);
-								cur= cur+ amt;
-								doc.data().current=cur;
-								
+						.then(doc => {
+							if (doc.exists) {
+
+								var cur = parseInt(doc.data().current);
+								var amt = parseInt(document.getElementById('shop_amt').value);
+								cur = cur + amt;
+								doc.data().current = cur;
+								lim = doc.data().limit;
+								if (cur > lim) {
+									window.alert('You have exceeded the limit!');
+								}
 							}
-							else{
+							else {
 								window.alert("no data");
 							}
 
 							xyz1.update({
-								current : cur
+								current: cur
 							})
 						})
 
-						 
+
 					window.alert("Adding transaction...");
 					xyz.get()
 						.then(doc => {
@@ -116,17 +110,17 @@
 											'shop_amt'
 										).value,
 										create: firebase.firestore.Timestamp.now().toDate().toString(),
-										category:document.getElementById('myCat').value
+										category: document.getElementById('myCat').value
 									},
 									pointer: i
 								};
 								xyz.set(obj, { merge: true })
-									.then(function() {
+									.then(function () {
 										document.getElementById('myAdd').style.display = 'none';
 										$('#hi').submit();
 										window.location.reload('/transaction');
 									})
-									.catch(function(error) {
+									.catch(function (error) {
 										console.log(
 											'Error writing document',
 											error
@@ -139,13 +133,13 @@
 										.value
 								};
 								xyz.set(ob)
-									.then(function() {
+									.then(function () {
 										document.getElementById(
 											'myAdd'
 										).style.display = 'none';
 										$('#hi').submit();
 									})
-									.catch(function(error) {
+									.catch(function (error) {
 										console.log(
 											'Error writing document: ',
 											error
@@ -183,54 +177,47 @@
 				color: #fff;
 			}
 		</style>
-	</head>
-	<body>
-		<div class="row">
-			<div class="col-md-2 blue">
-				<img src="img/logo2.png" height="100px" width="100px" id="img1"
-				margin-left: "10px" />
-			</div>
-			<div class="col-md-6 blue">
-				<h4 align="left" id="x1">
-					<a href="/profile">TrackeX</a>
-				</h4>
-				<h5 align="left">Have Expense your way!!!</h5>
-				<h6 id="x"></h6>
-			</div>
+</head>
 
-			<div class="col-md-4 blue1">
-				<button
-					type="button"
-					class="btn btn-outline-info"
-					onclick="signOut()"
-				>
-					Log Out
+<body>
+	<div class="row">
+		<div class="col-md-2 blue">
+			<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
+		</div>
+		<div class="col-md-6 blue">
+			<h4 align="left" id="x1">
+				<a href="/profile">TrackeX</a>
+			</h4>
+			<h5 align="left">Have Expense your way!!!</h5>
+			<h6 id="x"></h6>
+		</div>
+
+		<div class="col-md-4 blue1">
+			<button type="button" class="btn btn-outline-info" onclick="signOut()">
+				Log Out
+			</button>
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="sidenav">
+			<a href="/profile" id="pro">
+				<button class="btn btn-danger btn-lg">Profile</button>
+			</a>
+			<a>
+				<button class="btn btn-primary btn-lg" onclick="senddata2()">
+					Settings
 				</button>
-			</div>
+			</a>
+			<a href="/showana">
+				<button class="btn btn-warning btn-lg">
+					Show Analysis
+				</button>
+			</a>
 		</div>
+	</div>
 
-		<div class="col-md-3">
-			<div class="sidenav">
-				<a href="/profile" id="pro">
-					<button class="btn btn-danger btn-lg">Profile</button>
-				</a>
-				<a>
-					<button
-						class="btn btn-primary btn-lg"
-						onclick="senddata2()"
-					>
-						Settings
-					</button>
-				</a>
-				<a href="/showana">
-					<button class="btn btn-warning btn-lg">
-						Show Analysis
-					</button>
-				</a>
-			</div>
-		</div>
-
-		<div class="container" align="center" margin-top: "100px" ;>
+	<div class="container" align="center" margin-top: "100px" ;>
 		<br />
 
 		<div class="row">
@@ -254,24 +241,14 @@
 					<option>December</option>
 				</select>
 			</div>
-			<button
-				type="button"
-				class="btn btn-success"
-				style="margin-top: 18px"
-				onclick="openAdd()"
-			>
+			<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openAdd()">
 				Add Transaction
 			</button>
 		</div>
 		<br />
-		<div class="row">
+		<div class="row" style="margin-left: 106px;">
 			<div class="col-25">
-				<button
-					type="button"
-					class="btn btn-success"
-					style="margin-top: 18px"
-					onclick="openView()"
-				>
+				<button type="button" class="btn btn-success" style="margin-top: 18px" onclick="openView()">
 					View transactions
 				</button>
 			</div>
@@ -287,12 +264,8 @@
 				</button>
 			</div> -->
 			<div class="col-80">
-				<button
-					type="button"
-					class="btn btn-success"
-					style="margin-top: 18px"
-					onclick="openDel()"
-				>
+				<button type="button" class="btn btn-success" style="margin-top: 25px;
+				margin-left: -310px;" onclick="openDel()">
 					Delete transaction
 				</button>
 			</div>
@@ -306,28 +279,30 @@
 					<th>Amount</th>
 				</tr>
 
-				 <% for(var i=0,k=0;i<Object.keys(obj1).length;i++) { %>
-								<% if (obj1[i]) { %>
-							<tr>
-								<td><%= i+1%></td>
-								<td>
-									<!-- <%=obj[k]%> -->
-									<%=obj1[i].category%>
-								</td>
-								<td>
-									<%=obj1[i].name%>
-								</td>
-								<td>
-									<%=obj1[i].amount%>
-								</td>
-							</tr>
+				<% for(var i=0,k=0;i<Object.keys(obj1).length;i++) { %>
+					<% if (obj1[i]) { %>
+						<tr>
+							<td>
+								<%= i+1%>
+							</td>
+							<td>
+								<!-- <%=obj[k]%> -->
+								<%=obj1[i].category%>
+							</td>
+							<td>
+								<%=obj1[i].name%>
+							</td>
+							<td>
+								<%=obj1[i].amount%>
+							</td>
+						</tr>
+						<% } %>
 							<% } %>
-							<% } %> 
 
-							
 
-	
-				<!-- <% for(var i=0;i<Object.keys(obj).length;i++) { %>
+
+
+								<!-- <% for(var i=0;i<Object.keys(obj).length;i++) { %>
 								<% if (obj1[i]) { %>
 									<% for(var j=0;i<obj[i].pointer;j++) { %>
 							<tr>
@@ -348,7 +323,7 @@
 							<% } %>
 							<% } %>
 							<% } %> -->
-							
+
 			</table>
 		</div>
 		<div class="form-popup" id="myAdd">
@@ -356,62 +331,37 @@
 				<h4>Enter the details:</h4>
 				<h4>Category</h4>
 				<div class="row">
-					<select
-						id="myCat"
-						style="width: 70%;
+					<select id="myCat" style="width: 70%;
                 padding: 20px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
-                resize: vertical;"
-					>
+                resize: vertical;">
 						<% for(var i=0;i<Object.keys(obj).length;i++){ %>
-									<option>
-										<%=obj[i] %>
-									</option>
-									<%}%>
+							<option>
+								<%=obj[i] %>
+							</option>
+							<%}%>
 					</select>
 				</div>
 				<div class="row">
-					<input
-						type="text"
-						id="shop_name"
-						name="shop_name"
-						placeholder="Title"
-						style="width: 70%;
+					<input type="text" id="shop_name" name="shop_name" placeholder="Title" style="width: 70%;
               padding: 20px;
               border: 1px solid #ccc;
               border-radius: 4px;
-              resize: vertical;"
-					/>
+              resize: vertical;" />
 				</div>
 				<div class="row">
-					<input
-						type="text"
-						id="shop_amt"
-						name="myAdd"
-						placeholder="Amount"
-						style="width: 70%;
+					<input type="text" id="shop_amt" name="myAdd" placeholder="Amount" style="width: 70%;
               padding: 20px;
               border: 1px solid #ccc;
               border-radius: 4px;
-              resize: vertical;"
-					/>
+              resize: vertical;" />
 				</div>
 
-				<button
-					type="button"
-					class="btn btn-danger"
-					onclick="closeAdd()"
-					style="margin-top:50px;"
-				>
+				<button type="button" class="btn btn-danger" onclick="closeAdd()" style="margin-top:50px;">
 					Cancel
 				</button>
-				<button
-					type="submit"
-					class="btn btn-success"
-					onclick="submitAdd()"
-					style="margin-top:50px;"
-				>
+				<button type="submit" class="btn btn-success" onclick="submitAdd()" style="margin-top:50px;">
 					Submit
 				</button>
 			</div>
@@ -419,21 +369,22 @@
 
 		<div class="form-popup" id="myView">
 			<div class="modal-content">
-				<h4><p>Transaction:</p>
+				<h4>
+					<p>Transaction:</p>
 					<br />
 					<p>
-						Rs.<h4 id="vmon"></h4><br />
-						debited from ATM card<br />at<h4 id="vdate"></h4><br />Thankyou for using our
-						services!
-					</p></h4>
-					<button
-						type="button"
-						class="btn btn-danger"
-						onclick="closeView()"
-					>
-						Cancel
-					</button>
-			
+						Rs.
+						<h4 id="vmon"></h4>
+						<br /> debited from ATM card
+						<br />at
+						<h4 id="vdate"></h4>
+						<br />Thankyou for using our services!
+					</p>
+				</h4>
+				<button type="button" class="btn btn-danger" onclick="closeView()">
+					Cancel
+				</button>
+
 			</div>
 		</div>
 		<div class="form-popup" id="myMove">
@@ -445,10 +396,10 @@
 				<div class="cat">
 					<select id="catmove" name="category">
 						<% for(var i=0;i<Object.keys(obj).length;i++) { %>
-									<option>
-										<%= obj[i] %>
-									</option>
-									<% } %>
+							<option>
+								<%= obj[i] %>
+							</option>
+							<% } %>
 					</select>
 				</div>
 				<div class="row" id="bu1">
@@ -458,11 +409,7 @@
 						</button>
 					</a>
 
-					<button
-						type="button"
-						class="btn btn-danger"
-						onclick="closeMove()"
-					>
+					<button type="button" class="btn btn-danger" onclick="closeMove()">
 						Cancel
 					</button>
 				</div>
@@ -478,11 +425,7 @@
 						<input type="button" name="OK" class="ok" value="OK" />
 					</a>
 
-					<button
-						type="button"
-						class="btn btn-danger"
-						onclick="closeDel()"
-					>
+					<button type="button" class="btn btn-danger" onclick="closeDel()">
 						Cancel
 					</button>
 				</div>
@@ -510,7 +453,7 @@
 				document.getElementById('myView').style.display = 'none';
 			}
 			function openMove() {
-				$('.ok').on('click', function(e) {
+				$('.ok').on('click', function (e) {
 					alert($('#table tr.selected td:first').html());
 				});
 				document.getElementById('myMove').style.display = 'block';
@@ -526,25 +469,25 @@
 			}
 		</script>
 		<script>
-				var tableData;
-				$('#trantable tr').click(function () {
-					$(this)
-						.addClass('selected')
-						.siblings()
-						.removeClass('selected');
-					tableData = $(this)
-						.children('td')
-						.map(function () {
-							return $(this).text().trim()
-						})
-						.get();
-					var td = tableData[1].toString();				
-					var tdx = tableData[2].toString();	
-					document.getElementById('vdate').innerHTML=tableData[2];
-					document.getElementById('vmon').innerHTML=tableData[3];			
-				});
-	
-				$('.ok').on('click', function (e) {
+			var tableData;
+			$('#trantable tr').click(function () {
+				$(this)
+					.addClass('selected')
+					.siblings()
+					.removeClass('selected');
+				tableData = $(this)
+					.children('td')
+					.map(function () {
+						return $(this).text().trim()
+					})
+					.get();
+				var td = tableData[1].toString();
+				var tdx = tableData[2].toString();
+				document.getElementById('vdate').innerHTML = tableData[2];
+				document.getElementById('vmon').innerHTML = tableData[3];
+			});
+
+			$('.ok').on('click', function (e) {
 					var db = firebase.firestore();
 					var user = firebase.auth().currentUser;
 					if (user) {
@@ -596,9 +539,10 @@
 	
 				});
 
-				
-			</script>
 
-			
-	</body>
+		</script>
+
+
+</body>
+
 </html>

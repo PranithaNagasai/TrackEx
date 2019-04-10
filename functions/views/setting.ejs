@@ -117,11 +117,20 @@
 
 				<div class="col-xs-18 col-sm-6 col-md-3">
 					<div class="thumbnail">
-
+						<%if(obj1[i].current< obj1[i].limit){%>
 						<img src="img/newgreen2.PNG" />
+						
+						<%} else{%>
+						<img src="img/redpic.jpg" / style="    height: 117px;
+						width: 100%;">
+						
+						<%}%>
 						<div class="centered">
 							<h4 id="cat_head">
 								<%= obj[i] %>
+								<%if(obj1[i].current>obj1[i].limit){%>
+									<h4>Exceeded limit!</h4>
+						<%}%>
 							</h4>
 						</div>
 
