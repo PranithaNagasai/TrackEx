@@ -130,6 +130,39 @@ app.get('/month', (req, res) => {
 });
 
 app.get('/graph', (req, res) => {
+	var i = 0,
+		j = 0,
+		obj1,
+		k = 0,
+		obj,
+		school = new Array(),
+		fields = new Array();
+	var user = req.query.qwe;
+	//console.log("\n\n\n\n", user)
+	db.collection('sign')
+		.doc(user)
+		.collection('categories')
+		.get()
+		.then(querySnapshot => {
+			querySnapshot.forEach(childSnapshot => {
+				school[i] = childSnapshot.id;
+				fields[i] = childSnapshot.data();
+
+				i++;
+			});
+			obj = Object.assign({}, school);
+			obj1 = Object.assign({}, fields);
+			//console.log("\n\nobj1\n",obj1);
+			res.render('graph', { obj, obj1 });
+			//return;
+		})
+		.catch(err => {
+			console.log(err);
+		});
+
+
+
+
 	// var i = 0,j=0,
 	// 	obj,
 	// 	school = new Array();
@@ -154,28 +187,87 @@ app.get('/graph', (req, res) => {
 	// 		console.log(err);
 	// 	});
 
-	res.render('graph');
+	//res.render('graph');
 });
 
-app.get('/transaction', (req, res) => {
+app.get('/graphmonth', (req, res) => {
+	var mymon = req.query.mon;
+	var mycatname = req.query.catname;
+	//console.log('\nmymon\n', mymon);
+	//console.log('\nmycatname\n', mycatname);
 	var i = 0,
-		obj,
+		j = 0,
 		obj1,
-		categories = new Array(),
-		transactions = new Array();
+		obj,
+		school = new Array(),
+		fields = new Array(),
+		newschool = new Array(),
+		newfields = new Array();
+	var user = req.query.qwenew;
+	//console.log("\n\n\n\n", user)
 	db.collection('sign')
-		.doc(req.query.qwe)
-		.collection('transaction')
+		.doc(user)
+		.collection('categories')
 		.get()
 		.then(querySnapshot => {
 			querySnapshot.forEach(childSnapshot => {
-				categories[i] = childSnapshot.id;
-				var tran = 'tran' + i;
+				school[i] = childSnapshot.id;
+				fields[i] = childSnapshot.data();
+
+
+				if (childSnapshot.data().date.substring(4, 7) == mymon) {
+					//console.log('\n\nhere');
+					if(childSnapshot.id == mycatname){
+						//console.log('\n\nagainhere');
+					newschool[j] = childSnapshot.id;
+					newfields[j] = childSnapshot.data();
+					//console.log("\ndate\n",childSnapshot.data().date.substring(4,7))
+					j++;
+				}
+			}
+			i++;
+
+			});
+			obj = Object.assign({}, newschool);
+			obj1 = Object.assign({}, newfields);
+			catg = Object.assign({},school);
+			catgd = Object.assign({},fields);
+			if(Object.keys(obj).length==0){
+				console.log("here");
+				res.redirect('404');
+			}
+			res.render('graphnew', { obj, obj1,catg,catgd });
+
+			//return;
+		})
+		.catch(err => {
+			console.log(err);
+		});
+});
+
+app.get('/transaction', (req, res) => {
+	var i = 0,j=0,
+		obj, obj1,
+		categories = new Array(),
+		transactions = new Array();
+	db.collection('sign').doc(req.query.qwe).collection('transaction')
+		.get()
+		.then(querySnapshot => {
+			//console.log("\nquerysnap ",querySnapshot);
+			querySnapshot.forEach(childSnapshot => {
+				console.log("\n\npointer",childSnapshot.data().pointer);
+				var point = childSnapshot.data().pointer;
+				categories[j] = childSnapshot.id;
+				while(point>0){
+
+				var tran = 'tran' + (point-1);
 				console.log('\n\n\n', tran);
-				console.log('\n\nchild is\n', childSnapshot.data());
+				
 				transactions[i] = childSnapshot.data()[tran];
-				console.log('\n\ntran array is\n', transactions[i]);
+				point--;
 				i++;
+				}
+				j++;
 			});
 			obj = Object.assign({}, categories);
 			obj1 = Object.assign({}, transactions);

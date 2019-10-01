@@ -52,19 +52,7 @@
 		</style>
 	</head>
 
-	<body>
-		<div class="row">
-			<div class="col-md-2 blue">
-				<img src="img/logo2.png" height="100px" width="100px" id="img1"
-				margin-left: "10px" />
-			</div>
-			<div class="col-md-6 blue">
-				<h4 align="left" id="x1">
-					<a href="/profi1le">TrackeX</a>
-				</h4>
-				<h5 align="left">Have Expense your way!!!</h5>
-				<h6 id="x"></h6>
-			</div>
+	
 
 <head>
 	<% include meta.ejs %>
@@ -121,18 +109,23 @@
 <body>
 	<div class="row">
 		<div class="col-md-2 blue">
-			<img src="img/logo2.png" height="100px" width="100px" id="img1" margin-left: "10px" />
+			<img src="img/logo2.png" height="100px" width="100px" id="img1"
+			margin-left: "10px" />
 		</div>
 		<div class="col-md-6 blue">
 			<h4 align="left" id="x1">
-				<a href="/profi1le">TrackeX</a>
+				<a href="/profile">TrackeX</a>
 			</h4>
 			<h5 align="left">Have Expense your way!!!</h5>
 			<h6 id="x"></h6>
 		</div>
 
 		<div class="col-md-4 blue1">
-			<button type="button" class="btn btn-outline-info" onclick="signOut()">
+			<button
+				type="button"
+				class="btn btn-outline-info"
+				onclick="signOut()"
+			>
 				Log Out
 			</button>
 		</div>
@@ -215,7 +208,9 @@
 					
 				<% for(var i=0;i<Object.keys(obj).length;i++) {  %>
 				
-				<li><%= obj[i] %></li>
+				<li><%= obj[i]%>
+					<%= ((obj1[i].current/obj1[i].limit)*100)  %>
+				</li>
 				<% } %>
 			</ul>
 		</div>
